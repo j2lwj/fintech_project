@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://leaverou.github.io/awesomplete/">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.js"></script>
+    <script src="https://unpkg.com/tlx/browser/tlx.js"></script>
+    <script src="https://unpkg.com/tlx-chart/browser/tlx-chart.js"></script>
+    <title>Homepage</title>
+
+    <style>
+
+        input, button {
+            font: inherit;
+            text-shadow: inherit;
+        }
+
+        button {
+            padding: .1em .5em;
+            border-radius: .3em;
+            background: hsl(80, 80%, 80%);
+            background: linear-gradient(hsl(40, 70%, 80%), hsl(40, 70%, 70%));
+            border: 1px solid rgba(0,0,0,.3);
+            box-shadow: 0 1px white inset, 0 .3em .3em -.3em rgba(0,0,0,.3);
+        }
+
+        input {
+            width: 12em;
+            padding: .1em .3em;
+            border: 0;
+            border: 1px solid hsl(35, 80%, 60%);
+            background: hsla(0,0%,100%,.2);
+            border-radius: .3em;
+            box-shadow: .05em .1em .3em rgba(0,0,0,.3) inset;
+        }
+
+        @keyframes pulsate {
+            to {
+                box-shadow: .05em .1em .3em rgba(0,0,0,.3) inset, 0 0 .3em .1em #58a;
+            }
+        }
+
+        input:focus {
+            outline: none;
+            border: 1px solid #58a;
+            animation: pulsate 2s infinite alternate linear;
+            background: hsla(0,0%,100%,.5);
+        }
+        
+        </style>
+
+</head>
+
+<body>
+
+    <!-- This is the NAVIGATION BAR --> 
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="../templates/home.html" style="font-family: cursive; font-size: 32px;">PBL</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="../templates/home.html">Home</a></li>
+                <li><a href="../templates/stocks.html">Stocks</a></li>
+                <li><a href="../templates/compare.html">Compare</a></li>
+                <li><a href="../templates/portfolios.html">Portfolios</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- This is the GRAPH AND TABLES COMBINED --> 
+
+    <div class="container">
+        <h2>My Portfolio</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="thumbnail">
+                    <img src="../images/p1.jpg" alt="Lights" style="width:100%">
+                    <div class="caption">
+                        <h3 style="text-align: center; border: 1px solid black; padding: 5px;">
+                            Year-on-Year Returns <br><br>
+                            <div class="row" style="font-size: 16px;">
+                                <div class="col-sm-3">
+                                    <div class="well">Cum Return: 74.44%</div> 
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="well">CAGR: 9.72%</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="well">Sharpe Ratio: 0.74</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="well">Max Drawdown: -10.75%</div>
+                                </div>
+                            </div>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+<!-- This is the Allocations and Stocks section--> 
+    <div class="container" style="padding-bottom: 25px;">
+      <div class="row">
+            <div class="col-sm-4">
+                <h2>Portfolio Allocation</h2>
+
+                <tlx-chart chart-type="PieChart" 
+                chart-editable 
+                chart-columns="${['Element','Percentage']}" 
+                chart-data="${[
+                    ['Basic Materials', 0.0427],
+                    ['Consumer Cyclical', 0.1027],
+                    ['Financial Services', 0.1720],
+                    ['Real Estate', 0.0419],
+                    ['Consumer Defensive', 0.0758],
+                    ['Healthcare', 0.1245],
+                    ['Utilities', 0.0324],
+                    ['Communication Services', 0.0868],
+                    ['Energy', 0.0487],
+                    ['Industrials', 0.1124],
+                    ['Technology', 0.1601]
+                    
+                ]}">
+                </tlx-chart>
+
+            </div>
+
+            <div class="col-sm-8">
+                <h2>Portfolio Holdings</h2>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Stock Name</th>
+                        <th>Number of shares</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Apple Inc (AAPL)</td>
+                        <td>
+                            <form>
+                                    <input type="number" id="quantity" name="quantity" value="30">
+                              </form>
+                        </td>
+                        <td>321.12</td>
+                    </tr>
+                    <tr>
+                        <td>Alphabet Inc Class A (GOOGL)</td>
+                        <td>
+                            <input type="number" id="quantity" name="quantity" value="30">
+                        </td>
+                        <td>12345.33</td>
+                    </tr>
+                    <tr>
+                        <td>Advanced Micro Devices Inc (AMD)</td>
+                        <td>
+                            <input type="number" id="quantity" name="quantity" value="30">
+                        </td>
+                        <td>50.22</td>
+                    </tr>
+                    
+                    <!-- This is the new entry -->
+                    
+                    <tr>
+                        <td>
+                        <input type="text" id="stock_name" name="stock_name" placeholder="Add a new stock">
+                        
+                        <script>
+                            var input = document.getElementById("stock_name");
+                            new Awesomplete(input, {
+                                list: ['3M Company (MMM)', 'A.O. Smith Corp (AOS)', 'Abbott Laboratories (ABT)', 'AbbVie Inc. (ABBV)', 'Accenture plc (ACN)', 'Activision Blizzard (ATVI)', 'Acuity Brands Inc (AYI)', 'Adobe Systems Inc (ADBE)', 'Advance Auto Parts (AAP)', 'Advanced Micro Devices Inc (AMD)', 'AES Corp (AES)', 'Aetna Inc (AET)', 'Affiliated Managers Group Inc (AMG)', 'AFLAC Inc (AFL)', 'Agilent Technologies Inc (A)', 'Air Products & Chemicals Inc (APD)', 'Akamai Technologies Inc (AKAM)', 'Alaska Air Group Inc (ALK)', 'Albemarle Corp (ALB)', 'Alexandria Real Estate Equities Inc (ARE)', 'Alexion Pharmaceuticals (ALXN)', 'Align Technology (ALGN)', 'Allegion (ALLE)', '"Allergan, Plc (AGN)"', 'Alliance Data Systems (ADS)', 'Alliant Energy Corp (LNT)', 'Allstate Corp (ALL)', 'Alphabet Inc Class A (GOOGL)', 'Alphabet Inc Class C (GOOG)', 'Altria Group Inc (MO)', 'Amazon.com Inc. (AMZN)', 'Ameren Corp (AEE)', 'American Airlines Group (AAL)', 'American Electric Power (AEP)', 'American Express Co (AXP)', '"American International Group, Inc. (AIG)"', 'American Tower Corp A (AMT)', 'American Water Works Company Inc (AWK)', 'Ameriprise Financial (AMP)', 'AmerisourceBergen Corp (ABC)', 'AMETEK Inc. (AME)', 'Amgen Inc. (AMGN)', 'Amphenol Corp (APH)', 'Anadarko Petroleum Corp (APC)', '"Analog Devices, Inc. (ADI)"', 'Andeavor (ANDV)', 'ANSYS (ANSS)', 'Anthem Inc. (ANTM)', 'Aon plc (AON)', 'Apache Corporation (APA)', 'Apartment Investment & Management (AIV)', 'Apple Inc. (AAPL)', 'Applied Materials Inc. (AMAT)', 'Aptiv Plc (APTV)', 'Archer-Daniels-Midland Co (ADM)', 'Arconic Inc. (ARNC)', 'Arthur J. Gallagher & Co. (AJG)', 'Assurant Inc. (AIZ)', 'AT&T Inc. (T)', 'Autodesk Inc. (ADSK)', 'Automatic Data Processing (ADP)', 'AutoZone Inc (AZO)', '"AvalonBay Communities, Inc. (AVB)"', 'Avery Dennison Corp (AVY)', '"Baker Hughes, a GE Company (BHGE)"', 'Ball Corp (BLL)', 'Bank of America Corp (BAC)', 'Baxter International Inc. (BAX)', 'BB&T Corporation (BBT)', 'Becton Dickinson (BDX)', 'Berkshire Hathaway (BRK.B)', 'Best Buy Co. Inc. (BBY)', 'Biogen Inc. (BIIB)', 'BlackRock (BLK)', 'Block H&R (HRB)', 'Boeing Company (BA)', 'Booking Holdings Inc (BKNG)', 'BorgWarner (BWA)', 'Boston Properties (BXP)', 'Boston Scientific (BSX)', 'Brighthouse Financial Inc (BHF)', 'Bristol-Myers Squibb (BMY)', 'Broadcom (AVGO)', 'Brown-Forman Corp. (BF.B)', 'C. H. Robinson Worldwide (CHRW)', '"CA, Inc. (CA)"', 'Cabot Oil & Gas (COG)', 'Cadence Design Systems (CDNS)', 'Campbell Soup (CPB)', 'Capital One Financial (COF)', 'Cardinal Health Inc. (CAH)', 'Carmax Inc (KMX)', 'Carnival Corp. (CCL)', 'Caterpillar Inc. (CAT)', 'Cboe Global Markets (CBOE)', 'CBRE Group (CBRE)', 'CBS Corp. (CBS)', 'Celgene Corp. (CELG)', 'Centene Corporation (CNC)', 'CenterPoint Energy (CNP)', 'CenturyLink Inc (CTL)', 'Cerner (CERN)', 'CF Industries Holdings Inc (CF)', 'Charles Schwab Corporation (SCHW)', 'Charter Communications (CHTR)', 'Chevron Corp. (CVX)', 'Chipotle Mexican Grill (CMG)', 'Chubb Limited (CB)', 'Church & Dwight (CHD)', 'CIGNA Corp. (CI)', 'Cimarex Energy (XEC)', 'Cincinnati Financial (CINF)', 'Cintas Corporation (CTAS)', 'Cisco Systems (CSCO)', 'Citigroup Inc. (C)', 'Citizens Financial Group (CFG)', 'Citrix Systems (CTXS)', 'CME Group Inc. (CME)', 'CMS Energy (CMS)', 'Coca-Cola Company (The) (KO)', 'Cognizant Technology Solutions (CTSH)', 'Colgate-Palmolive (CL)', 'Comcast Corp. (CMCSA)', 'Comerica Inc. (CMA)', 'Conagra Brands (CAG)', 'Concho Resources (CXO)', 'ConocoPhillips (COP)', 'Consolidated Edison (ED)', 'Constellation Brands (STZ)', 'Corning Inc. (GLW)', 'Costco Wholesale Corp. (COST)', '"Coty, Inc (COTY)"', 'Crown Castle International Corp. (CCI)', 'CSRA Inc. (CSRA)', 'CSX Corp. (CSX)', 'Cummins Inc. (CMI)', 'CVS Health (CVS)', 'D. R. Horton (DHI)', 'Danaher Corp. (DHR)', 'Darden Restaurants (DRI)', 'DaVita Inc. (DVA)', 'Deere & Co. (DE)', 'Delta Air Lines Inc. (DAL)', 'Dentsply Sirona (XRAY)', 'Devon Energy Corp. (DVN)', 'Digital Realty Trust Inc (DLR)', 'Discover Financial Services (DFS)', 'Discovery Inc. Class A (DISCA)', 'Discovery Inc. Class C (DISCK)', 'Dish Network (DISH)', 'Dollar General (DG)', 'Dollar Tree (DLTR)', 'Dominion Energy (D)', 'Dover Corp. (DOV)', 'DowDuPont (DWDP)', 'Dr Pepper Snapple Group (DPS)', 'DTE Energy Co. (DTE)', 'Duke Energy (DUK)', 'Duke Realty Corp (DRE)', 'DXC Technology (DXC)', 'E*Trade (ETFC)', 'Eastman Chemical (EMN)', 'Eaton Corporation (ETN)', 'eBay Inc. (EBAY)', 'Ecolab Inc. (ECL)', "Edison Int'l (EIX)", 'Edwards Lifesciences (EW)', 'Electronic Arts (EA)', 'Emerson Electric Company (EMR)', 'Entergy Corp. (ETR)', 'Envision Healthcare (EVHC)', 'EOG Resources (EOG)', 'EQT Corporation (EQT)', 'Equifax Inc. (EFX)', 'Equinix (EQIX)', 'Equity Residential (EQR)', '"Essex Property Trust, Inc. (ESS)"', 'Estee Lauder Cos. (EL)', 'Everest Re Group Ltd. (RE)', 'Eversource Energy (ES)', 'Exelon Corp. (EXC)', 'Expedia Inc. (EXPE)', 'Expeditors International (EXPD)', 'Express Scripts (ESRX)', 'Extra Space Storage (EXR)', 'Exxon Mobil Corp. (XOM)', 'F5 Networks (FFIV)', '"Facebook, Inc. (FB)"', 'Fastenal Co (FAST)', 'Federal Realty Investment Trust (FRT)', 'FedEx Corporation (FDX)', 'Fidelity National Information Services (FIS)', 'Fifth Third Bancorp (FITB)', 'FirstEnergy Corp (FE)', 'Fiserv Inc (FISV)', 'FLIR Systems (FLIR)', 'Flowserve Corporation (FLS)', 'Fluor Corp. (FLR)', 'FMC Corporation (FMC)', 'Foot Locker Inc (FL)', 'Ford Motor (F)', 'Fortive Corp (FTV)', 'Fortune Brands Home & Security (FBHS)', 'Franklin Resources (BEN)', 'Freeport-McMoRan Inc. (FCX)', 'Gap Inc. (GPS)', 'Garmin Ltd. (GRMN)', 'Gartner Inc (IT)', 'General Dynamics (GD)', 'General Electric (GE)', 'General Growth Properties Inc. (GGP)', 'General Mills (GIS)', 'General Motors (GM)', 'Genuine Parts (GPC)', 'Gilead Sciences (GILD)', 'Global Payments Inc. (GPN)', 'Goldman Sachs Group (GS)', 'Goodyear Tire & Rubber (GT)', 'Grainger (W.W.) Inc. (GWW)', 'Halliburton Co. (HAL)', 'Hanesbrands Inc (HBI)', 'Harley-Davidson (HOG)', 'Harris Corporation (HRS)', 'Hartford Financial Svc.Gp. (HIG)', 'Hasbro Inc. (HAS)', 'HCA Holdings (HCA)', 'HCP Inc. (HCP)', 'Helmerich & Payne (HP)', 'Henry Schein (HSIC)', 'Hess Corporation (HES)', 'Hewlett Packard Enterprise (HPE)', 'Hilton Worldwide Holdings Inc (HLT)', 'Hologic (HOLX)', 'Home Depot (HD)', "Honeywell Int'l Inc. (HON)", 'Hormel Foods Corp. (HRL)', 'Host Hotels & Resorts (HST)', 'HP Inc. (HPQ)', 'Humana Inc. (HUM)', 'Huntington Bancshares (HBAN)', 'Huntington Ingalls Industries (HII)', 'IDEXX Laboratories (IDXX)', 'IHS Markit Ltd. (INFO)', 'Illinois Tool Works (ITW)', 'Illumina Inc (ILMN)', 'Incyte (INCY)', 'Ingersoll-Rand PLC (IR)', 'Intel Corp. (INTC)', 'Intercontinental Exchange (ICE)', 'International Business Machines (IBM)', 'International Paper (IP)', 'Interpublic Group (IPG)', 'Intl Flavors & Fragrances (IFF)', 'Intuit Inc. (INTU)', 'Intuitive Surgical Inc. (ISRG)', 'Invesco Ltd. (IVZ)', 'IPG Photonics Corp. (IPGP)', 'IQVIA Holdings Inc. (IQV)', 'Iron Mountain Incorporated (IRM)', 'J. B. Hunt Transport Services (JBHT)', 'Jacobs Engineering Group (JEC)', 'JM Smucker (SJM)', 'Johnson & Johnson (JNJ)', 'Johnson Controls International (JCI)', 'JPMorgan Chase & Co. (JPM)', 'Juniper Networks (JNPR)', 'Kansas City Southern (KSU)', 'Kellogg Co. (K)', 'KeyCorp (KEY)', 'Kimberly-Clark (KMB)', 'Kimco Realty (KIM)', 'Kinder Morgan (KMI)', 'KLA-Tencor Corp. (KLAC)', "Kohl's Corp. (KSS)", 'Kraft Heinz Co (KHC)', 'Kroger Co. (KR)', 'L Brands Inc. (LB)', 'L-3 Communications Holdings (LLL)', 'Laboratory Corp. of America Holding (LH)', 'Lam Research (LRCX)', 'Leggett & Platt (LEG)', 'Lennar Corp. (LEN)', 'Leucadia National Corp. (LUK)', 'Lilly (Eli) & Co. (LLY)', 'Lincoln National (LNC)', 'LKQ Corporation (LKQ)', 'Lockheed Martin Corp. (LMT)', 'Loews Corp. (L)', "Lowe's Cos. (LOW)", 'LyondellBasell (LYB)', 'M&T Bank Corp. (MTB)', 'Macerich (MAC)', "Macy's Inc. (M)", 'Marathon Oil Corp. (MRO)', 'Marathon Petroleum (MPC)', "Marriott Int'l. (MAR)", 'Marsh & McLennan (MMC)', 'Martin Marietta Materials (MLM)', 'Masco Corp. (MAS)', 'Mastercard Inc. (MA)', 'Mattel Inc. (MAT)', 'McCormick & Co. (MKC)', "McDonald's Corp. (MCD)", 'McKesson Corp. (MCK)', 'Medtronic plc (MDT)', 'Merck & Co. (MRK)', 'MetLife Inc. (MET)', 'Mettler Toledo (MTD)', 'MGM Resorts International (MGM)', 'Michael Kors Holdings (KORS)', 'Microchip Technology (MCHP)', 'Micron Technology (MU)', 'Microsoft Corp. (MSFT)', 'Mid-America Apartments (MAA)', 'Mohawk Industries (MHK)', 'Molson Coors Brewing Company (TAP)', 'Mondelez International (MDLZ)', 'Monsanto Co. (MON)', 'Monster Beverage (MNST)', "Moody's Corp (MCO)", 'Morgan Stanley (MS)', 'Motorola Solutions Inc. (MSI)', 'Mylan N.V. (MYL)', '"Nasdaq, Inc. (NDAQ)"', 'National Oilwell Varco Inc. (NOV)', 'Navient (NAVI)', 'Nektar Therapeutics (NKTR)', 'NetApp (NTAP)', 'Netflix Inc. (NFLX)', 'Newell Brands (NWL)', 'Newfield Exploration Co (NFX)', 'Newmont Mining Corporation (NEM)', 'News Corp. Class A (NWSA)', 'News Corp. Class B (NWS)', 'NextEra Energy (NEE)', 'Nielsen Holdings (NLSN)', 'Nike (NKE)', 'NiSource Inc. (NI)', 'Noble Energy Inc (NBL)', 'Nordstrom (JWN)', 'Norfolk Southern Corp. (NSC)', 'Northern Trust Corp. (NTRS)', 'Northrop Grumman Corp. (NOC)', 'Norwegian Cruise Line (NCLH)', 'NRG Energy (NRG)', 'Nucor Corp. (NUE)', 'Nvidia Corporation (NVDA)', "O'Reilly Automotive (ORLY)", 'Occidental Petroleum (OXY)', 'Omnicom Group (OMC)', 'ONEOK (OKE)', 'Oracle Corp. (ORCL)', 'PACCAR Inc. (PCAR)', 'Packaging Corporation of America (PKG)', 'Parker-Hannifin (PH)', 'Paychex Inc. (PAYX)', 'PayPal (PYPL)', 'Pentair Ltd. (PNR)', "People's United Financial (PBCT)", 'PepsiCo Inc. (PEP)', 'PerkinElmer (PKI)', 'Perrigo (PRGO)', 'Pfizer Inc. (PFE)', 'PG&E Corp. (PCG)', 'Philip Morris International (PM)', 'Phillips 66 (PSX)', 'Pinnacle West Capital (PNW)', 'Pioneer Natural Resources (PXD)', 'PNC Financial Services (PNC)', 'Polo Ralph Lauren Corp. (RL)', 'PPG Industries (PPG)', 'PPL Corp. (PPL)', 'Praxair Inc. (PX)', 'Principal Financial Group (PFG)', 'Procter & Gamble (PG)', 'Progressive Corp. (PGR)', 'Prologis (PLD)', 'Prudential Financial (PRU)', 'Public Serv. Enterprise Inc. (PEG)', 'Public Storage (PSA)', 'Pulte Homes Inc. (PHM)', 'PVH Corp. (PVH)', 'Qorvo (QRVO)', 'QUALCOMM Inc. (QCOM)', 'Quanta Services Inc. (PWR)', 'Quest Diagnostics (DGX)', 'Range Resources Corp. (RRC)', 'Raymond James Financial Inc. (RJF)', 'Raytheon Co. (RTN)', 'Realty Income Corporation (O)', 'Red Hat Inc. (RHT)', 'Regency Centers Corporation (REG)', 'Regeneron (REGN)', 'Regions Financial Corp. (RF)', 'Republic Services Inc (RSG)', 'ResMed (RMD)', 'Robert Half International (RHI)', 'Rockwell Automation Inc. (ROK)', 'Rockwell Collins (COL)', 'Roper Technologies (ROP)', 'Ross Stores (ROST)', 'Royal Caribbean Cruises Ltd (RCL)', '"S&P Global, Inc. (SPGI)"', 'Salesforce.com (CRM)', 'SBA Communications (SBAC)', 'SCANA Corp (SCG)', 'Schlumberger Ltd. (SLB)', 'Seagate Technology (STX)', 'Sealed Air (SEE)', 'Sempra Energy (SRE)', 'Sherwin-Williams (SHW)', 'Simon Property Group Inc (SPG)', 'Skyworks Solutions (SWKS)', 'SL Green Realty (SLG)', 'Snap-On Inc. (SNA)', 'Southern Co. (SO)', 'Southwest Airlines (LUV)', 'Stanley Black & Decker (SWK)', 'Starbucks Corp. (SBUX)', 'State Street Corp. (STT)', 'Stericycle Inc (SRCL)', 'Stryker Corp. (SYK)', 'SunTrust Banks (STI)', 'SVB Financial (SIVB)', 'Symantec Corp. (SYMC)', 'Synchrony Financial (SYF)', 'Synopsys Inc. (SNPS)', 'Sysco Corp. (SYY)', 'T. Rowe Price Group (TROW)', 'Take-Two Interactive (TTWO)', '"Tapestry, Inc. (TPR)"', 'Target Corp. (TGT)', 'TE Connectivity Ltd. (TEL)', 'TechnipFMC (FTI)', 'Texas Instruments (TXN)', 'Textron Inc. (TXT)', 'The Bank of New York Mellon Corp. (BK)', 'The Clorox Company (CLX)', 'The Cooper Companies (COO)', 'The Hershey Company (HSY)', 'The Mosaic Company (MOS)', 'The Travelers Companies Inc. (TRV)', 'The Walt Disney Company (DIS)', 'Thermo Fisher Scientific (TMO)', 'Tiffany & Co. (TIF)', 'Time Warner Inc. (TWX)', 'TJX Companies Inc. (TJX)', 'Torchmark Corp. (TMK)', 'Total System Services (TSS)', 'Tractor Supply Company (TSCO)', 'TransDigm Group (TDG)', 'TripAdvisor (TRIP)', 'Twenty-First Century Fox Class A (FOXA)', 'Twenty-First Century Fox Class B (FOX)', 'Tyson Foods (TSN)', 'U.S. Bancorp (USB)', 'UDR Inc (UDR)', 'Ulta Beauty (ULTA)', 'Under Armour Class A (UAA)', 'Under Armour Class C (UA)', 'Union Pacific (UNP)', 'United Continental Holdings (UAL)', 'United Health Group Inc. (UNH)', 'United Parcel Service (UPS)', '"United Rentals, Inc. (URI)"', 'United Technologies (UTX)', '"Universal Health Services, Inc. (UHS)"', 'Unum Group (UNM)', 'V.F. Corp. (VFC)', 'Valero Energy (VLO)', 'Varian Medical Systems (VAR)', 'Ventas Inc (VTR)', 'Verisign Inc. (VRSN)', 'Verisk Analytics (VRSK)', 'Verizon Communications (VZ)', 'Vertex Pharmaceuticals Inc (VRTX)', 'Viacom Inc. (VIAB)', 'Visa Inc. (V)', 'Vornado Realty Trust (VNO)', 'Vulcan Materials (VMC)', 'Wal-Mart Stores (WMT)', 'Walgreens Boots Alliance (WBA)', 'Waste Management Inc. (WM)', 'Waters Corporation (WAT)', 'Wec Energy Group Inc (WEC)', 'Wells Fargo (WFC)', 'Welltower Inc. (WELL)', 'Western Digital (WDC)', 'Western Union Co (WU)', 'WestRock Company (WRK)', 'Weyerhaeuser Corp. (WY)', 'Whirlpool Corp. (WHR)', 'Williams Cos. (WMB)', 'Willis Towers Watson (WLTW)', 'Wyndham Worldwide (WYN)', 'Wynn Resorts Ltd (WYNN)', 'Xcel Energy Inc (XEL)', 'Xerox Corp. (XRX)', 'Xilinx Inc (XLNX)', 'XL Capital (XL)', 'Xylem Inc. (XYL)', 'Yum! Brands Inc (YUM)', 'Zimmer Biomet Holdings (ZBH)', 'Zions Bancorp (ZION)', 'Zoetis (ZTS)']
+                            });
+                        </script>
+                
+
+                        </td>
+                        <td>
+                            <input type="number" id="new_stock_quantity" name="new_stock_quantity" value="" placeholder="Enter number of stocks">
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-default">Save</button>
+                <button type="button" class="btn btn-default">Update</button>
+          </div>
+      </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src="../js/index.js"></script> --> 
+    <title>Compare</title>
+</head>
+
+<body>
+
+    <!-- This is the NAVIGATION BAR --> 
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="../templates/home.html" style="font-family: cursive; font-size: 32px;">PBL</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="../templates/home.html">Home</a></li>
+                <li><a id="test" href="../templates/stocks.html">Stocks</a></li>
+                <li class="active"><a href="../templates/compare.html">Compare</a></li>
+                <li><a href="../templates/portfolios.html">Portfolios</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- This is the SELECT PORTFOLIOS SEARCH BAR -->
+
+    <div class="container" style="text-align: center;">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Compare Portfolios</h4></div>
+                <div class="panel-body">
+                    <form method="POST" action="#">
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="portfolio1" id="portfolio1" value="1" checked>Portfolio 1</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="portfolio2" id="portfolio2" value="1" checked>Portfolio 2</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="portfolio3" id="portfolio3" value="1" checked>Portfolio 3</label>
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>            
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- This is the GRAPH AND TABLES COMBINED --> 
+
+    <div class="container">
+        <h2>Comparison Results</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="thumbnail">
+                    <img src="../images/p123.jpg" alt="Lights" style="width:100%">
+                    <div class="caption">
+                        <h4 style="text-align: center; border: 1px solid black; padding: 5px;">Year-on-Year Returns</h4>
+                        <table class="table" style="border: 2px solid rgb(212, 212, 212);">
+                            <thead>
+                            <tr>
+                                <th>Portfolio</th>
+                                <th>2014</th>
+                                <th>2015</th>
+                                <th>2016</th>
+                                <th>2017</th>
+                                <th>2018</th>
+                                <th>2019</th>
+                                <th>2020</th>
+                                <th style="width: fit-content;">Next Qtr Returns</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Portfolio 1</td>
+                                <td>-3.11%</td>
+                                <td>-2.77%</td>
+                                <td>-5.67%</td>
+                                <td>1.91%</td>
+                                <td>5.31%</td>
+                                <td>8.59%</td>
+                                <td>-0.08%</td>
+                                <td>%%%</td>
+                            </tr>
+                            <tr>
+                                <td>Portfolio 2</td>
+                                <td>-2.66%</td>
+                                <td>-1.00%</td>
+                                <td>-4.26%</td>
+                                <td>2.18%</td>
+                                <td>4.23%</td>
+                                <td>6.84%</td>
+                                <td>-0.61%</td>
+                                <td>%%%</td>
+                            </tr>
+                            <tr>
+                                <td>Portfolio 3</td>
+                                <td>-4.19%</td>
+                                <td> -1.73%</td>
+                                <td>-4.62%</td>
+                                <td>1.16%</td>
+                                <td>4.57%</td>
+                                <td>8.25%</td>
+                                <td>-0.68%</td>
+                                <td>%%%</td>
+                            </tr>
+                            <tr>
+                                <td>Benchmark</td>
+                                <td>-3.49%</td>
+                                <td>-2.90%</td>
+                                <td>-5.00%</td>
+                                <td>1.75%</td>
+                                <td>5.69%</td>
+                                <td>7.92%</td>
+                                <td>0.00%</td>
+                                <td>%%%</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

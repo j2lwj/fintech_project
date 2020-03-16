@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/tlx/browser/tlx.js"></script>
+    <script src="https://unpkg.com/tlx-chart/browser/tlx-chart.js"></script>
+    <title>Homepage</title>
+</head>
+
+<body>
+
+    <!-- This is the NAVIGATION BAR --> 
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="../../templates/home.html" style="font-family: cursive; font-size: 32px;">PBL</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="../../templates/home.html">Home</a></li>
+                <li><a href="#">Stocks</a></li>
+                <li><a href="../../templates/compare.html">Compare</a></li>
+                <li class="active"><a href="../../templates/portfolios.html">Portfolios</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- This is the GRAPH AND TABLES COMBINED --> 
+
+    <div class="container">
+        <h2>Portfolio 3</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="thumbnail">
+                    <img src="../../images/p3.jpg" alt="Lights" style="width:100%">
+                    <div class="caption">
+                        <h3 style="text-align: center; border: 1px solid black; padding: 5px;">
+                            Year-on-Year Returns <br><br>
+                            <div class="row" style="font-size: 16px;">
+                                <div class="col-sm-3">
+                                    <div class="well">Cum Return: 80.77%</div> 
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="well">CAGR: 10.37%</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="well">Sharpe Ratio: 0.80</div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="well">Max Drawdown: -14.61%</div>
+                                </div>
+                            </div>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+<!-- This is the Allocations and Stocks section--> 
+    <div class="container">
+      <div class="row">
+            <div class="col-sm-4">
+                <h2>Portfolio Allocation</h2>
+
+                <tlx-chart chart-type="PieChart" 
+                chart-editable 
+                chart-columns="${['Element','Percentage']}" 
+                chart-data="${[
+                    ['Basic Materials', 0.0427],
+                    ['Consumer Cyclical', 0.1027],
+                    ['Financial Services', 0.1720],
+                    ['Real Estate', 0.0419],
+                    ['Consumer Defensive', 0.0758],
+                    ['Healthcare', 0.1245],
+                    ['Utilities', 0.0324],
+                    ['Communication Services', 0.0868],
+                    ['Energy', 0.0487],
+                    ['Industrials', 0.1124],
+                    ['Technology', 0.1601]
+                    
+                ]}">
+                </tlx-chart>
+
+            </div>
+
+            <div class="col-sm-8">
+                <h2>Portfolio Holdings</h2>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Stock Name</th>
+                        <th>Number of shares</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Apple Inc (AAPL)</td>
+                        <td>30</td>
+                        <td>321.12</td>
+                    </tr>
+                    <tr>
+                        <td>Alphabet Inc Class A (GOOGL)</td>
+                        <td>30</td>
+                        <td>12345.33</td>
+                    </tr>
+                    <tr>
+                        <td>Advanced Micro Devices Inc (AMD)</td>
+                        <td>30</td>
+                        <td>50.22</td>
+                    </tr>
+                    </tbody>
+                </table>
+          </div>
+      </div>
+    </div>
+</body>
+</html>
