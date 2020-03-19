@@ -30,7 +30,7 @@
                             <div class="home_title">Login</div>
                             <div class="home_breadcrumbs">
                                 <ul>
-                                    <li><a href="financial.html">Home</a></li>
+                                    <li><a href="{% url 'home' %}">Home</a></li>
                                     <li>Login</li>
                                 </ul>
                             </div>
@@ -52,7 +52,7 @@
                             <div class="top_bar_container d-flex flex-row align-items-center justify-content-start">
                                 <div class="logo_container">
                                     <div class="logo">
-                                        <a href="#">
+                                        <a href="{% url 'home' %}">
                                             <div class="logo_line_1"><span>in</span>vest</div>
                                             <div class="logo_line_2">Financial</div>
                                             <div class="logo_img"><img src="../static/images/logo.png" alt=""></div>
@@ -167,30 +167,15 @@
                     <div class="call_container">
                         <div class="section_title_container">
                             <div class="section_subtitle">to access more features</div>
-                            <div class="section_title">Sign Up</div>
+                            <div class="section_title">Login</div>
                         </div>
                         <div class="call_form_container">
-                            <form action="#" class="call_form">
+                            <form action="#" class="call_form" method="POST">
                                 <div class="row">
-                                    <form method="POST">
-                                        {% csrf_token %}
-                                        {{% form.as_p %}}
-                                    <!-- <div class="col-md-6">
-                                        <input type="text" class="input_item" placeholder="Your Name" required="required">
+                                    <div class="col">
+                                            {% csrf_token %}
+                                            {{ form.as_p }}
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="email" class="input_item" placeholder="Your E-mail" required="required">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="input_item" placeholder="Your Phone">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <select class="dropdown_item input_item">
-                                            <option>Business type</option>
-                                            <option>Business type</option>
-                                            <option>Business type</option>
-                                        </select>
-                                    </div> -->
                                         <div class="col-md-12">
                                             <button id="call_btn" type="submit" class="call_button trans_200" value="Submit">login</button>
                                         </div>
@@ -215,7 +200,7 @@
                     <div class="footer_about">
                         <div class="logo_container footer_logo">
                             <div class="logo">
-                                <a href="#">
+                                <a href="{% url 'home' %}">
                                     <div class="logo_line_1"><span>in</span>vest</div>
                                     <div class="logo_line_2">Blockchain</div>
                                     <div class="logo_img"><img src="../static/images/logo.png" alt=""></div>
@@ -272,24 +257,13 @@
         <div class="copyright">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 order-md-1 order-2">
+                    <div class="col order-md-1 order-2">
                         <div class="copyright_content d-flex flex-row align-items-center justify-content-start">
                             <div class="cr"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
                         </div>
                         </div>
-                    </div>
-                    <div class="col-md-8 order-md-2 order-1">
-                        <nav class="footer_nav d-flex flex-row align-items-center justify-content-md-end">
-                            <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="about.html">About us</a></li>
-                                <li><a href="#">Services</a></li>
-                                <li><a href="news.html">Blog</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                            </ul>
-                        </nav>
                     </div>
                 </div>
             </div>          
