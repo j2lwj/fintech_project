@@ -30,7 +30,7 @@
                             <div class="home_title">Portfolios</div>
                             <div class="home_breadcrumbs">
                                 <ul>
-                                    <li><a href="homepage.html">Home</a></li>
+                                    <li><a href="{% url 'my_portfolio' %}">Home</a></li>
                                     <li>Portfolios</li>
                                 </ul>
                             </div>
@@ -52,7 +52,7 @@
                             <div class="top_bar_container d-flex flex-row align-items-center justify-content-start">
                                 <div class="logo_container">
                                     <div class="logo">
-                                        <a href="#">
+                                        <a href="{% url 'my_portfolio' %}">
                                             <div class="logo_line_1"><span>in</span>vest</div>
                                             <div class="logo_line_2">Financial</div>
                                             <div class="logo_img"><img src="../static/images/logo.png" alt=""></div>
@@ -87,7 +87,7 @@
                             <div class="main_menu_container d-flex flex-row align-items-center justify-content-start">
                                 <div class="main_menu_content">
                                     <ul class="main_menu_list">
-                                        <li><a href="homepage.html">home
+                                        <li><a href="{% url 'my_portfolio' %}">home
                                             <svg version="1.1" id="Layer_4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                  width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
                                                 <g>
@@ -95,7 +95,7 @@
                                                 </g>
                                             </svg>
                                         </a></li>
-                                        <li><a href="compare.html">compare
+                                        <li><a href="{% url 'compare' %}">compare
                                             <svg version="1.1" id="Layer_4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                  width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
                                                 <g>
@@ -103,7 +103,7 @@
                                                 </g>
                                             </svg>
                                         </a></li>
-                                        <li><a href="portfolios.html">my portfolios
+                                        <li><a href="{% url 'portfolios' %}">my portfolios
                                             <svg version="1.1" id="Layer_15" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                  width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
                                                 <g>
@@ -129,7 +129,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="link_button link_button_4 elements_button"><a href="#">logout</a></div>
+                                <div class="link_button link_button_4 elements_button"><a href="{% url 'home' %}">logout</a></div>
                             </div>
                         </div>
                     </div>
@@ -144,8 +144,8 @@
                         <div class="row">
                             <div class="col">
                                 <div class="menu_register_login_content d-flex flex-row align-items-center justify-content-end">
-                                    <div class="register"><a href="#">register</a></div>
-                                    <div class="login"><a href="#">login</a></div>
+                                    <div class="register"><a href="#">sign up</a></div>
+                                    <div class="login"><a href="{% url 'login' %}">login</a></div>
                                 </div>
                             </div>
                         </div>
@@ -372,7 +372,7 @@
                     <div class="footer_about">
                         <div class="logo_container footer_logo">
                             <div class="logo">
-                                <a href="#">
+                                <a href="{% url 'my_portfolio' %}">
                                     <div class="logo_line_1"><span>in</span>vest</div>
                                     <div class="logo_line_2">Blockchain</div>
                                     <div class="logo_img"><img src="../static/images/logo.png" alt=""></div>
@@ -439,9 +439,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                     <div class="col-md-8 order-md-2 order-1">
                         <nav class="footer_nav d-flex flex-row align-items-center justify-content-md-end">
                             <ul>
-                                <li><a href="homepage.html">Home</a></li>
-                                <li><a href="compare.html">Compare</a></li>
-                                <li><a href="portfolios.html">My Portfolios</a></li>
+                                <li><a href="{% url 'my_portfolio' %}">Home</a></li>
+                                <li><a href="{% url 'compare' %}">Compare</a></li>
+                                <li><a href="{% url 'portfolios' %}">My Portfolios</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -465,3 +465,4 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="../static/js/news_custom.js"></script>
 </body>
 </html>
+
