@@ -16,12 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from portfolio import views
+from django.conf.urls import url
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import views as auth_views
 
+# Albert - https://simpleisbetterthancomplex.com/tutorial/2016/06/27/how-to-use-djangos-built-in-login-system.html
 urlpatterns = [
     path('admin/', admin.site.urls),
-        # path('login/', views.login, name='login'),
     path('', views.home, name='home'),
     path('compare/', views.compare, name='compare'),
     path('my_portfolio/', views.my_portfolio, name='my_portfolio'),
     path('portfolios/', views.portfolios, name='portfolios'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
+    # path('signup/', auth_views.signup, name='signup')
 ]
