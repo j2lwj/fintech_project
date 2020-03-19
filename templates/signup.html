@@ -30,7 +30,7 @@
                             <div class="home_title">Sign Up</div>
                             <div class="home_breadcrumbs">
                                 <ul>
-                                    <li><a href="financial.html">Home</a></li>
+                                    <li><a href="{% url 'home' %}">Home</a></li>
                                     <li>Sign Up</li>
                                 </ul>
                             </div>
@@ -52,7 +52,7 @@
                             <div class="top_bar_container d-flex flex-row align-items-center justify-content-start">
                                 <div class="logo_container">
                                     <div class="logo">
-                                        <a href="#">
+                                        <a href="{% url 'home' %}">
                                             <div class="logo_line_1"><span>in</span>vest</div>
                                             <div class="logo_line_2">Financial</div>
                                             <div class="logo_img"><img src="../static/images/logo.png" alt=""></div>
@@ -170,9 +170,23 @@
                             <div class="section_title">Sign Up</div>
                         </div>
                         <div class="call_form_container">
-                            <form action="#" class="call_form">
-                                <div class="row">
-                                    <div class="col-md-6">
+                            <div class="row">
+                                <form method="post" class="call_form">
+                                    {% csrf_token %}
+                                    {% for field in form %}
+                                        <p>
+                                        {{ field.label_tag }}<br>
+                                        {{ field }}
+                                        {% if field.help_text %}
+                                            <small style="color: grey">{{ field.help_text }}</small>
+                                        {% endif %}
+                                        {% for error in field.errors %}
+                                            <p style="color: red">{{ error }}</p>
+                                        {% endfor %}
+                                        </p>
+                                    {% endfor %}
+                                
+                                    <!-- <div class="col-md-6">
                                         <input type="text" name="fName" class="input_item" placeholder="First Name" required="required">
                                     </div>
                                     <div class="col-md-6">
@@ -186,12 +200,12 @@
                                     </div>
                                     <div class="col-md-12">
                                         <input type="password" name="cfm_password" id="cfm_password" class="input_item" placeholder="Confirm Password" required="required">
-                                    </div>
+                                    </div> -->
                                     <div class="col-md-12">
                                         <button id="call_btn" type="submit" class="call_button trans_200" value="Submit">Sign Up</button>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -210,7 +224,7 @@
                     <div class="footer_about">
                         <div class="logo_container footer_logo">
                             <div class="logo">
-                                <a href="#">
+                                <a href="{% url 'home' %}">
                                     <div class="logo_line_1"><span>in</span>vest</div>
                                     <div class="logo_line_2">Blockchain</div>
                                     <div class="logo_img"><img src="../static/images/logo.png" alt=""></div>
