@@ -29,5 +29,5 @@ urlpatterns = [
     path('portfolios/', views.portfolios, name='portfolios'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
-    # path('signup/', auth_views.signup, name='signup')
+    path('signup/', views.signup, name='signup')
 ]
