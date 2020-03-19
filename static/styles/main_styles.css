@@ -458,6 +458,11 @@ section
 {
 	background: #11100e;
 }
+.sticky {
+	position: fixed;
+	top: 0;
+	width: 100%;
+  }
 .top_bar_container
 {
 	width: 100%;
