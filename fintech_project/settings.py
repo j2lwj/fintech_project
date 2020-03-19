@@ -101,6 +101,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Albert - added a login redirect here. Make sure to change the 'home' to the homepage.html upon successful authentication
+LOGIN_REDIRECT_URL = 'homepage.html'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

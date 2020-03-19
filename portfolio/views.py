@@ -25,7 +25,13 @@ def login(request):
     #receive input from form - method=GET from user database, inputs: email, password
     #login function - input submit button, access my_portfolio html
     #sign-up button - href to sign-up html
-    return render(request, "<p>Helllo</p>")
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return render(request, 'homepage.html')
+    return render(request, "https://www.google.com/")
 
 def signup(request):
     #receive input from form - method=POST, must be unique
@@ -33,11 +39,11 @@ def signup(request):
     #already a member? log in - href to login html
     #inputs: fName, lName, email, password 
     #input submit button, save objects to user
-    return render(request, 'signup.html')
+    return render(request, 'https://www.facebook.com/')
 
 def home(request):
     #only have log-in button - href to login html 
-    return render(request, "index.html")
+    return render(request, "main_home.html")
 
 def my_portfolio(request):
     #receive input from form - method=GET from stocks database, inputs: datalist of all stocks in universe
@@ -49,19 +55,19 @@ def my_portfolio(request):
     bokeh chart to display line chart (current vs optimized vs bm), 2) pie chart (% allocation), 3) YoY returns
     (current vs optimized) - pie chart using jquery linked to allocation, the rest is backend processing.
     """
-    return render(request, "<p>Helllo</p>")
+    return render(request, "homepage.html")
 
 def compare(request):
     #checkbox for previously saved portfolios (portfolio objects)
     #button to run jquery to display charts and make YoY returns comparison for each portfolio
     #Based on this, safe to say once a portfolio object is created, also need to save their charts and stats to load easily for comparison
-    return render(request, "<p>Helllo</p>")
+    return render(request, "compare.html")
 
 
 def portfolios(request):
     #listing out of all saved portfolio objects
     #listing out the created_on date for all saved portfolio objects
-    return render(request, 'index.html')
+    return render(request, 'portfolios.html')
 
 # def live_price(request):
 
