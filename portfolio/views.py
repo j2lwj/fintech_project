@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, QueryDict, HttpResponseRedirect, Http404, JsonResponse
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 import requests
 import pandas as pd
 from datetime import datetime
@@ -31,7 +32,8 @@ def login(request):
     if user is not None:
         login(request, user)
         return render(request, 'homepage.html')
-    return render(request, "https://www.google.com/")
+    else:
+        return render(request, "login.html")
 
 def signup(request):
     #receive input from form - method=POST, must be unique
@@ -39,7 +41,19 @@ def signup(request):
     #already a member? log in - href to login html
     #inputs: fName, lName, email, password 
     #input submit button, save objects to user
-    return render(request, 'https://www.facebook.com/')
+    # https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
 
 def home(request):
     #only have log-in button - href to login html 
