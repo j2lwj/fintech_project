@@ -228,14 +228,21 @@
                                     <div class="panel panel-default">
                                         <div class="panel-body">
                                             <form method="POST" action="#">
+
+
+
             <!-- need to add jQuery for onchange... -->
 
-
-
-
-                                                {% for portfolio in portfolios %}
                                                 <div class="checkbox">
-                                                    <label><input type="checkbox" name="{{ portfolio.name }}" id="{{ portfolio.name }}" checked> {{ portfolio.name }}</label>
+                                                    <label><input type="checkbox" name="test" id="test" checked> test </label>
+                                                </div>
+
+
+
+
+                                                {% for portfolio in all_portfolios %}
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" name="{{ portfolio.p_name }}" id="{{ portfolio.p_name }}" checked> {{ portfolio.p_name }}</label>
                                                 </div>
                                                 {% endfor %}
                                                 <button id="submit" type="submit" value="Submit" style="display: block; position: relative; width: 100%; height: 47px; background: #ffa800; line-height: 47px; font-size: 14px; text-transform: uppercase; color: #FFFFFF; font-weight: 500; border: none; outline: none; cursor: pointer; z-index: 1">
@@ -260,24 +267,6 @@
     </div>
 
     <!-- Graphical summary -->
-
-    <!-- from bokeh.io import output_file, show
-         from bokeh.plotting import figure
- 
-         output_file("bars.html")
- 
-         fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
-         counts = [5, 3, 4, 2, 4, 6]
- 
-         p = figure(x_range=fruits, plot_height=250, title="Fruit Counts",
-                 toolbar_location=None, tools="")
- 
-         p.vbar(x=fruits, top=counts, width=0.9)
- 
-         p.xgrid.grid_line_color = None
-         p.y_range.start = 0
- 
-         show(p) -->
 
     <div class="info">
         <div class="info_background parallax-window" data-parallax="scroll" data-image-src="../static/images/about_info.jpg" data-speed="0.8"></div>
@@ -375,8 +364,8 @@
                                                     <th>Weight</th>
                                                   </tr>
                                                 </thead>
-                                                <!-- <tbody>
-                                                  {% for board in boards %}
+                                                <tbody>
+                                                  <!-- {% for portfolio in port_stock %}
                                                     <tr>
                                                       <td>
                                                         <a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a>
@@ -386,8 +375,8 @@
                                                       <td class="align-middle">0</td>
                                                       <td></td>
                                                     </tr>
-                                                  {% endfor %}
-                                                </tbody> -->
+                                                  {% endfor %} -->
+                                                </tbody>
                                               </table>
                                         </div>
                                         <div class="col-lg-3">
@@ -571,6 +560,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="../static/plugins/easing/easing.js"></script>
 <script src="../static/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="../static/js/about_custom.js"></script>
+{{ script | safe }}
 </body>
 </html>
 
