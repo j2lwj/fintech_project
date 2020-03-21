@@ -26,8 +26,8 @@ def login(request):
     #receive input from form - method=GET from user database, inputs: email, password
     #login function - input submit button, access my_portfolio html
     #sign-up button - href to sign-up html
-    username = request.POST['username']
-    password = request.POST['password']
+    username = request.POST.get_object_or_404['username']
+    password = request.POST.get_object_or_404['password']
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
