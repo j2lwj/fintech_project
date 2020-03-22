@@ -16,6 +16,9 @@ from bokeh.layouts import widgetbox
 from bokeh.embed import components
 from .models import Portfolio
 
+from .models import Portfolio
+# after finalizing the models.py --> from .models import Stocks, Port_stocks
+
 # Create your views here.
 """
 To-do-list:
@@ -27,8 +30,8 @@ def log_in(request):
     #receive input from form - method=GET from user database, inputs: email, password
     #login function - input submit button, access my_portfolio html
     #sign-up button - href to sign-up html
-    username = request.POST.get_object_or_404['username']
-    password = request.POST.get_object_or_404['password']
+    username = request.POST.get['username']
+    password = request.POST.get['password']
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
@@ -87,12 +90,30 @@ def compare(request):
     #checkbox for previously saved portfolios (portfolio objects)
     #button to run jquery to display charts and make YoY returns comparison for each portfolio
     #Based on this, safe to say once a portfolio object is created, also need to save their charts and stats to load easily for comparison
+    all_portfolios = Portfolio.objects.all()
+
+
+    fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
+    counts = [5, 3, 4, 2, 4, 6]
+
+    p = figure(x_range=fruits, plot_height=250, title="Fruit Counts",
+            toolbar_location=None, tools="")
+
+    p.vbar(x=fruits, top=counts, width=0.9)
+
+    p.xgrid.grid_line_color = None
+    p.y_range.start = 0
+
+    script, div = components(p)
+
+    
     return render(request, "compare.html")
 
 
 def portfolios(request):
     #listing out of all saved portfolio objects
     #listing out the created_on date for all saved portfolio objects
+    
     portfolios = Portfolio.objects.all()
     port_names = list()
     port_desc = list()
