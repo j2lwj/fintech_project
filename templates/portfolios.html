@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>News</title>
+<title>My Portfolios</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="Invest project">
@@ -53,8 +53,8 @@
                                 <div class="logo_container">
                                     <div class="logo">
                                         <a href="{% url 'my_portfolio' %}">
-                                            <div class="logo_line_1"><span>in</span>vest</div>
-                                            <div class="logo_line_2">Financial</div>
+                                            <div class="logo_line_1"><span>In</span>vest</div>
+                                            <div class="logo_line_2">Machine Learning</div>
                                             <div class="logo_img"><img src="../static/images/logo.png" alt=""></div>
                                         </a>
                                     </div>
@@ -218,135 +218,67 @@
         <div class="container">
             <div class="row">
 
-                <!-- News Post -->
+                <!-- Need to input allocation chart to replace current visuals! -->
+                 <!-- News Post -->
+                {% for each in portfolio %}
                 <div class="col-lg-4 news_col">
                     <div class="news_post">
                         <div class="news_image"><img src="../static/images/news_post_1.jpg" alt=""></div>
                         <div class="news_date d-flex flex-column align-items-center justify-content-center">
-                            <div class="news_month">feb</div>
-                            <div class="news_day">18</div>
+                            <div class="news_month"><small>Portfolio</small></div>
+                            <div class="news_day">{{ number[each] }}</div>
                         </div>
                         <div class="news_content">
-                            <div class="news_title">New Regulations on the Stock Market</div>
+                            <div class="news_title">{{ each.p_name }}</div>
                             <div class="news_text">
-                                <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci.</p>
+                                <p>{{ each.p_desc }}</p>
+                                <p>created at: {{ each.created_at }}</p>
                             </div>
                         </div>
-                        <div class="news_button"><a href="news.html">read more</a></div>
+                        <div class="news_button"><a href="portfolio1.html">Find out more</a></div>
                     </div>
                 </div>
-
+                {% endfor %}
                 <!-- News Post -->
-                <div class="col-lg-4 news_col">
+                <!-- <div class="col-lg-4 news_col">
                     <div class="news_post">
                         <div class="news_image"><img src="../static/images/news_post_2.jpg" alt=""></div>
                         <div class="news_date d-flex flex-column align-items-center justify-content-center">
-                            <div class="news_month">feb</div>
-                            <div class="news_day">15</div>
+                            <div class="news_month"><small>Portfolio</small></div>
+                            <div class="news_day">2</div>
                         </div>
                         <div class="news_content">
-                            <div class="news_title">Good news form the Crypto World</div>
+                            <div class="news_title">Input portfolio name here</div>
                             <div class="news_text">
-                                <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci.</p>
+                                <p>"input user description here"</p>
+                                <p>created at: {input date here}</p>
                             </div>
                         </div>
-                        <div class="news_button"><a href="news.html">read more</a></div>
+                        <div class="news_button"><a href="portfolio2.html">Find out more</a></div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- News Post -->
-                <div class="col-lg-4 news_col">
+                <!-- <div class="col-lg-4 news_col">
                     <div class="news_post">
                         <div class="news_image"><img src="../static/images/news_post_3.jpg" alt=""></div>
                         <div class="news_date d-flex flex-column align-items-center justify-content-center">
-                            <div class="news_month">feb</div>
-                            <div class="news_day">12</div>
+                            <div class="news_month"><small>Portfolio</small></div>
+                            <div class="news_day">3</div>
                         </div>
                         <div class="news_content">
-                            <div class="news_title">Bitcoin price goes to the Moon with new laws</div>
+                            <div class="news_title">Input portfolio name here</div>
                             <div class="news_text">
-                                <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci.</p>
+                                <p>"input user description here"</p>
+                                <p>created at: {input date here}</p>
                             </div>
                         </div>
-                        <div class="news_button"><a href="news.html">read more</a></div>
+                        <div class="news_button"><a href="portfolio3.html">Find out more</a></div>
                     </div>
                 </div>
+            </div> -->
 
-                <!-- News Post -->
-                <div class="col-lg-4 news_col">
-                    <div class="news_post">
-                        <div class="news_image"><img src="../static/images/news_post_4.jpg" alt=""></div>
-                        <div class="news_date d-flex flex-column align-items-center justify-content-center">
-                            <div class="news_month">feb</div>
-                            <div class="news_day">10</div>
-                        </div>
-                        <div class="news_content">
-                            <div class="news_title">Bitcoin price goes to the Moon with new laws</div>
-                            <div class="news_text">
-                                <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci.</p>
-                            </div>
-                        </div>
-                        <div class="news_button"><a href="news.html">read more</a></div>
-                    </div>
-                </div>
-
-                <!-- News Post -->
-                <div class="col-lg-8 news_col">
-                    <div class="news_post">
-                        <div class="news_image"><img src="../static/images/news_post_5.jpg" alt=""></div>
-                        <div class="news_date d-flex flex-column align-items-center justify-content-center">
-                            <div class="news_month">feb</div>
-                            <div class="news_day">09</div>
-                        </div>
-                        <div class="news_content">
-                            <div class="news_title">How to invest your money wise in 2018’s volatile market</div>
-                            <div class="news_text">
-                                <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci.Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci.</p>
-                            </div>
-                        </div>
-                        <div class="news_button"><a href="news.html">read more</a></div>
-                    </div>
-                </div>
-
-                <!-- News Post -->
-                <div class="col-lg-8 news_col">
-                    <div class="news_post">
-                        <div class="news_image"><img src="../static/images/news_post_6.jpg" alt=""></div>
-                        <div class="news_date d-flex flex-column align-items-center justify-content-center">
-                            <div class="news_month">feb</div>
-                            <div class="news_day">05</div>
-                        </div>
-                        <div class="news_content">
-                            <div class="news_title">How to invest your money wise in 2018’s volatile market</div>
-                            <div class="news_text">
-                                <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci.Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci.</p>
-                            </div>
-                        </div>
-                        <div class="news_button"><a href="news.html">read more</a></div>
-                    </div>
-                </div>
-
-                <!-- News Post -->
-                <div class="col-lg-4 news_col">
-                    <div class="news_post">
-                        <div class="news_image"><img src="static/images/news_post_7.jpg" alt=""></div>
-                        <div class="news_date d-flex flex-column align-items-center justify-content-center">
-                            <div class="news_month">feb</div>
-                            <div class="news_day">03</div>
-                        </div>
-                        <div class="news_content">
-                            <div class="news_title">New York Stock Market Bull run</div>
-                            <div class="news_text">
-                                <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci.</p>
-                            </div>
-                        </div>
-                        <div class="news_button"><a href="news.html">read more</a></div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col">
                     <div class="page_nums">
                         <ul>
@@ -357,7 +289,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         
     </div>
 
@@ -374,12 +306,12 @@
                             <div class="logo">
                                 <a href="{% url 'my_portfolio' %}">
                                     <div class="logo_line_1"><span>in</span>vest</div>
-                                    <div class="logo_line_2">Blockchain</div>
+                                    <div class="logo_line_2">Machine Learning</div>
                                     <div class="logo_img"><img src="../static/images/logo.png" alt=""></div>
                                 </a>
                             </div>
                         </div>
-                        <p class="footer_about_text">Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Integer ut imperdiet erat. Quisque ultricies lectus tellus, eu tristique magna pharetra nec.</p>
+                        <p class="footer_about_text">Disclaimer: Use Machine Learning for portfolio optimization at your own risk. Machine Learning shall not be responsible for any losses made whatsoever</p>
                     </div>
                 </div>
 

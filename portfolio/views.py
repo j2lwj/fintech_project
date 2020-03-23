@@ -14,6 +14,10 @@ from bokeh.models import ColumnDataSource, NumeralTickFormatter
 from bokeh.models.widgets import DataTable, DateFormatter, TableColumn
 from bokeh.layouts import widgetbox
 from bokeh.embed import components
+from .models import Portfolio
+
+from .models import Portfolio
+# after finalizing the models.py --> from .models import Stocks, Port_stocks
 
 # Create your views here.
 """
@@ -22,12 +26,12 @@ To-do-list:
 2. Create a bokeh for every portfolio created
 3. 
 """
-def login(request):
+def log_in(request):
     #receive input from form - method=GET from user database, inputs: email, password
     #login function - input submit button, access my_portfolio html
     #sign-up button - href to sign-up html
-    username = request.POST['username']
-    password = request.POST['password']
+    username = request.POST.get['username']
+    password = request.POST.get['password']
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
@@ -69,19 +73,67 @@ def my_portfolio(request):
     bokeh chart to display line chart (current vs optimized vs bm), 2) pie chart (% allocation), 3) YoY returns
     (current vs optimized) - pie chart using jquery linked to allocation, the rest is backend processing.
     """
-    return render(request, "homepage.html")
+    # When user clicks on "save" button, form pop-up --> https://www.w3schools.com/howto/howto_js_popup_form.asp
+    p_name = request.GET.get('p_name')
+    p_desc = request.GET.get('p_desc') 
+    stocks = request.GET.get('stock_array') 
+
+    context = {
+        'p_name': p_name,
+        'p_desc': p_desc,
+        'stocks': stocks
+    }
+
+    return render(request, "homepage.html", context=context)
 
 def compare(request):
     #checkbox for previously saved portfolios (portfolio objects)
     #button to run jquery to display charts and make YoY returns comparison for each portfolio
     #Based on this, safe to say once a portfolio object is created, also need to save their charts and stats to load easily for comparison
+    all_portfolios = Portfolio.objects.all()
+
+
+    fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
+    counts = [5, 3, 4, 2, 4, 6]
+
+    p = figure(x_range=fruits, plot_height=250, title="Fruit Counts",
+            toolbar_location=None, tools="")
+
+    p.vbar(x=fruits, top=counts, width=0.9)
+
+    p.xgrid.grid_line_color = None
+    p.y_range.start = 0
+
+    script, div = components(p)
+
+    
     return render(request, "compare.html")
 
 
 def portfolios(request):
     #listing out of all saved portfolio objects
     #listing out the created_on date for all saved portfolio objects
-    return render(request, 'portfolios.html')
+    
+    portfolios = Portfolio.objects.all()
+    port_names = list()
+    port_desc = list()
+    port_create = list()
+    number = [1,2,3]
+
+    for each in portfolios:
+        port_names.append(each.p_name)
+        port_desc.append(each.p_desc)
+        port_create.append(each.created_at)
+        
+    context = {
+        'portfolios': portfolios,
+        'port_names': port_names,
+        'port_desc': port_desc,
+        'port_create': port_create,
+        'number': number
+    }
+
+    return render(request, 'portfolios.html', context=context)
 
 # def live_price(request):
 
