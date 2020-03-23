@@ -14,6 +14,7 @@ from bokeh.models import ColumnDataSource, NumeralTickFormatter
 from bokeh.models.widgets import DataTable, DateFormatter, TableColumn
 from bokeh.layouts import widgetbox
 from bokeh.embed import components
+from .models import Portfolio
 
 from .models import Portfolio
 # after finalizing the models.py --> from .models import Stocks, Port_stocks
@@ -72,7 +73,18 @@ def my_portfolio(request):
     bokeh chart to display line chart (current vs optimized vs bm), 2) pie chart (% allocation), 3) YoY returns
     (current vs optimized) - pie chart using jquery linked to allocation, the rest is backend processing.
     """
-    return render(request, "homepage.html")
+    # When user clicks on "save" button, form pop-up --> https://www.w3schools.com/howto/howto_js_popup_form.asp
+    p_name = request.GET.get('p_name')
+    p_desc = request.GET.get('p_desc') 
+    stocks = request.GET.get('stock_array') 
+
+    context = {
+        'p_name': p_name,
+        'p_desc': p_desc,
+        'stocks': stocks
+    }
+
+    return render(request, "homepage.html", context=context)
 
 def compare(request):
     #checkbox for previously saved portfolios (portfolio objects)
@@ -102,7 +114,26 @@ def portfolios(request):
     #listing out of all saved portfolio objects
     #listing out the created_on date for all saved portfolio objects
     
-    return render(request, 'portfolios.html')
+    portfolios = Portfolio.objects.all()
+    port_names = list()
+    port_desc = list()
+    port_create = list()
+    number = [1,2,3]
+
+    for each in portfolios:
+        port_names.append(each.p_name)
+        port_desc.append(each.p_desc)
+        port_create.append(each.created_at)
+        
+    context = {
+        'portfolios': portfolios,
+        'port_names': port_names,
+        'port_desc': port_desc,
+        'port_create': port_create,
+        'number': number
+    }
+
+    return render(request, 'portfolios.html', context=context)
 
 # def live_price(request):
 
