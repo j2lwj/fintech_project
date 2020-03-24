@@ -13,6 +13,12 @@
 <link rel="stylesheet" type="text/css" href="../static/plugins/OwlCarousel2-2.2.1/animate.css">
 <link rel="stylesheet" type="text/css" href="../static/styles/about.css">
 <link rel="stylesheet" type="text/css" href="../static/styles/about_responsive.css">
+<link href="https://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.13.0.min.css" rel="stylesheet" type="text/css">
+    {% if script is not none %}
+		{{ script | safe }}
+	{% endif %}
 </head>
 <body>
 
@@ -245,9 +251,6 @@
                                                     <label><input type="checkbox" name="{{ portfolio.p_name }}" id="{{ portfolio.p_name }}" checked> {{ portfolio.p_name }}</label>
                                                 </div>
                                                 {% endfor %}
-                                                <button id="submit" type="submit" value="Submit" style="display: block; position: relative; width: 100%; height: 47px; background: #ffa800; line-height: 47px; font-size: 14px; text-transform: uppercase; color: #FFFFFF; font-weight: 500; border: none; outline: none; cursor: pointer; z-index: 1">
-                                                    submit
-                                                </button>
                                             </form>            
                                         </div>
                                     </div>
@@ -274,58 +277,20 @@
             <div class="row">
                 <div class="col">
                     <div class="section_title_container">
-                        <div class="section_subtitle">take a look at our</div>
-                        <div class="section_title">Why buy and sell Stocks with us?</div>
+                        <div class="section_subtitle">comparison of chosen portfolios</div>
+                        <div class="section_title">Sharpe Ratios</div>
                     </div>
                 </div>
             </div>
-            <div class="row milestones_container">
-
-                {{ div | safe }}
-
-                <!-- Milestone -->
-                <div class="col-lg-3 milestone_col">
-                    <div class="milestone">
-                        <div class="milestone_counter" data-end-value="12">0</div>
-                        <div class="milestone_content">
-                            <div class="milestone_title">years of experience</div>
-                            <div class="milestone_subtitle">Actus tellus, eu tristique</div>
-                        </div>
+            <div class="row" style="margin-top: 25px;">
+                <div class="col">
+                    <div class="text-center">
+                        {% if div is not none %}
+                            {{ div | safe }}
+                        {% endif %}
                     </div>
                 </div>
-
-                <!-- Milestone -->
-                <div class="col-lg-3 milestone_col">
-                    <div class="milestone">
-                        <div class="milestone_counter" data-end-value="34">0</div>
-                        <div class="milestone_content">
-                            <div class="milestone_title">top advisors</div>
-                            <div class="milestone_subtitle">Ctus tellus, eu tristique</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Milestone -->
-                <div class="col-lg-3 milestone_col">
-                    <div class="milestone">
-                        <div class="milestone_counter" data-end-value="6" data-sign-after="k">0</div>
-                        <div class="milestone_content">
-                            <div class="milestone_title">happy clients</div>
-                            <div class="milestone_subtitle">Tristique magna phar</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Milestone -->
-                <div class="col-lg-3 milestone_col">
-                    <div class="milestone">
-                        <div class="milestone_counter" data-end-value="68">0</div>
-                        <div class="milestone_content">
-                            <div class="milestone_title">new cases</div>
-                            <div class="milestone_subtitle">Actus tellus, eu tristique</div>
-                        </div>
-                    </div>
-                </div>
+                
 
             </div>
         </div>
@@ -345,23 +310,27 @@
                         </div>
                         
                         <!-- Accordions -->
+                        
                         <div class="elements_accordions">
+
                             <div class="accordion_container">
                                 <div class="accordion d-flex flex-row align-items-center active"><div> Portfolio 1 </div></div>
                                 <!-- This will change to {{ portfolio.name }} -->
                                 <div class="accordion_panel">
                                     <div class="row">
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-5">
                                             <!-- Portfolio allocation chart -->
+
+                                                {{ div1 | safe }}
+                
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-5">
                                             <!-- this here will be a table of stock names and weights -->
                                             <table class="table">
                                                 <thead class="thead-inverse">
                                                   <tr>
-                                                    <th>Stock</th>
-                                                    <th>Number of Shares</th>
-                                                    <th>Weight</th>
+                                                    <th style="width: 80%;">Stock</th>
+                                                    <th style="width: 20%;">Weight</th>
                                                   </tr>
                                                 </thead>
                                                 <tbody>
@@ -379,13 +348,13 @@
                                                 </tbody>
                                               </table>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="row milestones_container2">
                                                 <div class="col milestone_col">
                                                     <div class="milestone">
-                                                        <div class="milestone_counter" style="color: black;" data-end-value="12" data-sign-after="%">0</div>
+                                                        <div class="milestone_counter" style="color: black;" data-end-value="134" data-sign-after="%">0</div>
                                                         <div class="milestone_content2">
-                                                            <div class="milestone_title" style="color: black;">next quarter returns</div>
+                                                            <div class="milestone_title" style="color: black;">sharpe ratio</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -395,53 +364,52 @@
                                 </div>
                             </div>
 
-                            <div class="accordion_container">
-                                <div class="accordion d-flex flex-row align-items-center active"><div> Portfolio 1 </div></div>
-                                <!-- This will change to {{ portfolio.name }} -->
-                                <div class="accordion_panel">
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <!-- Portfolio allocation chart -->
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer bi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer bi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer bi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer bi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer bi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer bi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer bi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer bi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Integer ut imperdiet erat. Quisque ultricies lectus tellus, eu tristique magna pharetra nec. </p>
-                                            <!-- this here will be a table of stock names and weights -->
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="row milestones_container2">
-                                                <div class="col milestone_col">
-                                                    <div class="milestone">
-                                                        <div class="milestone_counter" style="color: black;" data-end-value="12" data-sign-after="%">0</div>
-                                                        <div class="milestone_content2">
-                                                            <div class="milestone_title" style="color: black;">next quarter returns</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% if each in portfolios %}
 
-                            <div class="accordion_container">
-                                <div class="accordion d-flex flex-row align-items-center active"><div> Portfolio 1 </div></div>
-                                <!-- This will change to {{ portfolio.name }} -->
-                                <div class="accordion_panel">
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <!-- Portfolio allocation chart -->
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Integer ut imperdiet erat. Quisque ultricies lectus tellus, eu tristique magna pharetra nec. </p>
-                                            <!-- this here will be a table of stock names and weights -->
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="row milestones_container2">
-                                                <div class="col milestone_col">
-                                                    <div class="milestone">
-                                                        <div class="milestone_counter" style="color: black;" data-end-value="12" data-sign-after="%">0</div>
-                                                        <div class="milestone_content2">
-                                                            <div class="milestone_title" style="color: black;">next quarter returns</div>
+                            <div class="elements_accordions">
+                                <div class="accordion_container">
+                                    <div class="accordion d-flex flex-row align-items-center active"><div> {{each.p_name}} </div></div>
+                                    <!-- This will change to {{ portfolio.name }} -->
+                                    <div class="accordion_panel">
+                                        <div class="row">
+                                            <div class="col-lg-5">
+                                                <!-- Portfolio allocation chart -->
+    
+                                                    {{ div1 | safe }}
+                    
+                                            </div>
+                                            <div class="col-lg-5">
+                                                <!-- this here will be a table of stock names and weights -->
+                                                <table class="table">
+                                                    <thead class="thead-inverse">
+                                                      <tr>
+                                                        <th style="width: 80%;">Stock</th>
+                                                        <th style="width: 20%;">Weight</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      <!-- {% for portfolio in port_stock %}
+                                                        <tr>
+                                                          <td>
+                                                            <a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a>
+                                                            <small class="text-muted d-block">{{ board.description }}</small>
+                                                          </td>
+                                                          <td class="align-middle">0</td>
+                                                          <td class="align-middle">0</td>
+                                                          <td></td>
+                                                        </tr>
+                                                      {% endfor %} -->
+                                                    </tbody>
+                                                  </table>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="row milestones_container2">
+                                                    <div class="col milestone_col">
+                                                        <div class="milestone">
+                                                            <div class="milestone_counter" style="color: black;" data-end-value="134" data-sign-after="%">0</div>
+                                                            <div class="milestone_content2">
+                                                                <div class="milestone_title" style="color: black;">sharpe ratio</div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -449,7 +417,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+    
+
+                            {% endif %}
 
                         </div>
                     </div>
@@ -560,7 +530,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="../static/plugins/easing/easing.js"></script>
 <script src="../static/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="../static/js/about_custom.js"></script>
-{{ script | safe }}
+<!-- <script src=”https://cdn.pydata.org/bokeh/release/bokeh-2.0.0.min.js"></script>
+<script src=”https://cdn.pydata.org/bokeh/release/bokeh-widgets-2.0.0.min.js"></script>
+<script src=”https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.0.0.min.js"></script>
+<script src=”https://cdn.bokeh.org/bokeh/release/bokeh-api-2.0.0.min.js"></script> -->
+<script src="https://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
+<script src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.js"></script>
+<script src="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.13.0.min.js"></script>
 </body>
 </html>
 
