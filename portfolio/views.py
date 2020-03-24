@@ -14,9 +14,8 @@ from bokeh.models import ColumnDataSource, NumeralTickFormatter
 from bokeh.models.widgets import DataTable, DateFormatter, TableColumn
 from bokeh.layouts import widgetbox
 from bokeh.embed import components
-from .models import Portfolio
-
-from .models import Portfolio
+from .models import Portfolio, User_Portfolio, Stocks, Portfolio_Stocks
+import datetime
 # after finalizing the models.py --> from .models import Stocks, Port_stocks
 
 # Create your views here.
@@ -73,6 +72,20 @@ def my_portfolio(request):
     bokeh chart to display line chart (current vs optimized vs bm), 2) pie chart (% allocation), 3) YoY returns
     (current vs optimized) - pie chart using jquery linked to allocation, the rest is backend processing.
     """
+    # Create Stocks Objects
+    stocks_df = pd.read_csv('sector10_tickers.csv')
+    tup = stocks_df.values
+    
+    for each in tup:
+        Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], created_at=datetime.datetime.now())
+    
+    lis = []
+    for each in tup:
+        lis.append(each[1])
+        lis.append(each[2])
+
+    print(lis)
+    # Based on front-end user input in forms, back end create portfolio
     # When user clicks on "save" button, form pop-up --> https://www.w3schools.com/howto/howto_js_popup_form.asp
     p_name = request.GET.get('p_name')
     p_desc = request.GET.get('p_desc') 
@@ -81,9 +94,9 @@ def my_portfolio(request):
     context = {
         'p_name': p_name,
         'p_desc': p_desc,
-        'stocks': stocks
+        'stocks': stocks,
+        'lis':lis
     }
-
     return render(request, "homepage.html", context=context)
 
 def compare(request):
@@ -91,7 +104,6 @@ def compare(request):
     #button to run jquery to display charts and make YoY returns comparison for each portfolio
     #Based on this, safe to say once a portfolio object is created, also need to save their charts and stats to load easily for comparison
     all_portfolios = Portfolio.objects.all()
-
 
     fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
     counts = [5, 3, 4, 2, 4, 6]
@@ -118,12 +130,15 @@ def portfolios(request):
     port_names = list()
     port_desc = list()
     port_create = list()
-    number = [1,2,3]
+    i = 1
+    number = []
 
     for each in portfolios:
         port_names.append(each.p_name)
         port_desc.append(each.p_desc)
         port_create.append(each.created_at)
+        number.append(i)
+        i += 1
         
     context = {
         'portfolios': portfolios,
@@ -134,6 +149,7 @@ def portfolios(request):
     }
 
     return render(request, 'portfolios.html', context=context)
+
 
 # def live_price(request):
 
