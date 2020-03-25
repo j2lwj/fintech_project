@@ -310,9 +310,8 @@
                                 <input type="text" id="stock_name" name="stock_name" placeholder="Add Stock Name/Ticker">
                                 <script>
                                     let input = document.getElementById("stock_name");
-                                    console.log(lis)
                                     new Awesomplete(input, {
-                                        list: { lis } 
+                                        list: {{ lis }}; 
                                     });
                                 </script>
                                 {% endif %}

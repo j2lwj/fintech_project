@@ -1,9 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
-#https://docs.djangoproject.com/en/3.0/ref/contrib/postgres/fields/ --> Documentation for ArrayField
-# Class: Portfolio, Stocks, (User)
 class Portfolio(models.Model):
     p_name = models.CharField(max_length=50, unique=True)
     p_desc = models.CharField(max_length=200)
@@ -21,10 +18,10 @@ class User_Portfolio(models.Model):
         return self.user_id, self.portfolio_id 
 
 class Stocks(models.Model):
-    stock_id = models.IntegerField()
+    stock_id = models.AutoField(primary_key=True)
     stock_name = models.CharField(max_length=20, unique=True)
     ticker = models.CharField(max_length=10, unique=True)
-    created_at = models.DateField(auto_now=True)
+    created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.stock_name
@@ -35,13 +32,3 @@ class Portfolio_Stocks(models.Model):
 
     def __str__(self):
         return self.port_id, self.stock_id
-    # stocks details (e.g. ticker, price) will be extracted from another static database, hence no class
-
-
-# class Stocks(models.Model):
-#     s_name = models.CharField(max_length=50)
-#     price = models.FloatField()
-
-# class Port_stocks(models.Model):
-#     portfolio = models.ForeignKey(Portfolio, related_name="port_stocks")
-    
