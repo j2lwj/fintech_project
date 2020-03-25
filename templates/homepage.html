@@ -13,6 +13,11 @@
 <link rel="stylesheet" type="text/css" href="../static/plugins/OwlCarousel2-2.2.1/animate.css">
 <link rel="stylesheet" type="text/css" href="../static/styles/about.css">
 <link rel="stylesheet" type="text/css" href="../static/styles/about_responsive.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.min.js"></script>
+<script src="https://unpkg.com/tlx/browser/tlx.js"></script>
+<script src="https://unpkg.com/tlx-chart/browser/tlx-chart.js"></script>
 <style>
 /* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_popup_form */
 .form-popup {
@@ -30,7 +35,7 @@
   max-width: 300px;
   padding: 10px;
   background-color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sasns-serif;
   box-sizing: border-box;
 }
 
@@ -75,6 +80,7 @@
   font-family: Arial, Helvetica, sans-serif;
   box-sizing: border-box;
 }
+
 </style>
 </head>
 <body>
@@ -271,7 +277,6 @@
     </div>
     
     <!-- Features -->
-
     <div class="features">
         <div class="container">
             <div class="row">
@@ -283,6 +288,7 @@
                             <div class="section_text">
                                 <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ultricies pellentesque mauris a elementum. Cras eu ornare turpis. Morbi id maximus lorem. Duis leo sapien, accumsan ves tibulum massa sit amet, sollicitudin euismod libero. Aliquam mollis ipsum eget nulla pulvinar, a fringilla urna consectetur.</p>
                             </div>
+                            
                             <!-- insert save button here -->
                             <button class="link_button features_button" onclick='openForm()'>Save Portfolio</button>
                             <div class="form-popup" id="myForm">
@@ -298,6 +304,17 @@
                                   <button type="submit" class="btn">Submit</button>
                                   <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
                                 </form>
+                            </div>
+                            <div>
+                                {% if lis is not none %}
+                                <input type="text" id="stock_name" name="stock_name" placeholder="Add Stock Name/Ticker">
+                                <script>
+                                    let input = document.getElementById("stock_name");
+                                    new Awesomplete(input, {
+                                        list: {{ lis }}; 
+                                    });
+                                </script>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

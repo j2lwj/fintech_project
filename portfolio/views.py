@@ -14,9 +14,13 @@ from bokeh.models import ColumnDataSource, NumeralTickFormatter
 from bokeh.models.widgets import DataTable, DateFormatter, TableColumn
 from bokeh.layouts import widgetbox
 from bokeh.embed import components
-from .models import Portfolio
+from bokeh.palettes import Category20c
+from bokeh.transform import cumsum
+from .models import Portfolio, User_Portfolio, Stocks, Portfolio_Stocks
+import datetime
+from collections import Counter
+from math import pi
 
-from .models import Portfolio
 # after finalizing the models.py --> from .models import Stocks, Port_stocks
 
 # Create your views here.
@@ -73,6 +77,21 @@ def my_portfolio(request):
     bokeh chart to display line chart (current vs optimized vs bm), 2) pie chart (% allocation), 3) YoY returns
     (current vs optimized) - pie chart using jquery linked to allocation, the rest is backend processing.
     """
+    # Create Stocks Objects
+    stocks_df = pd.read_csv('sector10_tickers.csv')
+    tup = stocks_df.values
+    
+    # for each in tup:
+    #     Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], created_at=datetime.datetime.now())
+    
+    lis = []
+    for each in tup:
+        lis.append(each[1])
+        lis.append(each[2])
+    
+    # lis = ['AN.2', 'AMOCO CORP', 'ANDV', 'ANDEAVOR', 'ANRZQ', 'ALPHA NATURAL RESOURCES INC', 'APA', 'APACHE CORP', 'APC', 'ANADARKO PETROLEUM CORP', 'ARC.3', 'ATLANTIC RICHFIELD CO', 'BHI', 'BAKER HUGHES INC', 'BJS.1', 'BJ SERVICES CO', 'BR.2', 'BURLINGTON RESOURCES INC', 'BTU', 'PEABODY ENERGY CORP', 'CAM', 'CAMERON INTERNATIONAL CORP', 'CHK', 'CHESAPEAKE ENERGY CORP', 'CNX', 'CONSOL ENERGY INC', 'COC1', 'CONOCO INC', 'COG', 'CABOT OIL & GAS CORP', 'COP', 'CONOCOPHILLIPS', 'CPGX', 'COLUMBIA PIPELINE GROUP INC', 'CVX', 'CHEVRON CORP', 'CXO', 'CONCHO RESOURCES INC', 'DI.', 'DRESSER INDUSTRIES INC', 'DNR', 'DENBURY RESOURCES INC', 'DO', 'DIAMOND OFFSHRE DRILLING INC', 'DVN', 'DEVON ENERGY CORP', 'EOG', 'EOG RESOURCES INC', 'EP', 'EL PASO CORP', 'EQT', 'EQT CORP', 'ESV', 'ENSCO PLC', 'FTI', 'TECHNIPFMC PLC', 'FTI.1', 'FMC TECHNOLOGIES INC', 'HAL', 'HALLIBURTON CO', 'HES', 'HESS CORP', 'HP', 'HELMERICH & PAYNE', 'KMG.1', 'KERR-MCGEE CORP', 'KMI', 'KINDER MORGAN INC', 'LLX.', 'LOUISIANA LAND & EXPLORATION', 'MDR', 'MCDERMOTT INTL INC', 'MEE', 'MASSEY ENERGY CO', 'MOB.2', 'MOBIL CORP', 'MPC', 'MARATHON PETROLEUM CORP', 'MRO', 'MARATHON OIL CORP', 'MROX.CM', 'USX CORP-CONSOLIDATED', 'MUR', 'MURPHY OIL CORP', 'MXS', 'MAXUS ENERGY CORP', 'NBL', 'NOBLE ENERGY INC', 'NBR', 'NABORS INDUSTRIES LTD', 'NC', 'NACCO INDUSTRIES  -CL A', 'NE', 'NOBLE CORP PLC', 'NFX', 'NEWFIELD EXPLORATION CO', 'NOV', 'NATIONAL OILWELL VARCO INC', 'OKE', 'ONEOK INC', 'ORX', 'ORYX ENERGY CO', 'OXY', 'OCCIDENTAL PETROLEUM CORP', 'PSX', 'PHILLIPS 66', 'PXD', 'PIONEER NATURAL RESOURCES CO', 'PZE.1', 'PENNZENERGY CO', 'QEP', 'QEP RESOURCES INC', 'RDC', 'ROWAN COMPANIES PLC', 'RDPL', 'ROYAL DUTCH PETROLEUM NV', 'RIG', 'TRANSOCEAN LTD', 'RRC', 'RANGE RESOURCES CORP', 'SFS.1', 'SANTA FE SNYDER CORP', 'SII', 'SMITH INTERNATIONAL INC', 'SLB', 'SCHLUMBERGER LTD', 'SUN.1', 'SUNOCO INC', 'SWN', 'SOUTHWESTERN ENERGY CO', 'SXCL', 'STEEL EXCEL INC', 'TOS.1', 'TOSCO CORP', 'TX.2', 'TEXACO INC', 'UCL', 'UNOCAL CORP', 'UPR.1', 'UNION PACIFIC RESOURCES GRP', 'VLO', 'VALERO ENERGY CORP', 'WAI.1', 'WESTERN ATLAS INC', 'WFT', 'WEATHERFORD INTL PLC', 'WLB', 'WESTMORELAND COAL CO', 'WMB', 'WILLIAMS COS INC', 'WPX', 'WPX ENERGY INC', 'XEC', 'CIMAREX ENERGY CO', 'XOM', 'EXXON MOBIL CORP', 'XTO', 'XTO ENERGY INC']
+
+    # Based on front-end user input in forms, back end create portfolio
     # When user clicks on "save" button, form pop-up --> https://www.w3schools.com/howto/howto_js_popup_form.asp
     p_name = request.GET.get('p_name')
     p_desc = request.GET.get('p_desc') 
@@ -81,34 +100,70 @@ def my_portfolio(request):
     context = {
         'p_name': p_name,
         'p_desc': p_desc,
-        'stocks': stocks
+        'stocks': stocks,
+        'lis': lis
     }
-
+    
     return render(request, "homepage.html", context=context)
 
 def compare(request):
     #checkbox for previously saved portfolios (portfolio objects)
     #button to run jquery to display charts and make YoY returns comparison for each portfolio
     #Based on this, safe to say once a portfolio object is created, also need to save their charts and stats to load easily for comparison
-    all_portfolios = Portfolio.objects.all()
-
+    # all_portfolios = Portfolio.objects.all()
 
     fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
-    counts = [5, 3, 4, 2, 4, 6]
 
-    p = figure(x_range=fruits, plot_height=250, title="Fruit Counts",
+    p = figure(x_range=fruits, plot_height=300, plot_width=1000, title="Fruit Counts",
             toolbar_location=None, tools="")
 
-    p.vbar(x=fruits, top=counts, width=0.9)
+    p.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9)
 
     p.xgrid.grid_line_color = None
     p.y_range.start = 0
 
-    script, div = components(p)
 
+    # pie chart
+    x = Counter({
+    'United States': 157,
+    'United Kingdom': 93,
+    'Japan': 89,
+    'China': 63,
+    'Germany': 44,
+    'India': 42,
+    'Italy': 40,
+    'Australia': 35,
+    'Brazil': 32,
+    'France': 31,
+    'Taiwan': 31,
+    'Spain': 29
+    })
+
+    data = pd.Series(x).reset_index(name='value').rename(columns={'index':'country'})
+    data['angle'] = data['value']/sum(x.values()) * 2*pi
+    data['color'] = Category20c[len(x)]
+
+    p1 = figure(plot_height=350, plot_width= 470, title="Pie Chart", toolbar_location=None,
+            tools="hover", tooltips="@country: @value", x_range=(-0.5, 1.0))
+
+    p1.wedge(x=0, y=1, radius=0.4,
+            start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
+            line_color="white", fill_color='color', legend='country', source=data)
+
+    p1.axis.axis_label=None
+    p1.axis.visible=False
+    p1.grid.grid_line_color = None
+
+    script, (div, div1) = components((p, p1))
+
+
+    context = {
+        'script' : script,
+        'div' : div, 
+        'div1' : div1
+    }
     
-    return render(request, "compare.html")
-
+    return render(request, "compare.html", context=context)
 
 def portfolios(request):
     #listing out of all saved portfolio objects
@@ -118,12 +173,15 @@ def portfolios(request):
     port_names = list()
     port_desc = list()
     port_create = list()
-    number = [1,2,3]
+    i = 1
+    number = []
 
     for each in portfolios:
         port_names.append(each.p_name)
         port_desc.append(each.p_desc)
         port_create.append(each.created_at)
+        number.append(i)
+        i += 1
         
     context = {
         'portfolios': portfolios,
@@ -134,6 +192,10 @@ def portfolios(request):
     }
 
     return render(request, 'portfolios.html', context=context)
+
+def portfolio_id(request):
+    return render(request, 'portfolio1.html')
+
 
 # def live_price(request):
 

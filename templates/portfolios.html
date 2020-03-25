@@ -219,28 +219,27 @@
             <div class="row">
 
                 <!-- Need to input allocation chart to replace current visuals! -->
-                 <!-- News Post -->
-                {% for each in portfolio %}
+                <!-- News Post -->
                 <div class="col-lg-4 news_col">
                     <div class="news_post">
                         <div class="news_image"><img src="../static/images/news_post_1.jpg" alt=""></div>
                         <div class="news_date d-flex flex-column align-items-center justify-content-center">
                             <div class="news_month"><small>Portfolio</small></div>
-                            <div class="news_day">{{ number[each] }}</div>
+                            <div class="news_day">1</div>
                         </div>
                         <div class="news_content">
-                            <div class="news_title">{{ each.p_name }}</div>
+                            <div class="news_title">Input Portfolio Name</div>
                             <div class="news_text">
-                                <p>{{ each.p_desc }}</p>
-                                <p>created at: {{ each.created_at }}</p>
+                                <p>Input Portfolio Description</p>
+                                <!-- {{ each.created_at }} -->
+                                <p>created at: insert date</p>
                             </div>
                         </div>
                         <div class="news_button"><a href="portfolio1.html">Find out more</a></div>
                     </div>
                 </div>
-                {% endfor %}
                 <!-- News Post -->
-                <!-- <div class="col-lg-4 news_col">
+                <div class="col-lg-4 news_col">
                     <div class="news_post">
                         <div class="news_image"><img src="../static/images/news_post_2.jpg" alt=""></div>
                         <div class="news_date d-flex flex-column align-items-center justify-content-center">
@@ -256,10 +255,10 @@
                         </div>
                         <div class="news_button"><a href="portfolio2.html">Find out more</a></div>
                     </div>
-                </div> -->
+                </div>
 
                 <!-- News Post -->
-                <!-- <div class="col-lg-4 news_col">
+                <div class="col-lg-4 news_col">
                     <div class="news_post">
                         <div class="news_image"><img src="../static/images/news_post_3.jpg" alt=""></div>
                         <div class="news_date d-flex flex-column align-items-center justify-content-center">
@@ -276,7 +275,26 @@
                         <div class="news_button"><a href="portfolio3.html">Find out more</a></div>
                     </div>
                 </div>
-            </div> -->
+            </div>
+
+            <!-- News Post -->
+            <div class="col-lg-4 news_col">
+                <div class="news_post">
+                    <div class="news_image"><img src="../static/images/news_post_2.jpg" alt=""></div>
+                    <div class="news_date d-flex flex-column align-items-center justify-content-center">
+                        <div class="news_month"><small>Portfolio</small></div>
+                        <div class="news_day">2</div>
+                    </div>
+                    <div class="news_content">
+                        <div class="news_title">Input portfolio name here</div>
+                        <div class="news_text">
+                            <p>"input user description here"</p>
+                            <p>created at: {input date here}</p>
+                        </div>
+                    </div>
+                    <div class="news_button"><a href="portfolio2.html">Find out more</a></div>
+                </div>
+            </div>
 
             <!-- <div class="row">
                 <div class="col">
@@ -289,7 +307,7 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
         
     </div>
 
