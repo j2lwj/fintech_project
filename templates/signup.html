@@ -166,38 +166,24 @@
                         <div class="call_form_container">
                             <div class="row">
                                 <form method="post" class="call_form" action="/">
-                                    {% csrf_token %}
-                                    {% for field in form %}
-                                        <p>
-                                        {{ field.label_tag }}<br>
-                                        {{ field }}
-                                        {% if field.help_text %}
-                                            <small style="color: grey">{{ field.help_text }}</small>
-                                        {% endif %}
-                                        {% for error in field.errors %}
-                                            <p style="color: red">{{ error }}</p>
+                                    <div class="col-md-12">
+                                        {% csrf_token %}
+                                        {% for field in form %}
+                                            <p>
+                                            {{ field.label_tag }}<br>
+                                            {{ field }}
+                                            {% if field.help_text %}
+                                                <small style="color: grey">{{ field.help_text }}</small>
+                                            {% endif %}
+                                            {% for error in field.errors %}
+                                                <p style="color: red">{{ error }}</p>
+                                            {% endfor %}
+                                            </p>
                                         {% endfor %}
-                                        </p>
-                                    {% endfor %}
-                                
-                                    <!-- <div class="col-md-6">
-                                        <input type="text" name="fName" class="input_item" placeholder="First Name" required="required">
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" name="lName" class="input_item" placeholder="Last Name" required="required">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <input type="email" name="email" class="input_item" placeholder="Email">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <input type="password" name="password" id="password" class="input_item" placeholder="Password" required="required">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <input type="password" name="cfm_password" id="cfm_password" class="input_item" placeholder="Confirm Password" required="required">
-                                    </div> -->
                                     <div class="col-md-12">
                                         <button id="call_btn" type="submit" class="call_button trans_200" value="Submit">Sign Up</button>
-                                    </div>
+                                    </div>                                    </div>
                                 </form>
                             </div>
                         </div>
