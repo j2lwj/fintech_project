@@ -6,7 +6,7 @@
 	{% endif %}
 {% endblock %}
 
-{% block title %}Services {% endblock %}
+<!-- {% block title %}Services {% endblock %} -->
 
 {% block body %}
 
@@ -165,7 +165,7 @@
                         </div>
                         <div class="call_form_container">
                             <div class="row">
-                                <form method="post" class="call_form" action="/">
+                                <form method="post" class="call_form" action="/login/">
                                     <div class="col-md-12">
                                         {% csrf_token %}
                                         {% for field in form %}
@@ -186,25 +186,15 @@
                                     </div>
                                 </form>
                             </div>
-                            <!-- <form action="/" class="call_form" method="POST">
-                                <div class="row">
-                                    <div class="col">
-                                            {% csrf_token %}
-                                        </div>
-                                    </form>
+                            <!-- <div class="row">
+                                <div class="col">
+                                        {% csrf_token %}
+                                        {{ form.as_p }}
                                 </div>
-                            </form> -->                                
-                            <div class="row">
-                                    <div class="col">
-                                            {% csrf_token %}
-                                            {{ form.as_p }}
-                                    </div>
-                                        <div class="col-md-12">
-                                            <button id="call_btn" type="submit" class="call_button trans_200" value="Submit">login</button>
-                                        </div>
-                                    </form>
+                                <div class="col-md-12">
+                                    <button id="call_btn" type="submit" class="call_button trans_200" value="Submit">login</button>
                                 </div>
-                            </form>
+                            </div> -->
                         </div>
                     </div>
                 </div>

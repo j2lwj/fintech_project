@@ -1,14 +1,19 @@
+# Django Library
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, QueryDict, HttpResponseRedirect, Http404, JsonResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
+
+# Python Library
 import requests
+import datetime
 import pandas as pd
 from datetime import datetime
-# from stocks import app, db
-# from stocks.models import StockPrice
-# from flask import request, jsonify, render_template, Response
+from collections import Counter
+from math import pi
 from bs4 import BeautifulSoup
+
+# Bokeh Libraries
 from bokeh.plotting import figure
 from bokeh.models import ColumnDataSource, NumeralTickFormatter
 from bokeh.models.widgets import DataTable, DateFormatter, TableColumn
@@ -16,10 +21,10 @@ from bokeh.layouts import widgetbox
 from bokeh.embed import components
 from bokeh.palettes import Category20c
 from bokeh.transform import cumsum
+
+# Local Libraries
 from .models import Portfolio, User_Portfolio, Stocks, Portfolio_Stocks
-import datetime
-from collections import Counter
-from math import pi
+from .forms import SignUpForm
 
 # after finalizing the models.py --> from .models import Stocks, Port_stocks
 
@@ -36,40 +41,25 @@ def log_in(request):
     #sign-up button - href to sign-up html
     username = request.POST.get['username']
     password = request.POST.get['password']
-    user = authenticate(request, username=username, password=password)
+    user = authenticate(request, username=username, password=password) 
     if user is not None:
         login(request, user)
-        return render(request, 'homepage.html')
+        return redirect('my_portfolio')
     else:
         return render(request, "login.html")
 
 def signup(request):
-    def save(self, commit=True):
-        user = super(RegisterForm, self).save(commit=False)
-        first_name, last_name = self.cleaned_data["fullname"].split()
-        user.first_name = first_name
-        user.last_name = last_name
-        user.email = self.cleaned_data["email"]
-        if commit:
-            user.save()
-        return user
-    #receive input from form - method=POST, must be unique
-    #input type: email, password, text
-    #already a member? log in - href to login html
-    #inputs: fName, lName, email, password 
-    #input submit button, save objects to user
-    # https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('home')
+            return redirect('my_portfolio')
     else:
-        form = RegisterForm()
+        form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
 def home(request):
