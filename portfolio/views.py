@@ -60,7 +60,7 @@ def signup(request):
             return redirect('my_portfolio') 
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'signup.html', {'form': form}) 
 
 def home(request):
     #only have log-in button - href to login html 
