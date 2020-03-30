@@ -193,8 +193,10 @@ def portfolios(request):
 
     return render(request, 'portfolios.html', context=context)
 
-def portfolio_id(request):
-    return render(request, 'portfolio1.html')
+def portfolio_id(request, id):
+    #id represents portfolio's id
+    id = request.GET.get('portfolio id in html')
+    return render(request, 'portfolio_id.html')
 
 
 # def live_price(request):
