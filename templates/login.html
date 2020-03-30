@@ -163,9 +163,38 @@
                             <div class="section_subtitle">to access more features</div>
                             <div class="section_title">Login</div>
                         </div>
-                        <div class="call_form_container">s
-                            <form action="/" class="call_form" method="POST">
+                        <div class="call_form_container">
+                            <div class="row">
+                                <form method="post" class="call_form" action="/">
+                                    <div class="col-md-12">
+                                        {% csrf_token %}
+                                        {% for field in form %}
+                                            <p>
+                                            {{ field.label_tag }}<br>
+                                            {{ field }}
+                                            {% if field.help_text %}
+                                                <small style="color: grey">{{ field.help_text }}</small>
+                                            {% endif %}
+                                            {% for error in field.errors %}
+                                                <p style="color: red">{{ error }}</p>
+                                            {% endfor %}
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button id="call_btn" type="submit" class="call_button trans_200" value="Submit">login</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- <form action="/" class="call_form" method="POST">
                                 <div class="row">
+                                    <div class="col">
+                                            {% csrf_token %}
+                                        </div>
+                                    </form>
+                                </div>
+                            </form> -->                                
+                            <div class="row">
                                     <div class="col">
                                             {% csrf_token %}
                                             {{ form.as_p }}
