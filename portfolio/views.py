@@ -44,6 +44,15 @@ def log_in(request):
         return render(request, "login.html")
 
 def signup(request):
+    def save(self, commit=True):
+        user = super(RegisterForm, self).save(commit=False)
+        first_name, last_name = self.cleaned_data["fullname"].split()
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.save()
+        return user
     #receive input from form - method=POST, must be unique
     #input type: email, password, text
     #already a member? log in - href to login html
@@ -51,7 +60,7 @@ def signup(request):
     #input submit button, save objects to user
     # https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -60,7 +69,7 @@ def signup(request):
             login(request, user)
             return redirect('home')
     else:
-        form = UserCreationForm()
+        form = RegisterForm()
     return render(request, 'signup.html', {'form': form})
 
 def home(request):
