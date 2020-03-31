@@ -130,7 +130,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="link_button link_button_4 elements_button"><a href="{% url 'home' %}">logout</a></div>
+                                <div class="link_button link_button_4 elements_button"><a href="{% url 'logout' %}">logout</a></div>
                             </div>
                         </div>
                     </div>
@@ -274,9 +274,14 @@
             <div class="row">
                 <div class="col">
                     <div class="section_title_container">
-                        <div class="section_subtitle">take a look at our</div>
-                        <div class="section_title">Why buy and sell Stocks with us?</div>
+                        <div class="section_subtitle">take a look at your</div>
+                        <div class="section_title">Stock Performance At A Glance</div>
                         <div class="info_text">Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Integer ut imperdiet erat. Quisque ultricies lectus tellus, eu tristique magna pharetra nec. Fusce vel lorem libero. Integer ex mi, facilisis sed nisi ut, vestibulum ultrices nulla.</div>
+                        {% if div is None %}
+                            <p>Please select stocks</p>
+                        {% else %}
+                            {{ div | safe }}
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -330,119 +335,56 @@
         </div>
     </div>
 
+    <!-- Table of forecasted stocks -->
+
     <div class="test_faq">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 test_faq_col">
-                    
-                    <!-- Testimonials -->
-
-                    <div class="testimonials">
-                        <div class="section_title_container">
-                            <div class="section_subtitle">take a look at our</div>
-                            <div class="section_title">Clients testimonials</div>
-                        </div>
-
-                        <div class="test_slider_container">
-                            <div class="owl-carousel owl-theme test_slider">
-                                
-                                <!-- Testimonial -->
-                                <div class="owl-item">
-                                    <div class="testimonial">
-                                        <div class="testimonial_text">“Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Integer ut imperdiet erat. Quisque ultricies lectus tellus, eu tristique magna pharetra nec. Fusce vel lorem libero. Integer ex mi, facilisis sed nisi ut.”</div>
-                                        <div class="testimonial_author">
-                                            <div class="testimonial_image"><img src="../static/images/testimonials.jpg" alt=""></div>
-                                            <div class="testimonial_content">
-                                                <div class="testimonial_name"><a href="#">Michael Smith</a></div>
-                                                <div class="testimonial_title">personal trader</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Testimonial -->
-                                <div class="owl-item">
-                                    <div class="testimonial">
-                                        <div class="testimonial_text">“Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Integer ut imperdiet erat. Quisque ultricies lectus tellus, eu tristique magna pharetra nec. Fusce vel lorem libero. Integer ex mi, facilisis sed nisi ut.”</div>
-                                        <div class="testimonial_author">
-                                            <div class="testimonial_image"><img src="../static/images/testimonials.jpg" alt=""></div>
-                                            <div class="testimonial_content">
-                                                <div class="testimonial_name"><a href="#">Michael Smith</a></div>
-                                                <div class="testimonial_title">personal trader</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Testimonial -->
-                                <div class="owl-item">
-                                    <div class="testimonial">
-                                        <div class="testimonial_text">“Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Integer ut imperdiet erat. Quisque ultricies lectus tellus, eu tristique magna pharetra nec. Fusce vel lorem libero. Integer ex mi, facilisis sed nisi ut.”</div>
-                                        <div class="testimonial_author">
-                                            <div class="testimonial_image"><img src="../static/images/testimonials.jpg" alt=""></div>
-                                            <div class="testimonial_content">
-                                                <div class="testimonial_name"><a href="#">Michael Smith</a></div>
-                                                <div class="testimonial_title">personal trader</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Testimonial -->
-                                <div class="owl-item">
-                                    <div class="testimonial">
-                                        <div class="testimonial_text">“Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Integer ut imperdiet erat. Quisque ultricies lectus tellus, eu tristique magna pharetra nec. Fusce vel lorem libero. Integer ex mi, facilisis sed nisi ut.”</div>
-                                        <div class="testimonial_author">
-                                            <div class="testimonial_image"><img src="../static/images/testimonials.jpg" alt=""></div>
-                                            <div class="testimonial_content">
-                                                <div class="testimonial_name"><a href="#">Michael Smith</a></div>
-                                                <div class="testimonial_title">personal trader</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 test_faq_col">
+                <div class="col-lg-12 test_faq_col">
                     
                     <!-- FAQ -->
 
                     <div class="faq">
                         <div class="section_title_container">
-                            <div class="section_subtitle">take a look at our</div>
-                            <div class="section_title">Faq / Frequently asked questions</div>
+                            <div class="section_subtitle">take a look at your</div>
+                            <div class="section_title">Forecast of Chosen Stocks</div>
                         </div>
                         
                         <!-- Accordions -->
                         <div class="elements_accordions">
 
                             <div class="accordion_container">
-                                <div class="accordion d-flex flex-row align-items-center"><div>Aenean nec ipsum aliquet, pharetra magna id, interdum</div></div>
+                                <div class="accordion d-flex flex-row align-items-center active"><div>Selected Stocks</div></div>
                                 <div class="accordion_panel">
-                                    <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Integer ut imperdiet erat. Quisque ultricies lectus tellus, eu tristique magna pharetra nec. </p>
+
+                                    {% if df is None %}
+                                    <h3 style='text-align: center; padding: 18px;'>Please select stocks</h3>
+                                    {% else %}
+
+                                    <table class="table">
+                                        <thead class="thead-inverse">
+                                          <tr>
+                                            <th style="width: 80%;">Stock Name</th>
+                                            <th style="width: 20%;">Weight</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- {% for stock in df %}
+                                                <tr>
+                                                <td>
+                                                    {{ stock.stock_name }}
+                                                </td>
+                                                <td>
+                                                    {{ stock.stock_weight }}
+                                                </td>
+                                                </tr>
+                                            {% endfor %} -->
+                                        </tbody>
+                                    </table>
+                                    {% endif %}
                                 </div>
                             </div>
-
-                            <div class="accordion_container">
-                                <div class="accordion d-flex flex-row align-items-center"><div>Aenean nec ipsum aliquet, pharetra magna id, interdum</div></div>
-                                <div class="accordion_panel">
-                                    <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Integer ut imperdiet erat. Quisque ultricies lectus tellus, eu tristique magna pharetra nec. </p>
-                                </div>
-                            </div>
-
-                            <div class="accordion_container">
-                                <div class="accordion d-flex flex-row align-items-center active"><div>Aenean nec ipsum aliquet, pharetra magna id, interdum</div></div>
-                                <div class="accordion_panel">
-                                    <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Integer ut imperdiet erat. Quisque ultricies lectus tellus, eu tristique magna pharetra nec. </p>
-                                </div>
-                            </div>
-
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 # Django Library
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, QueryDict, HttpResponseRedirect, Http404, JsonResponse
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
 
 # Python Library
@@ -62,6 +62,10 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form}) 
 
+def log_out(request):
+    logout(request)
+    return redirect('home')
+
 def home(request):
     #only have log-in button - href to login html 
     return render(request, "main_home.html")
@@ -76,6 +80,49 @@ def my_portfolio(request):
     bokeh chart to display line chart (current vs optimized vs bm), 2) pie chart (% allocation), 3) YoY returns
     (current vs optimized) - pie chart using jquery linked to allocation, the rest is backend processing.
     """
+
+    # GRAPHS
+    
+    fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
+
+    p = figure(x_range=fruits, plot_height=300, plot_width=1000, title="Fruit Counts",
+            toolbar_location=None, tools="")
+
+    p.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9)
+
+    p.xgrid.grid_line_color = None
+    p.y_range.start = 0
+
+    script, div = components(p)
+    
+    '''
+    Work-In-Progress: linking the 'Forecast' button to the variables in 'p'
+
+    stocks = request.POST.get("array of stocks")
+    
+    #Run the ML backend model to get the forecasted returns of each stock
+    
+	try:
+
+        df = "retrieve the data from the ML model as a dictionary"
+
+    except KeyError:
+        
+		script = None
+		div = None
+
+	else:
+
+    p = figure(x_range = df[stock_name], plot_height=300, plot_width=1000, title="Next Quarter Forecasted Returns",
+            toolbar_location=None, tools="")
+
+    p.vbar(x = df['stock_name'], top = df['stock_weight'], width = 0.9)
+
+    p.xgrid.grid_line_color = None
+    p.y_range.start = 0
+
+    script, div = components(p)
+    '''
     # Create Stocks Objects
     stocks_df = pd.read_csv('sector10_tickers.csv')
     tup = stocks_df.values
@@ -100,7 +147,9 @@ def my_portfolio(request):
         'p_name': p_name,
         'p_desc': p_desc,
         'stocks': stocks,
-        'lis': lis
+        'lis': lis,
+        'script': script,
+        'div': div,
     }
     
     return render(request, "homepage.html", context=context)
@@ -110,6 +159,47 @@ def compare(request):
     #button to run jquery to display charts and make YoY returns comparison for each portfolio
     #Based on this, safe to say once a portfolio object is created, also need to save their charts and stats to load easily for comparison
     # all_portfolios = Portfolio.objects.all()
+
+
+    # Saving output form the checkbox
+    try:
+
+        selected_portfolios = request.POST.getlist('checkbox1') # This will show [p_name, p_name, ...]
+
+    except KeyError:
+
+        script = None
+        div = None
+        div1 = None
+
+        context = {}                   
+    
+    # GRAPHS
+
+    '''
+    try:
+
+        df = ...  #Code to append to selected_portfolios --> {[p_name, sharpe_ratio, volatility], [p_name, sharpe_ratio]}
+
+    except KeyError:
+        
+		script = None
+		div = None
+
+	else:
+
+    p = figure(x_range = df['p_name'], plot_height=300, plot_width=1000, title="Portfolio Comparison",
+            toolbar_location=None, tools="")
+
+    p.vbar(x = df['p_name'], top = df['sharpe_ratio'], width = 0.9)
+
+    p.xgrid.grid_line_color = None
+    p.y_range.start = 0
+
+    script, div = components(p) #### This will be combined with components(p1)
+    
+    '''
+
 
     fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
 
@@ -123,6 +213,11 @@ def compare(request):
 
 
     # pie chart
+
+    '''
+    jkhashjkasjhkas
+    '''
+
     x = Counter({
     'United States': 157,
     'United Kingdom': 93,
@@ -155,11 +250,11 @@ def compare(request):
 
     script, (div, div1) = components((p, p1))
 
-
     context = {
         'script' : script,
         'div' : div, 
-        'div1' : div1
+        'div1' : div1,
+        'selected_portfolios': selected_portfolios
     }
     
     return render(request, "compare.html", context=context)
