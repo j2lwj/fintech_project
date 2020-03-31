@@ -291,6 +291,19 @@ section
 {
     color: #ffa800;
 }
+.link_button_3
+{
+	background: transparent;
+	border: solid 2px #ffa800;
+}
+.elements_button
+{
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 19px;
+	margin-bottom: 19px;
+}
+
 
 /*********************************
 3. Home
