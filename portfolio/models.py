@@ -4,6 +4,11 @@ from django.contrib.auth.models import User
 class Portfolio(models.Model):
     p_name = models.CharField(max_length=50, unique=True)
     p_desc = models.CharField(max_length=200)
+    # need to add more fields for statistics (e.g. YoY)
+    cum_return = models.FloatField()
+    cagr = models.FloatField()
+    sharpe = models.FloatField()
+    max_drawdown = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name='portfolio', on_delete=models.CASCADE) 
 
@@ -29,6 +34,7 @@ class Stocks(models.Model):
 class Portfolio_Stocks(models.Model):
     port_id = models.ForeignKey(Portfolio, related_name='portfolio_stocks', on_delete=models.CASCADE)
     stock_id = models.ForeignKey(Stocks, related_name='portfolio_stocks', on_delete=models.CASCADE)
-
+    stock_weight = models.FloatField()
+    
     def __str__(self):
         return self.port_id, self.stock_id
