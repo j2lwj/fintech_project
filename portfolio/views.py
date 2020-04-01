@@ -212,7 +212,15 @@ def compare(request):
     p.xgrid.grid_line_color = None
     p.y_range.start = 0
 
+    p.background_fill_color = "azure"
 
+    p.xaxis.axis_label = "Portfolios"
+    p.xaxis.axis_label_text_color = "#aa6666"
+    p.xaxis.axis_label_text_font = "gill"
+
+    p.yaxis.axis_label = "Bin Count"
+    p.yaxis.axis_label_text_font_style = "italic"
+    
     # pie chart
 
     '''
