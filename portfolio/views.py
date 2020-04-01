@@ -158,6 +158,7 @@ def compare(request):
     #checkbox for previously saved portfolios (portfolio objects)
     #button to run jquery to display charts and make YoY returns comparison for each portfolio
     #Based on this, safe to say once a portfolio object is created, also need to save their charts and stats to load easily for comparison
+   
     # all_portfolios = Portfolio.objects.all()
 
 

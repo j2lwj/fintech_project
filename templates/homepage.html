@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="../static/styles/main_styles.css">
-    <link rel="stylesheet" type="text/css" href="../static/styles/responsive.css"> 
-
+  <link rel="stylesheet" type="text/css" href="../static/styles/about.css">
+  <link rel="stylesheet" type="text/css" href="../static/styles/about_responsive.css">
 {% endblock %}
 
 {% block pagescripts %}
@@ -408,7 +407,18 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
+
+
+    <script>
+        function openForm() {
+          document.getElementById("myForm").style.display = "block";
+        }
+        
+        function closeForm() {
+          document.getElementById("myForm").style.display = "none";
+        }
+    </script>
     
     {% endblock %}
 
