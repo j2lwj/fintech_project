@@ -7,7 +7,15 @@
 {% block pagescripts %}
 	{% if script is not none %}
 		{{ script | safe }}
-	{% endif %}
+    {% endif %}
+<script src="../static/js/jquery-3.2.1.min.js"></script>
+<script src="../static/styles/bootstrap4/popper.js"></script>
+<script src="../static/styles/bootstrap4/bootstrap.min.js"></script>
+<script src="../static/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="../static/plugins/easing/easing.js"></script>
+<script src="../static/plugins/parallax-js-master/parallax.min.js"></script>
+<script src="../static/js/custom.js"></script>
+
 {% endblock %}
 
 {% block body %}
@@ -29,11 +37,9 @@
                     <div class="home_slider_content text-center">
                         <h1>Invest Smart with Machine Learning</h1>
                         <div class="home_slider_text">Use machine learning to predict your stock returns</div>
-                        <div class="link_button home_slider_button"><a href="#">read more</a></div>
                     </div>
                 </div>
-
-
+                
             </div>
 
             <!-- <div class="home_slider_nav home_slider_prev d-flex flex-column align-items-center justify-content-center"><img src="../static/images/arrow_l.png" alt=""></div>
