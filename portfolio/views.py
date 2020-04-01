@@ -32,7 +32,7 @@ from .forms import SignUpForm
 """
 To-do-list:
 1. Find a way for django to access stocks db
-2. Create a bokeh for every portfolio created
+2. Create a bokeh for every portfolio created 
 3. 
 """
 def log_in(request):
