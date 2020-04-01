@@ -19,18 +19,17 @@
 
 
 
-  {% block css %}
-  {% endblock %}
+  {% block css %}{% endblock %}
   {% block pagescripts %}{% endblock %}
 
-  <link rel="stylesheet" type="text/css" href="../static/styles/about.css">
+  <!-- <link rel="stylesheet" type="text/css" href="../static/styles/about.css">
   <link rel="stylesheet" type="text/css" href="../static/styles/about_responsive.css">
   <link rel="stylesheet" type="text/css" href="../static/styles/services.css">
   <link rel="stylesheet" type="text/css" href="../static/styles/news.css">
   <link rel="stylesheet" type="text/css" href="../static/styles/main_styles.css">
   <link rel="stylesheet" type="text/css" href="../static/styles/news_responsive.css">
   <link rel="stylesheet" type="text/css" href="../static/styles/responsive.css">
-  <link rel="stylesheet" type="text/css" href="../static/styles/about.css">
+  <link rel="stylesheet" type="text/css" href="../static/styles/about.css"> -->
   
 
   
@@ -43,7 +42,6 @@
 
 <body>
   <header>
-    <h1>My Site</h1>
     {% if user.is_authenticated %}
     <a href="{% url 'logout' %}">logout</a>
     {% else %}
@@ -53,7 +51,6 @@
   </header>
   <main>
     <div>
-      <h1>{% block title %}{% endblock %}</h1>
       {% block body %}{% endblock %}
     </div>
     {% block content %}
