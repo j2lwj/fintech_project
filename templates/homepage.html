@@ -306,7 +306,6 @@
                                 </form>
                             </div>
                             <div>
-                                {% if lis is not none %}
                                 <input type="text" id="stock_name" name="stock_name" placeholder="Add Stock Name/Ticker">
                                 <script>
                                     let input = document.getElementById("stock_name");
@@ -314,7 +313,6 @@
                                         list: {{ lis }}; 
                                     });
                                 </script>
-                                {% endif %}
                             </div>
                         </div>
                     </div>

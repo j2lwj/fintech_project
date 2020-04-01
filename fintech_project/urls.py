@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from portfolio import views
 from django.conf.urls import url
 from django.contrib.auth import authenticate, login, logout
@@ -27,7 +27,7 @@ urlpatterns = [
     path('compare/', views.compare, name='compare'),
     path('my_portfolio/', views.my_portfolio, name='my_portfolio'),
     path('portfolios/', views.portfolios, name='portfolios'),
-    path(r'^/portfolios/(?P<pk>\d+)/$', views.portfolio_id, name='portfolio_id'),
+    re_path(r'^/portfolios/(?P<pk>\d+)/$', views.portfolio_id, name='portfolio_id'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('signup/', views.signup, name='signup')
