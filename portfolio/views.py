@@ -295,7 +295,7 @@ def compare(request):
 
 def portfolios(request):
     #listing out of all saved portfolio objects
-    #listing out the created_on date for all saved portfolio objects
+    #listing out the created_on date for all saved portfolio objects 
     
     portfolios = Portfolio.objects.all()
     port_names = list()
