@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 
 # Bokeh Libraries
 from bokeh.plotting import figure
-from bokeh.models import ColumnDataSource, NumeralTickFormatter
+from bokeh.models import ColumnDataSource, NumeralTickFormatter, HoverTool
 from bokeh.models.widgets import DataTable, DateFormatter, TableColumn
 from bokeh.layouts import widgetbox
 from bokeh.embed import components
@@ -192,10 +192,28 @@ def compare(request):
     p = figure(x_range = df['p_name'], plot_height=300, plot_width=1000, title="Portfolio Comparison",
             toolbar_location=None, tools="")
 
-    p.vbar(x = df['p_name'], top = df['sharpe_ratio'], width = 0.9)
+    p.vbar(x = df['p_name'], top = df['sharpe_ratio'], width = 0.9, hover_color="pink")
 
     p.xgrid.grid_line_color = None
-    p.y_range.start = 0
+    p.ygrid.grid_line_color = None
+    p.background_fill_color = None
+    p.border_fill_color = None
+
+    p.title.text_font = "gill"
+    p.title.text_font_size = "24px"
+    p.title.text_color = "white"
+    p.yaxis.axis_label = "Sharpe Ratio"
+    p.yaxis.axis_label_text_font = "gill"
+    p.yaxis.axis_label_text_font_color = "white"
+    p.xaxis.major_label_text_font = "gill"
+    p.xaxis.major_label_text_font_size = "20px"
+    p.xaxis.major_label_text_font_style = "bold"
+    p.xaxis.major_label_text_color = "white"
+    p.yaxis.major_label_text_font = "gill"
+    p.yaxis.major_label_text_font_size = "20px"
+    p.yaxis.major_label_text_color = "white"
+
+    p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Sharpe Ratio", "@sharpe_ratio")]))
 
     script, div = components(p) #### This will be combined with components(p1)
     
@@ -207,19 +225,24 @@ def compare(request):
     p = figure(x_range=fruits, plot_height=300, plot_width=1000, title="Fruit Counts",
             toolbar_location=None, tools="")
 
-    p.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9)
+    p.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9, hover_color="pink")
 
     p.xgrid.grid_line_color = None
-    p.y_range.start = 0
+    p.ygrid.grid_line_color = None
+    p.background_fill_color = None
+    p.border_fill_color = None
 
-    p.background_fill_color = "azure"
-
-    p.xaxis.axis_label = "Portfolios"
-    p.xaxis.axis_label_text_color = "#aa6666"
-    p.xaxis.axis_label_text_font = "gill"
-
-    p.yaxis.axis_label = "Bin Count"
-    p.yaxis.axis_label_text_font_style = "italic"
+    p.add_tools(HoverTool(tooltips=[("Fruit", "@fruits"), ("Count", "@y")]))
+    
+    p.title.text_font = "gill"
+    p.title.text_font_size = "24px"
+    p.title.text_color = "white"
+    p.xaxis.major_label_text_font = "gill"
+    p.xaxis.major_label_text_font_size = "20px"
+    p.xaxis.major_label_text_color = "white"
+    p.yaxis.major_label_text_font = "gill"
+    p.yaxis.major_label_text_font_size = "20px"
+    p.yaxis.major_label_text_color = "white"
     
     # pie chart
 
@@ -251,11 +274,13 @@ def compare(request):
 
     p1.wedge(x=0, y=1, radius=0.4,
             start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
-            line_color="white", fill_color='color', legend='country', source=data)
+            line_color="white", fill_color='color', legend='country', source=data, hover_color="pink")
 
+    p1.title.text_font="gill"
     p1.axis.axis_label=None
     p1.axis.visible=False
     p1.grid.grid_line_color = None
+    p1.legend.label_text_font="gill"
 
     script, (div, div1) = components((p, p1))
 
