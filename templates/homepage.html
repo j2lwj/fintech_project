@@ -237,11 +237,11 @@
                                   <label for="p_desc"><b>Description</b></label>
                                   <input type="text" placeholder="Enter Description" name="p_desc" required>
                               
-                                  <button type="submit" class="btn">Submit</button>
-                                  <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+                                  <button type="submit" class="btn btn-primary">Submit</button>
+                                  <button type="button" class="btn btn-danger cancel" onclick="closeForm()">Cancel</button>
                                 </form>
                             </div>
-                            <div>
+                            <div class="row" style="padding-top:20px">
                                 <form method="GET" action="/my-portfolio/">
                                     <div>
                                         <div class="row">
@@ -267,10 +267,12 @@
                                             <div class="col-lg-6">
                                                 <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
                                             </div>
-                                        </div><br>
-                                        <div id="newRow"></div><br>
+                                        </div>
+                                            <br>
+                                                <div id="newRow"></div>
+                                            <br>
                                         <div>
-                                        <input type="submit">
+                                            <input class="btn btn-primary" type="submit">
                                         </div>
                                     </div>
                                 </form>
@@ -472,8 +474,8 @@
         });
         
         //remove row
-          $(document).on('click', '#removeRow', function () {
-        $(this).closest('#test').remove();
+        $(document).on('click', '#removeRow', function () {
+            $(this).closest('#test').remove();
         });
     </script>
     
