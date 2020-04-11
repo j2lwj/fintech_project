@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 class Portfolio(models.Model):
     p_name = models.CharField(max_length=50, unique=True)
     p_desc = models.CharField(max_length=200)
-    # need to add more fields for statistics (e.g. YoY)
     cum_return = models.FloatField()
     cagr = models.FloatField()
     sharpe = models.FloatField()

@@ -250,10 +250,10 @@
                                                     <button id="addRow" type="button" class="btn btn-info">Add Stocks</button>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <input type="submit" class="btn btn-info" value="Forecast">
+                                                    <input type="submit" class="btn btn-info" value="Forecast" name="forecast">
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <input type="submit" class="btn btn-info" value="Optimize">
+                                                    <input type="submit" class="btn btn-info" value="Optimize" name="optimize">
                                                 </div>
                                             </div>
                                         </div><br>
@@ -261,7 +261,10 @@
                                             <div class="col-lg-6">
                                                 <input type="text" id="stock_name_'+counter+'" name="stock_name" class="form-control m-input" placeholder="Enter Stock Name/Ticker" list="stocks">
                                                 <datalist id="stocks">
-                                                    <div id="options"></div>
+                                                    {% for each in lis %}
+                                                    <option value="{{ each }}" name="stock_'+counter+'" >
+                                                    {% endfor %}                                    
+                                                    <!-- <div id="options"></div> -->
                                                 </datalist>
                                             </div>
                                             <div class="col-lg-6">
@@ -434,6 +437,7 @@
 
 
     <script>
+    // To shift this script to "optimize" html
         function openForm() {
           document.getElementById("myForm").style.display = "block"; 
         }
@@ -444,14 +448,14 @@
     </script>
     <script>
         //datalist options
-        var listServices = ['AMOCO CORP (AN.2)', 'ANDEAVOR (ANDV)', 'ALPHA NATURAL RESOURCES INC (ANRZQ)', 'APACHE CORP (APA)', 'ANADARKO PETROLEUM CORP (APC)', 'ATLANTIC RICHFIELD CO (ARC.3)', 'BAKER HUGHES INC (BHI)', 'BJ SERVICES CO (BJS.1)', 'BURLINGTON RESOURCES INC (BR.2)', 'PEABODY ENERGY CORP (BTU)', 'CAMERON INTERNATIONAL CORP (CAM)', 'CHESAPEAKE ENERGY CORP (CHK)', 'CONSOL ENERGY INC (CNX)', 'CONOCO INC (COC1)', 'CABOT OIL & GAS CORP (COG)', 'CONOCOPHILLIPS (COP)', 'COLUMBIA PIPELINE GROUP INC (CPGX)', 'CHEVRON CORP (CVX)', 'CONCHO RESOURCES INC (CXO)', 'DRESSER INDUSTRIES INC (DI.)', 'DENBURY RESOURCES INC (DNR)', 'DIAMOND OFFSHRE DRILLING INC (DO)', 'DEVON ENERGY CORP (DVN)', 'EOG RESOURCES INC (EOG)', 'EL PASO CORP (EP)', 'EQT CORP (EQT)', 'ENSCO PLC (ESV)', 'TECHNIPFMC PLC (FTI)', 'FMC TECHNOLOGIES INC (FTI.1)', 'HALLIBURTON CO (HAL)', 'HESS CORP (HES)', 'HELMERICH & PAYNE (HP)', 'KERR-MCGEE CORP (KMG.1)', 'KINDER MORGAN INC (KMI)', 'LOUISIANA LAND & EXPLORATION (LLX.)', 'MCDERMOTT INTL INC (MDR)', 'MASSEY ENERGY CO (MEE)', 'MOBIL CORP (MOB.2)', 'MARATHON PETROLEUM CORP (MPC)', 'MARATHON OIL CORP (MRO)', 'USX CORP-CONSOLIDATED (MROX.CM)', 'MURPHY OIL CORP (MUR)', 'MAXUS ENERGY CORP (MXS)', 'NOBLE ENERGY INC (NBL)', 'NABORS INDUSTRIES LTD (NBR)', 'NACCO INDUSTRIES  -CL A (NC)', 'NOBLE CORP PLC (NE)', 'NEWFIELD EXPLORATION CO (NFX)', 'NATIONAL OILWELL VARCO INC (NOV)', 'ONEOK INC (OKE)', 'ORYX ENERGY CO (ORX)', 'OCCIDENTAL PETROLEUM CORP (OXY)', 'PHILLIPS 66 (PSX)', 'PIONEER NATURAL RESOURCES CO (PXD)', 'PENNZENERGY CO (PZE.1)', 'QEP RESOURCES INC (QEP)', 'ROWAN COMPANIES PLC (RDC)', 'ROYAL DUTCH PETROLEUM NV (RDPL)', 'TRANSOCEAN LTD (RIG)', 'RANGE RESOURCES CORP (RRC)', 'SANTA FE SNYDER CORP (SFS.1)', 'SMITH INTERNATIONAL INC (SII)', 'SCHLUMBERGER LTD (SLB)', 'SUNOCO INC (SUN.1)', 'SOUTHWESTERN ENERGY CO (SWN)', 'STEEL EXCEL INC (SXCL)', 'TOSCO CORP (TOS.1)', 'TEXACO INC (TX.2)', 'UNOCAL CORP (UCL)', 'UNION PACIFIC RESOURCES GRP (UPR.1)', 'VALERO ENERGY CORP (VLO)', 'WESTERN ATLAS INC (WAI.1)', 'WEATHERFORD INTL PLC (WFT)', 'WESTMORELAND COAL CO (WLB)', 'WILLIAMS COS INC (WMB)', 'WPX ENERGY INC (WPX)', 'CIMAREX ENERGY CO (XEC)', 'EXXON MOBIL CORP (XOM)', 'XTO ENERGY INC (XTO)'];
-        var option = "";
-        for (let i = 0; i < listServices.length; i++)
-        {
-            option += '<option value="' + listServices[i] + '">';
-        }
-        $("#options").html(option);
-    
+        // var listServices = ['AMOCO CORP (AN.2)', 'ANDEAVOR (ANDV)', 'ALPHA NATURAL RESOURCES INC (ANRZQ)', 'APACHE CORP (APA)', 'ANADARKO PETROLEUM CORP (APC)', 'ATLANTIC RICHFIELD CO (ARC.3)', 'BAKER HUGHES INC (BHI)', 'BJ SERVICES CO (BJS.1)', 'BURLINGTON RESOURCES INC (BR.2)', 'PEABODY ENERGY CORP (BTU)', 'CAMERON INTERNATIONAL CORP (CAM)', 'CHESAPEAKE ENERGY CORP (CHK)', 'CONSOL ENERGY INC (CNX)', 'CONOCO INC (COC1)', 'CABOT OIL & GAS CORP (COG)', 'CONOCOPHILLIPS (COP)', 'COLUMBIA PIPELINE GROUP INC (CPGX)', 'CHEVRON CORP (CVX)', 'CONCHO RESOURCES INC (CXO)', 'DRESSER INDUSTRIES INC (DI.)', 'DENBURY RESOURCES INC (DNR)', 'DIAMOND OFFSHRE DRILLING INC (DO)', 'DEVON ENERGY CORP (DVN)', 'EOG RESOURCES INC (EOG)', 'EL PASO CORP (EP)', 'EQT CORP (EQT)', 'ENSCO PLC (ESV)', 'TECHNIPFMC PLC (FTI)', 'FMC TECHNOLOGIES INC (FTI.1)', 'HALLIBURTON CO (HAL)', 'HESS CORP (HES)', 'HELMERICH & PAYNE (HP)', 'KERR-MCGEE CORP (KMG.1)', 'KINDER MORGAN INC (KMI)', 'LOUISIANA LAND & EXPLORATION (LLX.)', 'MCDERMOTT INTL INC (MDR)', 'MASSEY ENERGY CO (MEE)', 'MOBIL CORP (MOB.2)', 'MARATHON PETROLEUM CORP (MPC)', 'MARATHON OIL CORP (MRO)', 'USX CORP-CONSOLIDATED (MROX.CM)', 'MURPHY OIL CORP (MUR)', 'MAXUS ENERGY CORP (MXS)', 'NOBLE ENERGY INC (NBL)', 'NABORS INDUSTRIES LTD (NBR)', 'NACCO INDUSTRIES  -CL A (NC)', 'NOBLE CORP PLC (NE)', 'NEWFIELD EXPLORATION CO (NFX)', 'NATIONAL OILWELL VARCO INC (NOV)', 'ONEOK INC (OKE)', 'ORYX ENERGY CO (ORX)', 'OCCIDENTAL PETROLEUM CORP (OXY)', 'PHILLIPS 66 (PSX)', 'PIONEER NATURAL RESOURCES CO (PXD)', 'PENNZENERGY CO (PZE.1)', 'QEP RESOURCES INC (QEP)', 'ROWAN COMPANIES PLC (RDC)', 'ROYAL DUTCH PETROLEUM NV (RDPL)', 'TRANSOCEAN LTD (RIG)', 'RANGE RESOURCES CORP (RRC)', 'SANTA FE SNYDER CORP (SFS.1)', 'SMITH INTERNATIONAL INC (SII)', 'SCHLUMBERGER LTD (SLB)', 'SUNOCO INC (SUN.1)', 'SOUTHWESTERN ENERGY CO (SWN)', 'STEEL EXCEL INC (SXCL)', 'TOSCO CORP (TOS.1)', 'TEXACO INC (TX.2)', 'UNOCAL CORP (UCL)', 'UNION PACIFIC RESOURCES GRP (UPR.1)', 'VALERO ENERGY CORP (VLO)', 'WESTERN ATLAS INC (WAI.1)', 'WEATHERFORD INTL PLC (WFT)', 'WESTMORELAND COAL CO (WLB)', 'WILLIAMS COS INC (WMB)', 'WPX ENERGY INC (WPX)', 'CIMAREX ENERGY CO (XEC)', 'EXXON MOBIL CORP (XOM)', 'XTO ENERGY INC (XTO)'];
+        // var option = "";
+        // for (let i = 0; i < listServices.length; i++)
+        // {
+        //     option += '<option value="' + listServices[i] + '">';
+        // }
+        // $("#options").html(option);
+     
         //add new row
         let counter = 2;
         $("#addRow").click(function () {
@@ -460,7 +464,10 @@
             html += '<div class="col-lg-6">';
             html +=     '<input type="text" id="stock_name_'+counter+'" name="stock_name" class="form-control m-input" placeholder="Enter Stock Name/Ticker" list="stocks">';
             html +=     '<datalist id="stocks">';
-            html +=     '<div id="options"></div>';
+            html +=         '{% for each in lis %}';
+            html +=         '<option value="{{ each }}" name="stock_'+counter+'">';
+            html +=         '{% endfor %} ';
+            // html +=     '<div id="options"></div>';
             html +=     '</datalist>';
             html += '</div>';
             html += '<div class="col-lg-6">';
@@ -472,7 +479,7 @@
         });
         
         //remove row
-          $(document).on('click', '#removeRow', function () {
+        $(document).on('click', '#removeRow', function () {
         $(this).closest('#test').remove();
         });
     </script>
