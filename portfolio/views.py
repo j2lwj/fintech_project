@@ -293,6 +293,169 @@ def compare(request):
     
     return render(request, "compare.html", context=context)
 
+def optimize(request):
+
+    # Get the output file from ML model in the form of {stock_name, stock_weights}
+    # df = read csv???
+    
+    
+    # GRAPHS
+
+    '''
+    try:
+
+        df = ...  #Code to append to selected_portfolios --> {[p_name, sharpe_ratio, volatility], [p_name, sharpe_ratio]}
+
+    except KeyError:
+        
+		script = None
+		div = None
+
+	else:
+
+    p = figure(x_range = df['p_name'], plot_height=300, plot_width=500, title="Portfolio Comparison",
+            toolbar_location=None, tools="")
+
+    p.vbar(x = df['p_name'], top = df['sharpe_ratio'], width = 0.9, hover_color="pink")
+
+    p.xgrid.grid_line_color = None
+    p.ygrid.grid_line_color = None
+    p.background_fill_color = None
+    p.border_fill_color = None
+
+    p.title.text_font = "gill"
+    p.title.text_font_size = "24px"
+    p.yaxis.axis_label = "Sharpe Ratio"
+    p.yaxis.axis_label_text_font = "gill"
+    p.xaxis.major_label_text_font = "gill"
+    p.xaxis.major_label_text_font_size = "20px"
+    p.xaxis.major_label_text_font_style = "bold"
+    p.yaxis.major_label_text_font = "gill"
+    p.yaxis.major_label_text_font_size = "20px"
+
+    p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Sharpe Ratio", "@sharpe_ratio")]))
+
+    script, div = components(p) #### This will be combined with components(p1)
+    
+    ###############
+
+    p1 = figure(x_range = df['p_name'], plot_height=300, plot_width=500, title="Portfolio Comparison",
+            toolbar_location=None, tools="")
+
+    p1.vbar(x = df['p_name'], top = df['volatility'], width = 0.9, hover_color="pink")
+
+    p1.xgrid.grid_line_color = None
+    p1.ygrid.grid_line_color = None
+    p1.background_fill_color = None
+    p1.border_fill_color = None
+
+    p1.title.text_font = "gill"
+    p1.title.text_font_size = "24px"
+    p1.yaxis.axis_label = "Sharpe Ratio"
+    p1.yaxis.axis_label_text_font = "gill"
+    p1.xaxis.major_label_text_font = "gill"
+    p1.xaxis.major_label_text_font_size = "20px"
+    p1.xaxis.major_label_text_font_style = "bold"
+    p1.yaxis.major_label_text_font = "gill"
+    p1.yaxis.major_label_text_font_size = "20px"
+
+    p1.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Volatility", "@volatility")]))
+    
+    '''
+
+
+    fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
+
+    p = figure(x_range=fruits, plot_height=300, plot_width=500, title="Fruit Counts",
+            toolbar_location=None, tools="")
+
+    p.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9, hover_color="pink")
+
+    p.xgrid.grid_line_color = None
+    p.ygrid.grid_line_color = None
+    p.background_fill_color = None
+    p.border_fill_color = None
+
+    p.add_tools(HoverTool(tooltips=[("Fruit", "@fruits"), ("Count", "@y")]))
+    
+    p.title.text_font = "gill"
+    p.title.text_font_size = "24px"
+    p.xaxis.major_label_text_font = "gill"
+    p.xaxis.major_label_text_font_size = "20px"
+    p.yaxis.major_label_text_font = "gill"
+    p.yaxis.major_label_text_font_size = "20px"
+
+    ############
+
+    p1 = figure(x_range=fruits, plot_height=300, plot_width=500, title="Fruit Counts",
+            toolbar_location=None, tools="")
+
+    p1.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9, hover_color="pink")
+
+    p1.xgrid.grid_line_color = None
+    p1.ygrid.grid_line_color = None
+    p1.background_fill_color = None
+    p1.border_fill_color = None
+
+    p1.add_tools(HoverTool(tooltips=[("Fruit", "@fruits"), ("Count", "@y")]))
+    
+    p1.title.text_font = "gill"
+    p1.title.text_font_size = "24px"
+    p1.xaxis.major_label_text_font = "gill"
+    p1.xaxis.major_label_text_font_size = "20px"
+    p1.yaxis.major_label_text_font = "gill"
+    p1.yaxis.major_label_text_font_size = "20px"
+    
+    # pie chart
+
+    '''
+    jkhashjkasjhkas
+    '''
+
+    x = Counter({
+    'United States': 157,
+    'United Kingdom': 93,
+    'Japan': 89,
+    'China': 63,
+    'Germany': 44,
+    'India': 42,
+    'Italy': 40,
+    'Australia': 35,
+    'Brazil': 32,
+    'France': 31,
+    'Taiwan': 31,
+    'Spain': 29
+    })
+
+    data = pd.Series(x).reset_index(name='value').rename(columns={'index':'country'})
+    data['angle'] = data['value']/sum(x.values()) * 2*pi
+    data['color'] = Category20c[len(x)]
+
+    p2 = figure(plot_height=350, plot_width= 470, title="Pie Chart", toolbar_location=None,
+            tools="hover", tooltips="@country: @value", x_range=(-0.5, 1.0))
+
+    p2.wedge(x=0, y=1, radius=0.4,
+            start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
+            line_color="white", fill_color='color', legend='country', source=data, hover_color="pink")
+
+    p2.title.text_font="gill"
+    p2.axis.axis_label=None
+    p2.axis.visible=False
+    p2.grid.grid_line_color = None
+    p2.legend.label_text_font="gill"
+
+    script, (div, div1, div2) = components((p, p1, p2))
+
+    context = {
+        'script' : script,
+        'div' : div, 
+        'div1' : div1,
+        'div2': div2
+    }
+
+
+    return render(request, "optimize.html", context=context)
+
 def portfolios(request):
     #listing out of all saved portfolio objects
     #listing out the created_on date for all saved portfolio objects 
