@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('compare/', views.compare, name='compare'),
+    path('optimize/', views.optimize, name='optimize'),
     path('my_portfolio/', views.my_portfolio, name='my_portfolio'),
     path('portfolios/', views.portfolios, name='portfolios'),
     re_path(r'^/portfolios/(?P<pk>\d+)/$', views.portfolio_id, name='portfolio_id'),

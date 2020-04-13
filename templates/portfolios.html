@@ -25,7 +25,311 @@
             <div class="row">
                 <div class="col">
                     <div class="home_content">
-                        <div class="home_content_inner">
+                        <div class="home_content_inner">{% extends "base.html" %}
+
+                            {% block css %}
+                                <link rel="stylesheet" type="text/css" href="../static/styles/news.css">
+                                <link rel="stylesheet" type="text/css" href="../static/styles/news_responsive   .css">
+                            {% endblock %}
+                            
+                            {% block pagescripts %}
+                                {% if script is not none %}
+                                    {{ script | safe }}
+                                {% endif %}
+                            {% endblock %}
+                            
+                            {% block title %}My Port Folio{% endblock %}
+                            
+                            {% block body %}
+                            
+                            <div class="super_container">
+                                
+                                <!-- Home -->
+                            
+                                <div class="home">
+                                    <div class="home_background parallax-window" data-parallax="scroll" data-image-src="../static/images/elements.jpg" data-speed="0.8"></div>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="home_content">
+                                                    <div class="home_content_inner">
+                                                        <div class="home_title">Portfolios</div>
+                                                        <div class="home_breadcrumbs">
+                                                            <ul>
+                                                                <li><a href="{% url 'my_portfolio' %}">Home</a></li>
+                                                                <li>Portfolios</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            
+                                    <!-- Header -->
+                            
+                                    <header class="header">
+                            
+                                        <!-- Top Bar -->
+                                        <div class="top_bar">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="top_bar_container d-flex flex-row align-items-center justify-content-start">
+                                                            <div class="logo_container">
+                                                                <div class="logo">
+                                                                    <a href="{% url 'my_portfolio' %}">
+                                                                        <div class="logo_line_1"><span>In</span>vest</div>
+                                                                        <div class="logo_line_2">Machine Learning</div>
+                                                                        <div class="logo_img"><img src="../static/images/logo.png" alt=""></div>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="top_bar_content ml-auto">
+                                                                <div class="main_menu_social">
+                                                                    <ul>
+                                                                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                                                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                                                        <li><a href="#"><i class="fa fa-reddit-alien" aria-hidden="true"></i></a></li>
+                                                                        <li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+                                                                        <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="burger">
+                                                                <i class="fa fa-bars" aria-hidden="true"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>      
+                                        </div>
+                            
+                                        <!-- Main Menu -->
+                                        <div class="main_menu">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="main_menu_container d-flex flex-row align-items-center justify-content-start">
+                                                            <div class="main_menu_content">
+                                                                <ul class="main_menu_list">
+                                                                    <li><a href="{% url 'my_portfolio' %}">home
+                                                                        <svg version="1.1" id="Layer_4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                                             width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
+                                                                            <g>
+                                                                                <polyline class="arrow_d" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" points="0.022,-0.178 4.5,4.331 9.091,-0.275   "/>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </a></li>
+                                                                    <li><a href="{% url 'compare' %}">compare
+                                                                        <svg version="1.1" id="Layer_4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                                             width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
+                                                                            <g>
+                                                                                <polyline class="arrow_d" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" points="0.022,-0.178 4.5,4.331 9.091,-0.275   "/>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </a></li>
+                                                                    <li><a href="{% url 'optimize' %}">optimize
+                                                                        <svg version="1.1" id="Layer_4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                                             width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
+                                                                            <g>
+                                                                                <polyline class="arrow_d" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" points="0.022,-0.178 4.5,4.331 9.091,-0.275   "/>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </a></li>
+                                                                    <li><a href="{% url 'portfolios' %}">my portfolios
+                                                                        <svg version="1.1" id="Layer_15" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                                             width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
+                                                                            <g>
+                                                                                <polyline class="arrow_d" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" points="0.022,-0.178 4.5,4.331 9.091,-0.275   "/>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </a></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="main_menu_contact ml-auto" style="margin-right: 20px;">
+                                                                <div class="main_menu_search">
+                                                                    <div class="main_menu_search_button">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 512 512" enable-background="new 0 0 512 512" width="15px" height="15px">
+                                                                            <g>
+                                                                            <path class="mag_path" d="M495,466.2L377.2,348.4c29.2-35.6,46.8-81.2,46.8-130.9C424,103.5,331.5,11,217.5,11C103.4,11,11,103.5,11,217.5   S103.4,424,217.5,424c49.7,0,95.2-17.5,130.8-46.7L466.1,495c8,8,20.9,8,28.9,0C503,487.1,503,474.1,495,466.2z M217.5,382.9   C126.2,382.9,52,308.7,52,217.5S126.2,52,217.5,52C308.7,52,383,126.3,383,217.5S308.7,382.9,217.5,382.9z" fill="#f4f4f8"/>
+                                                                            </g>
+                                                                        </svg>
+                                                                    </div>
+                                                                    <div class="main_menu_search_content">
+                                                                        <form action="#">
+                                                                            <input class="search_input" type="search" placeholder="Keyword" required="required">
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="link_button link_button_4 elements_button"><a href="{% url 'logout' %}">logout</a></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        <!-- Menu -->
+                            
+                                        <div class="menu">
+                                            <div class="menu_register_login">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="menu_register_login_content d-flex flex-row align-items-center justify-content-end">
+                                                                <div class="register"><a href="#">sign up</a></div>
+                                                                <div class="login"><a href="{% url 'login' %}">login</a></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                    
+                                            </div>
+                                            <ul class="menu_list">
+                                                <li class="menu_item">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <a href="#">home</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="menu_item">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <a href="about.html">about us</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="menu_item">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <a href="listings.html">services</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="menu_item">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <a href="news.html">portfolio</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="menu_item">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <a href="contact.html">blog</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="menu_item">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <a href="contact.html">contact</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </header>
+                                </div>
+                                
+                                <!-- News -->
+                            
+                                <div class="news">
+                                    <div class="container">
+                                        <div class="row">
+                            
+                                            <!-- Need to input allocation chart to replace current visuals! -->
+                                            <!-- News Post -->
+                                            <div class="col-lg-4 news_col">
+                                                <div class="news_post">
+                                                    <div class="news_image"><img src="../static/images/news_post_1.jpg" alt=""></div>
+                                                    <div class="news_date d-flex flex-column align-items-center justify-content-center">
+                                                        <div class="news_month"><small>Portfolio</small></div>
+                                                        <div class="news_day">1</div>
+                                                    </div>
+                                                    <div class="news_content">
+                                                        <div class="news_title">Input Portfolio Name</div>
+                                                        <div class="news_text">
+                                                            <p>Input Portfolio Description</p>
+                                                            <!-- {{ each.created_at }} -->
+                                                            <p>created at: insert date</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="news_button"><a href="portfolio1.html">Find out more</a></div>
+                                                </div>
+                                            </div>
+                                            <!-- News Post -->
+                                            <div class="col-lg-4 news_col">
+                                                <div class="news_post">
+                                                    <div class="news_image"><img src="../static/images/news_post_2.jpg" alt=""></div>
+                                                    <div class="news_date d-flex flex-column align-items-center justify-content-center">
+                                                        <div class="news_month"><small>Portfolio</small></div>
+                                                        <div class="news_day">2</div>
+                                                    </div>
+                                                    <div class="news_content">
+                                                        <div class="news_title">Input portfolio name here</div>
+                                                        <div class="news_text">
+                                                            <p>"input user description here"</p>
+                                                            <p>created at: {input date here}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="news_button"><a href="portfolio2.html">Find out more</a></div>
+                                                </div>
+                                            </div>
+                            
+                                            <!-- News Post -->
+                                            <div class="col-lg-4 news_col">
+                                                <div class="news_post">
+                                                    <div class="news_image"><img src="../static/images/news_post_3.jpg" alt=""></div>
+                                                    <div class="news_date d-flex flex-column align-items-center justify-content-center">
+                                                        <div class="news_month"><small>Portfolio</small></div>
+                                                        <div class="news_day">3</div>
+                                                    </div>
+                                                    <div class="news_content">
+                                                        <div class="news_title">Input portfolio name here</div>
+                                                        <div class="news_text">
+                                                            <p>"input user description here"</p>
+                                                            <p>created at: {input date here}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="news_button"><a href="portfolio3.html">Find out more</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        <!-- News Post -->
+                                        <div class="col-lg-4 news_col">
+                                            <div class="news_post">
+                                                <div class="news_image"><img src="../static/images/news_post_2.jpg" alt=""></div>
+                                                <div class="news_date d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="news_month"><small>Portfolio</small></div>
+                                                    <div class="news_day">2</div>
+                                                </div>
+                                                <div class="news_content">
+                                                    <div class="news_title">Input portfolio name here</div>
+                                                    <div class="news_text">
+                                                        <p>"input user description here"</p>
+                                                        <p>created at: {input date here}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="news_button"><a href="portfolio2.html">Find out more</a></div>
+                                            </div>
+                                        </div>
+                                        {% endblock %}
                             <div class="home_title">Portfolios</div>
                             <div class="home_breadcrumbs">
                                 <ul>

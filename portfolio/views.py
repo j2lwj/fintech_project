@@ -88,39 +88,61 @@ def my_portfolio(request):
     p = figure(x_range=fruits, plot_height=300, plot_width=1000, title="Fruit Counts",
             toolbar_location=None, tools="")
 
-    p.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9)
+    p.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9, hover_color="pink")
 
     p.xgrid.grid_line_color = None
-    p.y_range.start = 0
+    p.ygrid.grid_line_color = None
+    p.background_fill_color = None
+    p.border_fill_color = None
+
+    p.add_tools(HoverTool(tooltips=[("Fruit", "@fruits"), ("Count", "@y")]))
+    
+    p.title.text_font = "gill"
+    p.title.text_font_size = "24px"
+    p.title.text_color = "white"
+    p.xaxis.major_label_text_font = "gill"
+    p.xaxis.major_label_text_font_size = "20px"
+    p.xaxis.major_label_text_color = "white"
+    p.yaxis.major_label_text_font = "gill"
+    p.yaxis.major_label_text_font_size = "20px"
+    p.yaxis.major_label_text_color = "white"
 
     script, div = components(p)
     
     '''
     Work-In-Progress: linking the 'Forecast' button to the variables in 'p'
-
     stocks = request.POST.get("array of stocks")
     
     #Run the ML backend model to get the forecasted returns of each stock
     
-	try:
-
-        df = "retrieve the data from the ML model as a dictionary"
-
+    try:
+        df = ...  #Code to append to selected_portfolios --> {[stock_name, predicted_returns]}
     except KeyError:
         
 		script = None
 		div = None
-
 	else:
-
-    p = figure(x_range = df[stock_name], plot_height=300, plot_width=1000, title="Next Quarter Forecasted Returns",
+    p = figure(x_range = df['stock_name'], plot_height=300, plot_width=1000, title="Predicted Returns",
             toolbar_location=None, tools="")
-
-    p.vbar(x = df['stock_name'], top = df['stock_weight'], width = 0.9)
-
+    p.vbar(x = df['stock_name'], top = df['predicted_returns'], width = 0.9, hover_color="pink")
     p.xgrid.grid_line_color = None
-    p.y_range.start = 0
-
+    p.ygrid.grid_line_color = None
+    p.background_fill_color = None
+    p.border_fill_color = None
+    p.title.text_font = "gill"
+    p.title.text_font_size = "24px"
+    p.title.text_color = "white"
+    p.yaxis.axis_label = "Predicted Returns"
+    p.yaxis.axis_label_text_font = "gill"
+    p.yaxis.axis_label_text_font_color = "white"
+    p.xaxis.major_label_text_font = "gill"
+    p.xaxis.major_label_text_font_size = "20px"
+    p.xaxis.major_label_text_font_style = "bold"
+    p.xaxis.major_label_text_color = "white"
+    p.yaxis.major_label_text_font = "gill"
+    p.yaxis.major_label_text_font_size = "20px"
+    p.yaxis.major_label_text_color = "white"
+    p.add_tools(HoverTool(tooltips=[("Stock", "@stock_name"), ("Predicted Returns", "@predicted_returns")]))
     script, div = components(p)
     '''
     # Create Stocks Objects
@@ -136,7 +158,7 @@ def my_portfolio(request):
         lis.append(each[2])
     
     lis = ['AMOCO CORP (AN.2)', 'ANDEAVOR (ANDV)', 'ALPHA NATURAL RESOURCES INC (ANRZQ)', 'APACHE CORP (APA)', 'ANADARKO PETROLEUM CORP (APC)', 'ATLANTIC RICHFIELD CO (ARC.3)', 'BAKER HUGHES INC (BHI)', 'BJ SERVICES CO (BJS.1)', 'BURLINGTON RESOURCES INC (BR.2)', 'PEABODY ENERGY CORP (BTU)', 'CAMERON INTERNATIONAL CORP (CAM)', 'CHESAPEAKE ENERGY CORP (CHK)', 'CONSOL ENERGY INC (CNX)', 'CONOCO INC (COC1)', 'CABOT OIL & GAS CORP (COG)', 'CONOCOPHILLIPS (COP)', 'COLUMBIA PIPELINE GROUP INC (CPGX)', 'CHEVRON CORP (CVX)', 'CONCHO RESOURCES INC (CXO)', 'DRESSER INDUSTRIES INC (DI.)', 'DENBURY RESOURCES INC (DNR)', 'DIAMOND OFFSHRE DRILLING INC (DO)', 'DEVON ENERGY CORP (DVN)', 'EOG RESOURCES INC (EOG)', 'EL PASO CORP (EP)', 'EQT CORP (EQT)', 'ENSCO PLC (ESV)', 'TECHNIPFMC PLC (FTI)', 'FMC TECHNOLOGIES INC (FTI.1)', 'HALLIBURTON CO (HAL)', 'HESS CORP (HES)', 'HELMERICH & PAYNE (HP)', 'KERR-MCGEE CORP (KMG.1)', 'KINDER MORGAN INC (KMI)', 'LOUISIANA LAND & EXPLORATION (LLX.)', 'MCDERMOTT INTL INC (MDR)', 'MASSEY ENERGY CO (MEE)', 'MOBIL CORP (MOB.2)', 'MARATHON PETROLEUM CORP (MPC)', 'MARATHON OIL CORP (MRO)', 'USX CORP-CONSOLIDATED (MROX.CM)', 'MURPHY OIL CORP (MUR)', 'MAXUS ENERGY CORP (MXS)', 'NOBLE ENERGY INC (NBL)', 'NABORS INDUSTRIES LTD (NBR)', 'NACCO INDUSTRIES  -CL A (NC)', 'NOBLE CORP PLC (NE)', 'NEWFIELD EXPLORATION CO (NFX)', 'NATIONAL OILWELL VARCO INC (NOV)', 'ONEOK INC (OKE)', 'ORYX ENERGY CO (ORX)', 'OCCIDENTAL PETROLEUM CORP (OXY)', 'PHILLIPS 66 (PSX)', 'PIONEER NATURAL RESOURCES CO (PXD)', 'PENNZENERGY CO (PZE.1)', 'QEP RESOURCES INC (QEP)', 'ROWAN COMPANIES PLC (RDC)', 'ROYAL DUTCH PETROLEUM NV (RDPL)', 'TRANSOCEAN LTD (RIG)', 'RANGE RESOURCES CORP (RRC)', 'SANTA FE SNYDER CORP (SFS.1)', 'SMITH INTERNATIONAL INC (SII)', 'SCHLUMBERGER LTD (SLB)', 'SUNOCO INC (SUN.1)', 'SOUTHWESTERN ENERGY CO (SWN)', 'STEEL EXCEL INC (SXCL)', 'TOSCO CORP (TOS.1)', 'TEXACO INC (TX.2)', 'UNOCAL CORP (UCL)', 'UNION PACIFIC RESOURCES GRP (UPR.1)', 'VALERO ENERGY CORP (VLO)', 'WESTERN ATLAS INC (WAI.1)', 'WEATHERFORD INTL PLC (WFT)', 'WESTMORELAND COAL CO (WLB)', 'WILLIAMS COS INC (WMB)', 'WPX ENERGY INC (WPX)', 'CIMAREX ENERGY CO (XEC)', 'EXXON MOBIL CORP (XOM)', 'XTO ENERGY INC (XTO)']
-    
+
     # Based on front-end user input in forms, back end create portfolio
     # When user clicks on "save" button, form pop-up --> https://www.w3schools.com/howto/howto_js_popup_form.asp
     p_name = request.GET.get('p_name')
@@ -179,26 +201,19 @@ def compare(request):
 
     '''
     try:
-
         df = ...  #Code to append to selected_portfolios --> {[p_name, sharpe_ratio, volatility], [p_name, sharpe_ratio]}
-
     except KeyError:
         
 		script = None
 		div = None
-
 	else:
-
     p = figure(x_range = df['p_name'], plot_height=300, plot_width=1000, title="Portfolio Comparison",
             toolbar_location=None, tools="")
-
     p.vbar(x = df['p_name'], top = df['sharpe_ratio'], width = 0.9, hover_color="pink")
-
     p.xgrid.grid_line_color = None
     p.ygrid.grid_line_color = None
     p.background_fill_color = None
     p.border_fill_color = None
-
     p.title.text_font = "gill"
     p.title.text_font_size = "24px"
     p.title.text_color = "white"
@@ -212,9 +227,7 @@ def compare(request):
     p.yaxis.major_label_text_font = "gill"
     p.yaxis.major_label_text_font_size = "20px"
     p.yaxis.major_label_text_color = "white"
-
     p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Sharpe Ratio", "@sharpe_ratio")]))
-
     script, div = components(p) #### This will be combined with components(p1)
     
     '''
@@ -292,6 +305,155 @@ def compare(request):
     }
     
     return render(request, "compare.html", context=context)
+
+def optimize(request):
+
+    # Get the output file from ML model in the form of {stock_name, stock_weights}
+    # df = read csv???
+    
+    
+    # GRAPHS
+
+    '''
+    try:
+        df = ...  #Code to append to selected_portfolios --> {[p_name, sharpe_ratio, volatility], [p_name, sharpe_ratio]}
+    except KeyError:
+        
+		script = None
+		div = None
+	else:
+    p = figure(x_range = df['p_name'], plot_height=300, plot_width=500, title="Portfolio Comparison",
+            toolbar_location=None, tools="")
+    p.vbar(x = df['p_name'], top = df['sharpe_ratio'], width = 0.9, hover_color="pink")
+    p.xgrid.grid_line_color = None
+    p.ygrid.grid_line_color = None
+    p.background_fill_color = None
+    p.border_fill_color = None
+    p.title.text_font = "gill"
+    p.title.text_font_size = "24px"
+    p.yaxis.axis_label = "Sharpe Ratio"
+    p.yaxis.axis_label_text_font = "gill"
+    p.xaxis.major_label_text_font = "gill"
+    p.xaxis.major_label_text_font_size = "20px"
+    p.xaxis.major_label_text_font_style = "bold"
+    p.yaxis.major_label_text_font = "gill"
+    p.yaxis.major_label_text_font_size = "20px"
+    p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Sharpe Ratio", "@sharpe_ratio")]))
+    script, div = components(p) #### This will be combined with components(p1)
+    
+    ###############
+    p1 = figure(x_range = df['p_name'], plot_height=300, plot_width=500, title="Portfolio Comparison",
+            toolbar_location=None, tools="")
+    p1.vbar(x = df['p_name'], top = df['volatility'], width = 0.9, hover_color="pink")
+    p1.xgrid.grid_line_color = None
+    p1.ygrid.grid_line_color = None
+    p1.background_fill_color = None
+    p1.border_fill_color = None
+    p1.title.text_font = "gill"
+    p1.title.text_font_size = "24px"
+    p1.yaxis.axis_label = "Sharpe Ratio"
+    p1.yaxis.axis_label_text_font = "gill"
+    p1.xaxis.major_label_text_font = "gill"
+    p1.xaxis.major_label_text_font_size = "20px"
+    p1.xaxis.major_label_text_font_style = "bold"
+    p1.yaxis.major_label_text_font = "gill"
+    p1.yaxis.major_label_text_font_size = "20px"
+    p1.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Volatility", "@volatility")]))
+    
+    '''
+
+
+    fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
+
+    p = figure(x_range=fruits, plot_height=300, plot_width=500, title="Fruit Counts",
+            toolbar_location=None, tools="")
+
+    p.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9, hover_color="pink")
+
+    p.xgrid.grid_line_color = None
+    p.ygrid.grid_line_color = None
+    p.background_fill_color = None
+    p.border_fill_color = None
+
+    p.add_tools(HoverTool(tooltips=[("Fruit", "@fruits"), ("Count", "@y")]))
+    
+    p.title.text_font = "gill"
+    p.title.text_font_size = "24px"
+    p.xaxis.major_label_text_font = "gill"
+    p.xaxis.major_label_text_font_size = "20px"
+    p.yaxis.major_label_text_font = "gill"
+    p.yaxis.major_label_text_font_size = "20px"
+
+    ############
+
+    p1 = figure(x_range=fruits, plot_height=300, plot_width=500, title="Fruit Counts",
+            toolbar_location=None, tools="")
+
+    p1.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9, hover_color="pink")
+
+    p1.xgrid.grid_line_color = None
+    p1.ygrid.grid_line_color = None
+    p1.background_fill_color = None
+    p1.border_fill_color = None
+
+    p1.add_tools(HoverTool(tooltips=[("Fruit", "@fruits"), ("Count", "@y")]))
+    
+    p1.title.text_font = "gill"
+    p1.title.text_font_size = "24px"
+    p1.xaxis.major_label_text_font = "gill"
+    p1.xaxis.major_label_text_font_size = "20px"
+    p1.yaxis.major_label_text_font = "gill"
+    p1.yaxis.major_label_text_font_size = "20px"
+    
+    # pie chart
+
+    '''
+    jkhashjkasjhkas
+    '''
+
+    x = Counter({
+    'United States': 157,
+    'United Kingdom': 93,
+    'Japan': 89,
+    'China': 63,
+    'Germany': 44,
+    'India': 42,
+    'Italy': 40,
+    'Australia': 35,
+    'Brazil': 32,
+    'France': 31,
+    'Taiwan': 31,
+    'Spain': 29
+    })
+
+    data = pd.Series(x).reset_index(name='value').rename(columns={'index':'country'})
+    data['angle'] = data['value']/sum(x.values()) * 2*pi
+    data['color'] = Category20c[len(x)]
+
+    p2 = figure(plot_height=350, plot_width= 470, title="Pie Chart", toolbar_location=None,
+            tools="hover", tooltips="@country: @value", x_range=(-0.5, 1.0))
+
+    p2.wedge(x=0, y=1, radius=0.4,
+            start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
+            line_color="white", fill_color='color', legend='country', source=data, hover_color="pink")
+
+    p2.title.text_font="gill"
+    p2.axis.axis_label=None
+    p2.axis.visible=False
+    p2.grid.grid_line_color = None
+    p2.legend.label_text_font="gill"
+
+    script, (div, div1, div2) = components((p, p1, p2))
+
+    context = {
+        'script' : script,
+        'div' : div, 
+        'div1' : div1,
+        'div2': div2
+    }
+
+
+    return render(request, "optimize.html", context=context)
 
 def portfolios(request):
     #listing out of all saved portfolio objects
