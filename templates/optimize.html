@@ -20,7 +20,7 @@
     <!-- Home -->
 
     <div class="home">
-        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="../static/images/about.jpg" data-speed="0.8"></div>
+        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="../static/images/news_background.jpg" data-speed="0.8"></div>
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -246,22 +246,32 @@
                                     </div>
                                     <div class="row" style="padding: 20px; border: black solid; margin-top: 20px; color: black">
                                         <div class="col-lg-12">
-                                            <h3>Year-On-Year Returns (%)</h3>
+                                            <h3>Annual Statistics</h3>
                                         </div>
-                                        <div class="col-lg-12">
+                                        <div class="col-lg-6" style="background-color: #0086ce; color: white;">
                                             <div class="row">
-                                                <div class="col-lg-3">
-                                                    Cum Return: {{ culmulative_return }}
+                                                <div class="col-lg-4">
+                                                    Expected Returns: {{ expected_returns }}
                                                 </div>    
-                                                <div class="col-lg-3">
-                                                    CAGR: {{ cagr }}
+                                                <div class="col-lg-4">
+                                                    Volatility: {{ volatility }}
                                                 </div>    
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-4">
                                                     Sharpe Ratio: {{ sharpe_ratio }}
                                                 </div>    
-                                                <div class="col-lg-3">
-                                                    Max Drawdown: {{ max_drawdown }}
-                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6" style="background-color: pink;">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    Expected Returns: {{ expected_returns }}
+                                                </div>    
+                                                <div class="col-lg-4">
+                                                    Volatility: {{ volatility }}
+                                                </div>    
+                                                <div class="col-lg-4">
+                                                    Sharpe Ratio: {{ sharpe_ratio }}
+                                                </div>    
                                             </div>
                                         </div>
                                     </div>

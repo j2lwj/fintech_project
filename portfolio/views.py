@@ -88,10 +88,24 @@ def my_portfolio(request):
     p = figure(x_range=fruits, plot_height=300, plot_width=1000, title="Fruit Counts",
             toolbar_location=None, tools="")
 
-    p.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9)
+    p.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9, hover_color="pink")
 
     p.xgrid.grid_line_color = None
-    p.y_range.start = 0
+    p.ygrid.grid_line_color = None
+    p.background_fill_color = None
+    p.border_fill_color = None
+
+    p.add_tools(HoverTool(tooltips=[("Fruit", "@fruits"), ("Count", "@y")]))
+    
+    p.title.text_font = "gill"
+    p.title.text_font_size = "24px"
+    p.title.text_color = "white"
+    p.xaxis.major_label_text_font = "gill"
+    p.xaxis.major_label_text_font_size = "20px"
+    p.xaxis.major_label_text_color = "white"
+    p.yaxis.major_label_text_font = "gill"
+    p.yaxis.major_label_text_font_size = "20px"
+    p.yaxis.major_label_text_color = "white"
 
     script, div = components(p)
     
@@ -102,9 +116,9 @@ def my_portfolio(request):
     
     #Run the ML backend model to get the forecasted returns of each stock
     
-	try:
+    try:
 
-        df = "retrieve the data from the ML model as a dictionary"
+        df = ...  #Code to append to selected_portfolios --> {[stock_name, predicted_returns]}
 
     except KeyError:
         
@@ -113,13 +127,31 @@ def my_portfolio(request):
 
 	else:
 
-    p = figure(x_range = df[stock_name], plot_height=300, plot_width=1000, title="Next Quarter Forecasted Returns",
+    p = figure(x_range = df['stock_name'], plot_height=300, plot_width=1000, title="Predicted Returns",
             toolbar_location=None, tools="")
 
-    p.vbar(x = df['stock_name'], top = df['stock_weight'], width = 0.9)
+    p.vbar(x = df['stock_name'], top = df['predicted_returns'], width = 0.9, hover_color="pink")
 
     p.xgrid.grid_line_color = None
-    p.y_range.start = 0
+    p.ygrid.grid_line_color = None
+    p.background_fill_color = None
+    p.border_fill_color = None
+
+    p.title.text_font = "gill"
+    p.title.text_font_size = "24px"
+    p.title.text_color = "white"
+    p.yaxis.axis_label = "Predicted Returns"
+    p.yaxis.axis_label_text_font = "gill"
+    p.yaxis.axis_label_text_font_color = "white"
+    p.xaxis.major_label_text_font = "gill"
+    p.xaxis.major_label_text_font_size = "20px"
+    p.xaxis.major_label_text_font_style = "bold"
+    p.xaxis.major_label_text_color = "white"
+    p.yaxis.major_label_text_font = "gill"
+    p.yaxis.major_label_text_font_size = "20px"
+    p.yaxis.major_label_text_color = "white"
+
+    p.add_tools(HoverTool(tooltips=[("Stock", "@stock_name"), ("Predicted Returns", "@predicted_returns")]))
 
     script, div = components(p)
     '''
