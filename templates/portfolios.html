@@ -2,7 +2,7 @@
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="../static/styles/news.css">
-    <link rel="stylesheet" type="text/css" href="../static/styles/news_responsive   .css">
+    <link rel="stylesheet" type="text/css" href="../static/styles/news_responsive.css">
 {% endblock %}
 
 {% block pagescripts %}
@@ -16,8 +16,6 @@
 {% block body %}
 
 <div class="super_container">
-    
-    <!-- Home -->
 
     <div class="home">
         <div class="home_background parallax-window" data-parallax="scroll" data-image-src="../static/images/news_background.jpg" data-speed="0.8"></div>
@@ -25,22 +23,7 @@
             <div class="row">
                 <div class="col">
                     <div class="home_content">
-                        <div class="home_content_inner">{% extends "base.html" %}
-
-                            {% block css %}
-                                <link rel="stylesheet" type="text/css" href="../static/styles/news.css">
-                                <link rel="stylesheet" type="text/css" href="../static/styles/news_responsive   .css">
-                            {% endblock %}
-                            
-                            {% block pagescripts %}
-                                {% if script is not none %}
-                                    {{ script | safe }}
-                                {% endif %}
-                            {% endblock %}
-                            
-                            {% block title %}My Port Folio{% endblock %}
-                            
-                            {% block body %}
+                        <div class="home_content_inner">
                             
                             <div class="super_container">
                                 
@@ -598,5 +581,3 @@
                     <div class="news_button"><a href="portfolio2.html">Find out more</a></div>
                 </div>
             </div>
-            {% endblock %}
-
