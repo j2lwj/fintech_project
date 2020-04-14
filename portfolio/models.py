@@ -25,6 +25,7 @@ class Stocks(models.Model):
     stock_id = models.AutoField(primary_key=True)
     stock_name = models.CharField(max_length=20, unique=True)
     ticker = models.CharField(max_length=10, unique=True)
+    forecast_return = models.FloatField(default=0)
     created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):

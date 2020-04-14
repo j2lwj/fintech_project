@@ -123,26 +123,32 @@ def my_portfolio(request):
 
     script, div = components(p)
     '''
-    # Create Stocks Objects
 
-    stocks_df = pd.read_csv('tickers.csv')
-    tup = stocks_df.values
-    lis = []
+    ''' Create Stocks Objects '''
 
-    for each in tup:
-        Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], created_at=datetime.datetime.now())
+    # stocks_df = pd.read_csv('tickers.csv')
+    # tup = stocks_df.values
+
+    # for each in tup:
+        # Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], forecast_return=each[3], created_at=datetime.now())
         # stock = "{} ({})".format(each[2], each[1])
-        # lis.append(stock)
-    
-    for each in Stocks.objects.all():
-        stock = "{} ({})".format(each.stock_name, each.ticker)
-    # print(lis)
-    # lis = ['HARTFORD FICIAL SERVICES (HIG)', 'LAUDER (ESTEE) COS INC -CL A (EL)', 'LINCOLN NATIONAL CORP (LNC)', 'HUMANA INC (HUM)', 'GRAINGER (W W) INC (GWW)', 'INCYTE CORP (INCY)', 'DELUXE CORP (DLX)', 'ENTERGY CORP (ETR)', 'GRACE (W R) & CO (GRA)', 'PRINCIPAL FICIAL GRP INC (PFG)', 'PRUDENTIAL FICIAL INC (PRU)', 'AVON PRODUCTS (AVP)', 'METLIFE INC (MET)', 'SKYLINE CORP (SKY)', 'AMERISOURCEBERGEN CORP (ABC)', 'AK STEEL HOLDING CORP (AKS)', 'BROADVISION INC (BVSN)', 'ORACLE CORP (ORCL)', 'SNAP-ON INC (SNA)', 'ALPHABET INC (GOOGL)', 'MONSTER BEVERAGE CORP (MNST)', 'SYSCO CORP (SYY)', 'CNA FICIAL CORP (CNA)', 'NEWFIELD EXPLORATION CO (NFX)', 'UNITED STATES STEEL CORP (X)', 'LOUISIANA-PACIFIC CORP (LPX)', 'MGIC INVESTMENT CORP/WI (MTG)', 'AETNA INC (AET)', 'JACOBS ENGINEERING GROUP INC (JEC)', 'XL GROUP LTD (XL)', 'BLOCK H & R INC (HRB)', 'ADOBE SYSTEMS INC (ADBE)', 'ALASKA AIR GROUP INC (ALK)', 'ANSYS INC (ANSS)', 'ANTHEM INC (ANTM)', 'CHESAPEAKE ENERGY CORP (CHK)', 'HOST HOTELS & RESORTS INC (HST)', 'IAC/INTERACTIVECORP (IAC)', 'KB HOME (KBH)', 'MCKESSON CORP (MCK)', 'PAYCHEX INC (PAYX)', 'BRIGGS & STRATTON (BGG)', 'CRANE CO (CR)', 'DEVON ENERGY CORP (DVN)', 'EBAY INC (EBAY)', 'IRON MOUNTAIN INC (IRM)', 'LENNAR CORP (LEN)', 'ROBERT HALF INTL INC (RHI)', 'UNITEDHEALTH GROUP INC (UNH)', 'COCA-COLA EUROPEAN PARTNERS (CCE)', 'PENNEY (J C) CO (JCP)', 'OFFICE DEPOT INC (ODP)', 'PULTEGROUP INC (PHM)', 'VERTEX PHARMACEUTICALS INC (VRTX)', 'BRINKS CO (BCO)', 'COGNIZANT TECH SOLUTIONS (CTSH)', 'SEARS HOLDINGS CORP (SHLD)', 'USG CORP (USG)', 'WESTROCK CO (WRK)', 'WELLTOWER INC (HCN)', 'LUBYS INC (LUB)', 'APPLE INC (AAPL)', 'AKAMAI TECHNOLOGIES INC (AKAM)', 'ABERCROMBIE & FITCH  -CL A (ANF)', 'CALERES INC (CAL)', 'JUNIPER NETWORKS INC (JNPR)', 'NORTHROP GRUMMAN CORP (NOC)', 'NUCOR CORP (NUE)', 'APACHE CORP (APA)', 'BASSETT FURNITURE INDS (BSET)', 'CMS ENERGY CORP (CMS)', 'DUN & BRADSTREET CORP (DNB)', 'DAVITA INC (DVA)', 'HELMERICH & PAYNE (HP)', 'MBIA INC (MBI)', 'MGM RESORTS INTERNATIONAL (MGM)', 'NRG ENERGY INC (NRG)', 'QUALCOMM INC (QCOM)', 'UNUM GROUP (UNM)', 'BEST BUY CO INC (BBY)', 'CHUBB LTD (CB)', 'DENBURY RESOURCES INC (DNR)', 'NETFLIX INC (NFLX)', 'TIMKEN CO (TKR)', 'UNIVERSAL HEALTH SVCS INC (UHS)', 'FEDEX CORP (FDX)', 'GLOBAL PAYMENTS INC (GPN)', 'ROYAL CARIBBEAN CRUISES LTD (RCL)', 'SHERWIN-WILLIAMS CO (SHW)', 'AUTODESK INC (ADSK)', 'CA INC (CA)', 'CBRE GROUP INC (CBG)', 'DUKE ENERGY CORP (DUK)', 'GOODYEAR TIRE & RUBBER CO (GT)', 'KIMCO REALTY CORP (KIM)', 'NABORS INDUSTRIES LTD (NBR)', 'NACCO INDUSTRIES  -CL A (NC)', 'PRICELINE GROUP INC (PCLN)', 'SEALED AIR CORP (SEE)', 'TENET HEALTHCARE CORP (THC)', 'TIFFANY & CO (TIF)', 'AMERIPRISE FICIAL INC (AMP)', 'CENTURYLINK INC (CTL)', 'CONVERGYS CORP (CVG)', 'ENVISION HEALTHCARE CORP (EVHC)', 'GGP INC (GGP)', 'HOLOGIC INC (HOLX)', 'RANGE RESOURCES CORP (RRC)', 'AMEREN CORP (AEE)', 'ASSURANT INC (AIZ)', 'ALLSTATE CORP (ALL)', 'BOSTON SCIENTIFIC CORP (BSX)', 'CARDINAL HEALTH INC (CAH)', 'CINCINNATI FICIAL CORP (CINF)', 'GRAHAM HOLDINGS CO (GHC)', 'GENWORTH FICIAL INC (GNW)', 'MCDERMOTT INTL INC (MDR)', 'MORGAN STANLEY (MS)', 'NORTHERN TRUST CORP (NTRS)', 'PIONEER NATURAL RESOURCES CO (PXD)', 'RAYTHEON CO (RTN)', 'SANMINA CORP (SANM)', 'SUNEDISON INC (SUNEQ)', 'UNITED RENTALS INC (URI)', 'VIAVI SOLUTIONS INC (VIAV)', 'VALERO ENERGY CORP (VLO)', 'WORTHINGTON INDUSTRIES (WOR)', 'ALTABA INC (AABA)', 'AES CORP (AES)', 'ALLEGHENY TECHNOLOGIES INC (ATI)', 'DDR CORP (DDR)', 'DEAN FOODS CO (DF)', 'ELECTRONIC ARTS INC (EA)', 'EQUIFAX INC (EFX)', 'GENESCO INC (GCO)', 'MATTEL INC (MAT)', 'NETAPP INC (NTAP)', 'ONEOK INC (OKE)', 'MOLSON COORS BREWING CO (TAP)', 'TJX COMPANIES INC (TJX)', 'UNISYS CORP (UIS)', 'AMERICAN ELECTRIC POWER CO (AEP)', 'ADTALEM GLOBAL EDUCATION INC (ATGE)', 'DILLARDS INC  -CL A (DDS)', 'D R HORTON INC (DHI)', 'DISH NETWORK CORP (DISH)', 'EOG RESOURCES INC (EOG)', 'GENERAL DYNAMICS CORP (GD)', 'HCP INC (HCP)', 'HORMEL FOODS CORP (HRL)', 'MACERICH CO (MAC)', "MOODY'S CORP (MCO)", 'NORFOLK SOUTHERN CORP (NSC)', 'EVEREST RE GROUP LTD (RE)', 'REGENERON PHARMACEUTICALS (REGN)', 'SCANA CORP (SCG)', 'TOTAL SYSTEM SERVICES INC (TSS)', 'YUM BRANDS INC (YUM)', 'ARCHER-DANIELS-MIDLAND CO (ADM)', 'AMAZON.COM INC (AMZN)', 'ANADARKO PETROLEUM CORP (APC)', 'BROWN FORMAN CORP (BF.B)', 'CINTAS CORP (CTAS)', 'DARDEN RESTAURANTS INC (DRI)', 'GOLDMAN SACHS GROUP INC (GS)', 'HEALTHSOUTH CORP (HLS)', 'MARATHON OIL CORP (MRO)', 'NEW YORK TIMES CO  -CL A (NYT)', 'REALTY INCOME CORP (O)', 'OWENS-ILLINOIS INC (OI)', 'PERKINELMER INC (PKI)', 'PVH CORP (PVH)', 'REPUBLIC SERVICES INC (RSG)', 'SOUTHERN CO (SO)', 'TEXTRON INC (TXT)', 'CIMAREX ENERGY CO (XEC)', 'YRC WORLDWIDE INC (YRCW)', 'ACCENTURE PLC (ACN)', 'ALLIANCE DATA SYSTEMS CORP (ADS)', 'ALEXION PHARMACEUTICALS INC (ALXN)', 'ASHLAND GLOBAL HOLDINGS INC (ASH)', 'BERKSHIRE HATHAWAY (BRK.B)', 'CENTENE CORP (CNC)', 'EDISON INTERNATIONAL (EIX)', 'EQUINIX INC (EQIX)', 'INTERPUBLIC GROUP OF COS (IPG)', 'SOUTHWEST AIRLINES (LUV)', 'MICROSOFT CORP (MSFT)', 'NAVIENT CORP (NAVI)', 'PG&E CORP (PCG)', 'ROSS STORES INC (ROST)', 'THERMO FISHER SCIENTIFIC INC (TMO)', 'ZIONS BANCORPORATION (ZION)']
    
-    # Link front end stocks selection inputs to back-end
+    ''' Link front end stocks selection inputs to back-end '''
     
-    
-    # return forecasted returns of selected in graph form
+    # idArr contains a list of user-selected stock tickers
+    selected_stocks = request.POST.get("idArr")
+    all_stocks = Stocks.objects
+
+    # Get Stock model object's ticker based on selected stocks, append the tickers into a list to return to user
+    stock_dict = {}
+    forecasted_return = []
+    for each in selected_stocks:
+        count = 1
+        stock_dict["stock_{}".format(count)] = all_stocks.get(ticker=each).ticker
+        forecasted_return.append(stock_dict["stock_{}".format(count)])
+        count += 1
+
+    ''' return forecasted returns of selected in graph form '''
 
 
 
@@ -155,13 +161,12 @@ def my_portfolio(request):
 
     # Create and Save portfolio objects into Portfolio database
 
-    Portfolio.objects.create(p_name=p_name, p_desc=p_desc, cum_return= , cagr= , sharpe= , max_drawdown= , created_by=user) 
+    # Portfolio.objects.create(p_name=p_name, p_desc=p_desc, cum_return= , cagr= , sharpe= , max_drawdown= , created_by=user) 
     
     context = {
         'p_name': p_name,
         'p_desc': p_desc,
         'stocks': stocks,
-        'lis': lis,
         'script': script,
         'div': div,
     }
