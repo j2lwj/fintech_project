@@ -14,16 +14,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from portfolio import views
+
 from django.conf.urls import url
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import views as auth_views
+
+from portfolio import views
 
 # Albert - https://simpleisbetterthancomplex.com/tutorial/2016/06/27/how-to-use-djangos-built-in-login-system.html
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('compare/', views.compare, name='compare'),
+    path('optimize/', views.optimize, name='optimize'),
     path('my_portfolio/', views.my_portfolio, name='my_portfolio'),
     path('portfolios/', views.portfolios, name='portfolios'),
     re_path(r'^portfolios/(?P<pk>\d+)/$', views.portfolio_id, name='portfolio_id'),

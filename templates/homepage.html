@@ -32,7 +32,6 @@
                                     <li>Welcome, {{ user.first_name }}!</li>
                                 </ul>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -95,6 +94,14 @@
                                             </svg>
                                         </a></li>
                                         <li><a href="{% url 'compare' %}">compare
+                                            <svg version="1.1" id="Layer_4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                 width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
+                                                <g>
+                                                    <polyline class="arrow_d" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" points="0.022,-0.178 4.5,4.331 9.091,-0.275   "/>
+                                                </g>
+                                            </svg>
+                                        </a></li>
+                                        <li><a href="{% url 'optimize' %}">optimize
                                             <svg version="1.1" id="Layer_4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                  width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
                                                 <g>
@@ -219,8 +226,8 @@
                 <div class="col-lg-6 features_col">
                     <div class="features_content">
                         <div class="section_title_container">
-                            <div class="section_subtitle">take a look at our</div>
-                            <div class="section_title">Why buy and sell Stocks with us?</div>
+                            <div class="section_subtitle">any stocks in mind?</div>
+                            <div class="section_title">Choose Stocks To Forecast</div>
                             <div class="section_text">
                                 <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ultricies pellentesque mauris a elementum. Cras eu ornare turpis. Morbi id maximus lorem. Duis leo sapien, accumsan ves tibulum massa sit amet, sollicitudin euismod libero. Aliquam mollis ipsum eget nulla pulvinar, a fringilla urna consectetur.</p>
                             </div>
@@ -289,7 +296,7 @@
         </div>
     </div>
 
-    <!-- Info -->
+    <!-- Graph of predicted returns -->
 
     <div class="info">
         <div class="info_background parallax-window" data-parallax="scroll" data-image-src="../static/images/about_info.jpg" data-speed="0.8"></div>
@@ -388,11 +395,11 @@
                                         <thead class="thead-inverse">
                                           <tr>
                                             <th style="width: 80%;">Stock Name</th>
-                                            <th style="width: 20%;">Weight</th>
+                                            <th style="width: 20%;">Predicted Returns for next quarter</th>
                                           </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- {% for stock in df %}
+                                            {% for stock in df %}
                                                 <tr>
                                                 <td>
                                                     {{ stock.stock_name }}
@@ -401,7 +408,7 @@
                                                     {{ stock.stock_weight }}
                                                 </td>
                                                 </tr>
-                                            {% endfor %} -->
+                                            {% endfor %}
                                         </tbody>
                                     </table>
                                     {% endif %}
@@ -515,4 +522,3 @@
     </script>
     
     {% endblock %}
-
