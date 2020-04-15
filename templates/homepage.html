@@ -14,7 +14,7 @@
 {% block title %}Compare{% endblock %}
 
 {% block body %}
-
+{% csrf_token %}
 <div class="super_container">
     
     <!-- Home -->
@@ -223,15 +223,9 @@
     <div class="features">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 features_col">
+                <div class="col-lg-12 features_col">
                     <div class="features_content">
-                        <div class="section_title_container">
-                            <div class="section_subtitle">any stocks in mind?</div>
-                            <div class="section_title">Choose Stocks To Forecast</div>
-                            <div class="section_text">
-                                <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ultricies pellentesque mauris a elementum. Cras eu ornare turpis. Morbi id maximus lorem. Duis leo sapien, accumsan ves tibulum massa sit amet, sollicitudin euismod libero. Aliquam mollis ipsum eget nulla pulvinar, a fringilla urna consectetur.</p>
-                            </div>
-                            
+                        <div class="section_title_container">                           
                             <!-- insert save button here -->
                             <button class="link_button features_button" onclick='openForm()'>Save Portfolio</button>
                             <div class="form-popup" id="myForm">
@@ -284,12 +278,6 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="features_images clearfix">
-                        <div class="features_image_1"><img src="../static/images/about_features_1.jpg" alt=""></div>
-                        <div class="features_image_2"><img src="../static/images/about_features_2.jpg" alt=""></div>
                     </div>
                 </div>
             </div>

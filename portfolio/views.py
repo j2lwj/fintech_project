@@ -152,8 +152,7 @@ def my_portfolio(request):
     # tup = stocks_df.values
 
     # for each in tup:
-        # Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], forecast_return=each[3], created_at=datetime.now())
-        # stock = "{} ({})".format(each[2], each[1])
+    #     Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], forecast_return=each[3], created_at=datetime.now())
    
     ''' Link front end stocks selection inputs to back-end '''
     
@@ -164,11 +163,14 @@ def my_portfolio(request):
     # Get Stock model object's ticker based on selected stocks, append the tickers into a list to return to user
     stock_dict = {}
     forecasted_return = []
-    for each in selected_stocks:
-        count = 1
-        stock_dict["stock_{}".format(count)] = all_stocks.get(ticker=each).ticker
-        forecasted_return.append(stock_dict["stock_{}".format(count)])
-        count += 1
+
+    if selected_stocks is not None: 
+
+        for each in selected_stocks:
+            count = 1
+            stock_dict["stock_{}".format(count)] = all_stocks.get(ticker=each).ticker
+            forecasted_return.append(stock_dict["stock_{}".format(count)])
+            count += 1
 
     ''' return forecasted returns of selected in graph form '''
 
