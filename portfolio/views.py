@@ -195,6 +195,8 @@ def my_portfolio(request):
         'div': div,
     }
     
+    ''' To save portfolio '''
+    
     return render(request, "homepage.html", context=context)
 
 def compare(request):
