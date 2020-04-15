@@ -474,12 +474,14 @@
         // To shift this script to "optimize" html
         function openForm() {
           document.getElementById("myForm").style.display = "block"; 
-        }
+        };
         
         function closeForm() {
           document.getElementById("myForm").style.display = "none";
-        }
-
+        };
+    </script>
+    <script>
+    $(document).ready(function(){
         //datalist options
         var stocks = ['AMERICAN AIRLINES GROUP INC (AAL)', 'ADVANCE AUTO PARTS INC (AAP)', 'AFLAC INC (AFL)', 'ASSURANT INC (AIZ)', 'AKAMAI TECHNOLOGIES INC (AKAM)', 'AMERIPRISE FICIAL INC (AMP)', 'AUTOZONE INC (AZO)', 'BLACKROCK INC (BLK)', 'BROADVISION INC (BVSN)', 'CBRE GROUP INC (CBG)', 'CRANE CO (CR)', 'CONVERGYS CORP (CVG)', 'DELTA AIR LINES INC (DAL)', 'DELUXE CORP (DLX)', 'DYNEGY INC (DYN)', 'E TRADE FICIAL CORP (ETFC)', 'EXPEDIA INC (EXPE)', 'FACEBOOK INC (FB)', 'GENWORTH FICIAL INC (GNW)', 'ALPHABET INC (GOOGL)', 'HCA HEALTHCARE INC (HCA)', 'HARTFORD FICIAL SERVICES (HIG)', 'HOST HOTELS & RESORTS INC (HST)', 'IAC/INTERACTIVECORP (IAC)', 'KB HOME (KBH)', 'LINCOLN NATIONAL CORP (LNC)', 'LOUISIANA-PACIFIC CORP (LPX)', 'SOUTHWEST AIRLINES (LUV)', 'METLIFE INC (MET)', 'NETFLIX INC (NFLX)', 'NORTHERN TRUST CORP (NTRS)', 'ORACLE CORP (ORCL)', 'PRICELINE GROUP INC (PCLN)', 'PRINCIPAL FICIAL GRP INC (PFG)', 'PULTEGROUP INC (PHM)', 'PRUDENTIAL FICIAL INC (PRU)', 'ROBERT HALF INTL INC (RHI)', 'REALOGY HOLDINGS CORP (RLGY)', 'SPRINT CORP (S)', 'SEARS HOLDINGS CORP (SHLD)', 'SNAP-ON INC (SNA)', 'TIFFANY & CO (TIF)', 'TYSON FOODS INC  -CL A (TSN)', 'UNUM GROUP (UNM)', 'UNITED RENTALS INC (URI)', 'VIAVI SOLUTIONS INC (VIAV)'];
         var option = "";
@@ -508,7 +510,7 @@
         
         //remove row
         $(document).on('click', '#removeRow', function () {
-        $(this).closest('#test').remove();
+            $(this).closest('#test').remove();
         });
 
         //add row by pressing "enter"
@@ -519,6 +521,7 @@
                 document.getElementById("addRow").click();
             };
         });
+    });
     </script>
     
     {% endblock %}

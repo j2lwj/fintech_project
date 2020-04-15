@@ -29,8 +29,8 @@ urlpatterns = [
     path('optimize/', views.optimize, name='optimize'),
     path('my_portfolio/', views.my_portfolio, name='my_portfolio'),
     path('portfolios/', views.portfolios, name='portfolios'),
-    re_path(r'^portfolios/(?P<pk>\d+)/$', views.portfolio_id, name='portfolio_id'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', views.log_out, name='logout'),
-    path('signup/', views.signup, name='signup')
+    path('signup/', views.signup, name='signup'),
+    re_path(r'^portfolios/(?P<pk>\d+)/$', views.portfolio_id, name='portfolio_id')
 ]

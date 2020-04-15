@@ -16,7 +16,7 @@
   <link href="https://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.13.0.min.css" rel="stylesheet" type="text/css">
-
+  <script src="../static/js/jquery-3.2.1.min.js"></script>
   {% block css %}{% endblock %}
   {% block pagescripts %}{% endblock %}
 
@@ -25,9 +25,9 @@
 <body>
   <header>
     {% if user.is_authenticated %}
-    <a href="{% url 'logout' %}">logout</a>
+      <a href="{% url 'logout' %}">logout</a>
     {% else %}
-    <a href="{% url 'login' %}">login</a> / <a href="{% url 'signup' %}">signup</a>
+      <a href="{% url 'login' %}">login</a> / <a href="{% url 'signup' %}">signup</a>
     {% endif %}
     <hr>
   </header>
@@ -38,9 +38,104 @@
     {% block content %}
     {% endblock %}
   </main>
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
 
-    <script src="../static/js/jquery-3.2.1.min.js"></script>
-    <script src="../static/styles/bootstrap4/popper.js"></script>
+        <!-- Footer Column -->
+        <div class="col-lg-3 footer_col">
+          <div class="footer_about">
+            <div class="logo_container footer_logo">
+              <div class="logo">
+                <a href="{% url 'my_portfolio' %}">
+                  <div class="logo_line_1"><span>in</span>vest</div>
+                  <div class="logo_line_2">Blockchain</div>
+                  <div class="logo_img"><img src="../static/images/logo.png" alt=""></div>
+                </a>
+              </div>
+            </div>
+            <p class="footer_about_text">Sed ut iaculis elit, quis varius mauris. Integer ut
+              ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit.
+              Integer ut imperdiet erat. Quisque ultricies lectus tellus, eu tristique magna
+              pharetra nec.</p>
+          </div>
+        </div>
+
+        <!-- Footer Column -->
+        <div class="col-lg-3 footer_col">
+          <div class="footer_links">
+            <div class="footer_title">Useful Links</div>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Case Studies</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Consulting</a></li>
+              <li><a href="#">Commodities</a></li>
+              <li><a href="#">Insurance</a></li>
+              <li><a href="#">Trades</a></li>
+              <li><a href="#">Planning</a></li>
+              <li><a href="#">Finance</a></li>
+              <li><a href="#">Crypto</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Footer Column -->
+        <div class="col-lg-6 footer_col">
+          <div class="footer_newsletter">
+            <div class="footer_title">Subscribe to our newsletter</div>
+            <form action="#" class="footer_newsletter_form">
+              <input type="email" class="footer_newsletter_input" placeholder="Your E-mail" required="required">
+              <button class="footer_newsletter_button" type="submit">subscribe</button>
+            </form>
+            <div class="footer_newsletter_text">Sed ut iaculis elit, quis varius mauris. Integer ut
+              ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit.
+              Integer ut imperdiet erat. Quisque ultricies lectus tellus, eu tristique magna
+              pharetra nec.</div>
+            <div class="footer_social">
+              <ul>
+                <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-reddit-alien" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="copyright">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 order-md-1 order-2">
+            <div class="copyright_content d-flex flex-row align-items-center justify-content-start">
+              <div class="cr">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy; <span id="get-year"></span>
+                All rights reserved | Fintech Project Team Jay
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8 order-md-2 order-1">
+            <nav class="footer_nav d-flex flex-row align-items-center justify-content-md-end">
+              <ul>
+                <li><a href="{% url 'my_portfolio' %}">Home</a></li>
+                <li><a href="{% url 'compare' %}">Compare</a></li>
+                <li><a href="{% url 'optimize' %}">Optimize</a></li>
+                <li><a href="{% url 'portfolios' %}">My Portfolios</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    
+    <script src="../static/styles/bootstrap4/popper.min.js"></script>
     <script src="../static/styles/bootstrap4/bootstrap.min.js"></script>
     <script src="../static/plugins/greensock/TweenMax.min.js"></script>
     <script src="../static/plugins/greensock/TimelineMax.min.js"></script>
@@ -56,106 +151,19 @@
     <script src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.js"></script>
     <script src="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.13.0.min.js"></script>
     
-</body>
-
-<!-- Footer -->
-
-<footer class="footer">
-  <div class="container">
-    <div class="row">
-
-      <!-- Footer Column -->
-      <div class="col-lg-3 footer_col">
-        <div class="footer_about">
-          <div class="logo_container footer_logo">
-            <div class="logo">
-              <a href="{% url 'my_portfolio' %}">
-                <div class="logo_line_1"><span>in</span>vest</div>
-                <div class="logo_line_2">Blockchain</div>
-                <div class="logo_img"><img src="../static/images/logo.png" alt=""></div>
-              </a>
-            </div>
-          </div>
-          <p class="footer_about_text">Sed ut iaculis elit, quis varius mauris. Integer ut
-            ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit.
-            Integer ut imperdiet erat. Quisque ultricies lectus tellus, eu tristique magna
-            pharetra nec.</p>
-        </div>
-      </div>
-
-      <!-- Footer Column -->
-      <div class="col-lg-3 footer_col">
-        <div class="footer_links">
-          <div class="footer_title">Useful Links</div>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Case Studies</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Consulting</a></li>
-            <li><a href="#">Commodities</a></li>
-            <li><a href="#">Insurance</a></li>
-            <li><a href="#">Trades</a></li>
-            <li><a href="#">Planning</a></li>
-            <li><a href="#">Finance</a></li>
-            <li><a href="#">Crypto</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Footer Column -->
-      <div class="col-lg-6 footer_col">
-        <div class="footer_newsletter">
-          <div class="footer_title">Subscribe to our newsletter</div>
-          <form action="#" class="footer_newsletter_form">
-            <input type="email" class="footer_newsletter_input" placeholder="Your E-mail" required="required">
-            <button class="footer_newsletter_button" type="submit">subscribe</button>
-          </form>
-          <div class="footer_newsletter_text">Sed ut iaculis elit, quis varius mauris. Integer ut
-            ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit.
-            Integer ut imperdiet erat. Quisque ultricies lectus tellus, eu tristique magna
-            pharetra nec.</div>
-          <div class="footer_social">
-            <ul>
-              <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-              <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-              <li><a href="#"><i class="fa fa-reddit-alien" aria-hidden="true"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="copyright">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 order-md-1 order-2">
-          <div class="copyright_content d-flex flex-row align-items-center justify-content-start">
-            <div class="cr">
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              Copyright &copy;
-              <script>document.write(new Date().getFullYear());</script> All rights reserved |
-              This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by
-              <a href="https://colorlib.com" target="_blank">Colorlib</a>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </div>
-          </div>
-        </div>
-        <div class="col-md-8 order-md-2 order-1">
-          <nav class="footer_nav d-flex flex-row align-items-center justify-content-md-end">
-            <ul>
-              <li><a href="{% url 'my_portfolio' %}">Home</a></li>
-              <li><a href="{% url 'compare' %}">Compare</a></li>
-              <li><a href="{% url 'optimize' %}">Optimize</a></li>
-              <li><a href="{% url 'portfolios' %}">My Portfolios</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
+  </body>
 </html>
+<script>
+if(typeof jQuery!=='undefined'){
+    console.log('jQuery Loaded');
+}
+else{
+    console.log('not loaded yet');
+}
+
+let year = new Date().getFullYear();
+let ele = document.getElementById("get-year");
+
+ele.innerHTML = year;
+
+</script>
