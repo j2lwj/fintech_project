@@ -5,9 +5,7 @@ class Portfolio(models.Model):
     p_name = models.CharField(max_length=50, unique=True)
     p_desc = models.CharField(max_length=200)
     cum_return = models.FloatField()
-    cagr = models.FloatField()
     sharpe = models.FloatField()
-    max_drawdown = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name='portfolio', on_delete=models.CASCADE)
 

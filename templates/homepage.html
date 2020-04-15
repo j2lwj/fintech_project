@@ -399,7 +399,7 @@
             $("#myBtn").click(function(){
                 var idArr = [];
                 $(".stock").each(function(){
-                    //filter only stock ticker to store 
+                    //filter only stock ticker to store in list
                     var ans = $(this).val();
                     var i = ans.split("(");
                     i = i[1];
@@ -410,6 +410,12 @@
                 
                 // Join array elements and display in alert
                 alert(idArr.join("\n"));
+                
+                // send a request post to backend with the array of tickers
+                $.post("/my_portfolio", {idArr: idArr}, function(result){
+                    // This function activates once response from backend returns
+                    console.log("the backend results are", results);
+                });
             });
         });
 

@@ -149,46 +149,46 @@ def my_portfolio(request):
             script, div = components(p)
     except KeyError:
      
-    '''   
-		script = None
-		div = None
-	else:
-    p = figure(x_range = df['stock_name'], plot_height=300, plot_width=1000, title="Predicted Returns",
-            toolbar_location=None, tools="")
-    p.vbar(x = df['stock_name'], top = df['predicted_returns'], width = 0.9, hover_color="pink")
-    p.xgrid.grid_line_color = None
-    p.ygrid.grid_line_color = None
-    p.background_fill_color = None
-    p.border_fill_color = None
-    p.title.text_font = "gill"
-    p.title.text_font_size = "24px"
-    p.title.text_color = "white"
-    p.yaxis.axis_label = "Predicted Returns"
-    p.yaxis.axis_label_text_font = "gill"
-    p.yaxis.axis_label_text_font_color = "white"
-    p.xaxis.major_label_text_font = "gill"
-    p.xaxis.major_label_text_font_size = "20px"
-    p.xaxis.major_label_text_font_style = "bold"
-    p.xaxis.major_label_text_color = "white"
-    p.yaxis.major_label_text_font = "gill"
-    p.yaxis.major_label_text_font_size = "20px"
-    p.yaxis.major_label_text_color = "white"
-    p.add_tools(HoverTool(tooltips=[("Stock", "@stock_name"), ("Predicted Returns", "@predicted_returns")]))
-    script, div = components(p)
-    '''
+        '''
+            script = None
+            div = None
+        else:
+        p = figure(x_range = df['stock_name'], plot_height=300, plot_width=1000, title="Predicted Returns",
+                toolbar_location=None, tools="")
+        p.vbar(x = df['stock_name'], top = df['predicted_returns'], width = 0.9, hover_color="pink")
+        p.xgrid.grid_line_color = None
+        p.ygrid.grid_line_color = None
+        p.background_fill_color = None
+        p.border_fill_color = None
+        p.title.text_font = "gill"
+        p.title.text_font_size = "24px"
+        p.title.text_color = "white"
+        p.yaxis.axis_label = "Predicted Returns"
+        p.yaxis.axis_label_text_font = "gill"
+        p.yaxis.axis_label_text_font_color = "white"
+        p.xaxis.major_label_text_font = "gill"
+        p.xaxis.major_label_text_font_size = "20px"
+        p.xaxis.major_label_text_font_style = "bold"
+        p.xaxis.major_label_text_color = "white"
+        p.yaxis.major_label_text_font = "gill"
+        p.yaxis.major_label_text_font_size = "20px"
+        p.yaxis.major_label_text_color = "white"
+        p.add_tools(HoverTool(tooltips=[("Stock", "@stock_name"), ("Predicted Returns", "@predicted_returns")]))
+        script, div = components(p)
+        '''
 
-    ''' Create Stocks Objects '''
+    ''' Create Stocks Objects: Already done, do not uncomment to avoid duplicating stocks objects '''
 
-    stocks_df = pd.read_csv('tickers_latest.csv')
-    tup = stocks_df.values
+    # stocks_df = pd.read_csv('tickers_latest.csv')
+    # tup = stocks_df.values
 
-    for each in tup:
-        Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], forecast_return=each[3], mse=each[4])
+    # for each in tup:
+    #     Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], forecast_return=each[3], mse=each[4])
    
     ''' Link front end stocks selection inputs to back-end '''
     
     # idArr contains a list of user-selected stock tickers
-    selected_stocks = request.POST.get("idArr")
+    selected_stocks = request.POST.get("idArray")
     all_stocks = Stocks.objects
 
     # Get Stock model object's ticker based on selected stocks, append the tickers into a list to return to user
@@ -204,9 +204,19 @@ def my_portfolio(request):
             count += 1
 
     ''' return forecasted returns of selected in graph form '''
+    
 
+    ''' Create a portfolio '''
+    
+    # Portfolio is a jquery list variable containing [0]:portfolio name and [1]:description 
+    portfolio = request.POST.get("portfolio")
 
+    # Insert ML Model here 
 
+    # Create portfolio object after ML model run
+    xx = Portfolio.objects.create(p_name='', p_desc='', cum_return=0, cagr=0, sharpe=0, max_drawdown=0, created_at=datetime.now(), created_by='') 
+
+    # 
     ''' For Optimization Page '''
     # Based on front-end user input in forms, back end create portfolio
 
