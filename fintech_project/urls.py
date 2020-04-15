@@ -25,6 +25,8 @@ from portfolio import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
+    path('info/forecasting_model', views.main_forecast, name='main_forecast'),
+    path('info/optimizing_model', views.main_optimize, name='main_optimize'),
     path('compare/', views.compare, name='compare'),
     path('optimize/', views.optimize, name='optimize'),
     path('my_portfolio/', views.my_portfolio, name='my_portfolio'),
@@ -32,5 +34,6 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', views.log_out, name='logout'),
     path('signup/', views.signup, name='signup'),
+    path('create_stock/', views.create_stock, name='create_stock'),
     re_path(r'^portfolios/(?P<pk>\d+)/$', views.portfolio_id, name='portfolio_id')
 ]
