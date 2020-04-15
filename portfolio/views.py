@@ -70,6 +70,12 @@ def home(request):
     #only have log-in button - href to login html 
     return render(request, "main_home.html")
 
+def main_forecast(request):
+    return render(request, "main_forecast.html")
+
+def main_optimize(request):
+    return render(request, "main_optimize.html")
+
 def my_portfolio(request):
     #receive input from form - method=GET from stocks database, inputs: datalist of all stocks in universe
     #add and remove stocks and allocation form button - using jquery

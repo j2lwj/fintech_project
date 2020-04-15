@@ -25,6 +25,8 @@ from portfolio import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
+    path('info/forecasting_model', views.main_forecast, name='main_forecast'),
+    path('info/optimizing_model', views.main_optimize, name='main_optimize'),
     path('compare/', views.compare, name='compare'),
     path('optimize/', views.optimize, name='optimize'),
     path('my_portfolio/', views.my_portfolio, name='my_portfolio'),
