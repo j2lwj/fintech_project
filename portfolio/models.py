@@ -28,11 +28,12 @@ class User_Portfolio(models.Model):
         return self.user_id, self.portfolio_id 
 
 class Stocks(models.Model):
-    stock_id = models.AutoField(primary_key=True)
-    stock_name = models.CharField(max_length=20, unique=True)
+    
+    stock_id = models.IntegerField(primary_key=True)
+    stock_name = models.CharField(max_length=191, unique=True)
     ticker = models.CharField(max_length=10, unique=True)
     forecast_return = models.FloatField(default=0)
-    created_at = models.DateTimeField(auto_now=True)
+    mse = models.FloatField(default=0)
 
     class Meta:
         db_table = 'stocks'
@@ -42,8 +43,8 @@ class Stocks(models.Model):
     
 
 class Portfolio_Stocks(models.Model):
-    port_id = models.ForeignKey(Portfolio, related_name='portfolio_stocks', on_delete=models.CASCADE, db_column = 'port_id')
-    stock_id = models.ForeignKey(Stocks, related_name='portfolio_stocks', on_delete=models.CASCADE, db_column = 'stock_id')
+    port_id = models.ForeignKey(Portfolio, related_name='portfolio_stocks', on_delete=models.DO_NOTHING, db_column = 'port_id')
+    stock_id = models.ForeignKey(Stocks, related_name='portfolio_stocks', on_delete=models.DO_NOTHING, db_column = 'stock_id')
     stock_weight = models.FloatField()
     
     class Meta:

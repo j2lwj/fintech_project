@@ -34,5 +34,6 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', views.log_out, name='logout'),
     path('signup/', views.signup, name='signup'),
+    path('create_stock/', views.create_stock, name='create_stock'),
     re_path(r'^portfolios/(?P<pk>\d+)/$', views.portfolio_id, name='portfolio_id')
 ]

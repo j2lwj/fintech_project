@@ -87,81 +87,70 @@ def my_portfolio(request):
     (current vs optimized) - pie chart using jquery linked to allocation, the rest is backend processing.
     """
 
-    # GRAPHS
+    # # GRAPHS
     
-    fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
+    # stocks = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
 
-    p = figure(x_range=fruits, plot_height=300, plot_width=1000, title="Fruit Counts",
-            toolbar_location=None, tools="")
+    # p = figure(x_range=stocks, plot_height=300, plot_width=1000, title="Predicted Returns",
+    #         toolbar_location=None, tools="")
 
-    p.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9, hover_color="pink")
+    # p.vbar(x=stocks, top=[5, 3, 4, 2, 4, 6], width=0.9, hover_color="pink")
 
-    p.xgrid.grid_line_color = None
-    p.ygrid.grid_line_color = None
-    p.background_fill_color = None
-    p.border_fill_color = None
+    # p.xgrid.grid_line_color = None
+    # p.ygrid.grid_line_color = None
+    # p.background_fill_color = None
+    # p.border_fill_color = None
 
-    p.add_tools(HoverTool(tooltips=[("Fruit", "@fruits"), ("Count", "@y")]))
+    # p.add_tools(HoverTool(tooltips=[("Fruit", "@stocks"), ("Count", "@y")]))
     
-    p.title.text_font = "gill"
-    p.title.text_font_size = "24px"
-    p.title.text_color = "white"
-    p.xaxis.major_label_text_font = "gill"
-    p.xaxis.major_label_text_font_size = "20px"
-    p.xaxis.major_label_text_color = "white"
-    p.yaxis.major_label_text_font = "gill"
-    p.yaxis.major_label_text_font_size = "20px"
-    p.yaxis.major_label_text_color = "white"
+    # p.title.text_font = "gill"
+    # p.title.text_font_size = "24px"
+    # p.title.text_color = "white"
+    # p.xaxis.major_label_text_font = "gill"
+    # p.xaxis.major_label_text_font_size = "20px"
+    # p.xaxis.major_label_text_color = "white"
+    # p.yaxis.major_label_text_font = "gill"
+    # p.yaxis.major_label_text_font_size = "20px"
+    # p.yaxis.major_label_text_color = "white"
 
-    script, div = components(p)
+    # script, div = components(p)
     
-    '''
-    Work-In-Progress: linking the 'Forecast' button to the variables in 'p'
-    stocks = request.POST.get("array of stocks")
+    
+    # Work-In-Progress: linking the 'Forecast' button to the variables in 'p'
+    # stocks = request.POST.get("array of stocks")
     
     #Run the ML backend model to get the forecasted returns of each stock
-    
+    stocks = ['AAPL', 'UNM', 'VIAV']
     try:
-        df = ...  #Code to append to selected_portfolios --> {[stock_name, predicted_returns]}
+        if stocks is not None:
+            return # df = pd.read_csv('')  #Code to append to selected_portfolios --> {[stock_name, predicted_returns]}
+        else:
+            p = figure(x_range = df['stock_name'], plot_height=300, plot_width=1000, title="Predicted Returns",
+                toolbar_location=None, tools="")
+            p.vbar(x = df['stock_name'], top = df['predicted_returns'], width = 0.9, hover_color="pink")
+            p.xgrid.grid_line_color = None
+            p.ygrid.grid_line_color = None
+            p.background_fill_color = None
+            p.border_fill_color = None
+            p.title.text_font = "gill"
+            p.title.text_font_size = "24px"
+            p.title.text_color = "white"
+            p.yaxis.axis_label = "Predicted Returns"
+            p.yaxis.axis_label_text_font = "gill"
+            p.yaxis.axis_label_text_font_color = "white"
+            p.xaxis.major_label_text_font = "gill"
+            p.xaxis.major_label_text_font_size = "20px"
+            p.xaxis.major_label_text_font_style = "bold"
+            p.xaxis.major_label_text_color = "white"
+            p.yaxis.major_label_text_font = "gill"
+            p.yaxis.major_label_text_font_size = "20px"
+            p.yaxis.major_label_text_color = "white"
+            p.add_tools(HoverTool(tooltips=[("Stock", "@stock_name"), ("Predicted Returns", "@predicted_returns")]))
+            script, div = components(p)
     except KeyError:
-        
-		script = None
-		div = None
-	else:
-    p = figure(x_range = df['stock_name'], plot_height=300, plot_width=1000, title="Predicted Returns",
-            toolbar_location=None, tools="")
-    p.vbar(x = df['stock_name'], top = df['predicted_returns'], width = 0.9, hover_color="pink")
-    p.xgrid.grid_line_color = None
-    p.ygrid.grid_line_color = None
-    p.background_fill_color = None
-    p.border_fill_color = None
-    p.title.text_font = "gill"
-    p.title.text_font_size = "24px"
-    p.title.text_color = "white"
-    p.yaxis.axis_label = "Predicted Returns"
-    p.yaxis.axis_label_text_font = "gill"
-    p.yaxis.axis_label_text_font_color = "white"
-    p.xaxis.major_label_text_font = "gill"
-    p.xaxis.major_label_text_font_size = "20px"
-    p.xaxis.major_label_text_font_style = "bold"
-    p.xaxis.major_label_text_color = "white"
-    p.yaxis.major_label_text_font = "gill"
-    p.yaxis.major_label_text_font_size = "20px"
-    p.yaxis.major_label_text_color = "white"
-    p.add_tools(HoverTool(tooltips=[("Stock", "@stock_name"), ("Predicted Returns", "@predicted_returns")]))
-    script, div = components(p)
-    '''
-
-    ''' Create Stocks Objects '''
-
-    # stocks_df = pd.read_csv('tickers.csv')
-    # tup = stocks_df.values
-
-    # for each in tup:
-    #     Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], forecast_return=each[3], created_at=datetime.now())
-   
-    ''' Link front end stocks selection inputs to back-end '''
-    
+        script = None
+        div = None
+	
     # idArr contains a list of user-selected stock tickers
     selected_stocks = request.POST.get("idArr")
     all_stocks = Stocks.objects
@@ -513,6 +502,17 @@ def portfolios(request):
 def portfolio_id(request):
     return render(request, 'portfolio1.html')
 
+
+def create_stocks():
+    ''' Create Stocks Objects '''
+    stocks_df = pd.read_csv('tickers_latest.csv')
+    tup = stocks_df.values
+
+    for each in tup:
+        Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], forecast_return=each[3], mse=each[4])
+    
+    return
+    ''' Link front end stocks selection inputs to back-end '''
 
 # def live_price(request):
 
