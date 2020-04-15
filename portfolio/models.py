@@ -32,7 +32,7 @@ class Stocks(models.Model):
     stock_name = models.CharField(max_length=20, unique=True)
     ticker = models.CharField(max_length=10, unique=True)
     forecast_return = models.FloatField(default=0)
-    created_at = models.DateTimeField(auto_now=True)
+    mse = models.FloatField(default=0)
 
     class Meta:
         db_table = 'stocks'

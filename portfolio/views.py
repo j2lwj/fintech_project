@@ -148,11 +148,11 @@ def my_portfolio(request):
 
     ''' Create Stocks Objects '''
 
-    # stocks_df = pd.read_csv('tickers.csv')
-    # tup = stocks_df.values
+    stocks_df = pd.read_csv('tickers_latest.csv')
+    tup = stocks_df.values
 
-    # for each in tup:
-    #     Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], forecast_return=each[3], created_at=datetime.now())
+    for each in tup:
+        Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], forecast_return=each[3], mse=each[4])
    
     ''' Link front end stocks selection inputs to back-end '''
     
