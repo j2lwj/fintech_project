@@ -77,16 +77,6 @@ def main_optimize(request):
     return render(request, "main_optimize.html")
 
 def my_portfolio(request):
-    #receive input from form - method=GET from stocks database, inputs: datalist of all stocks in universe
-    #add and remove stocks and allocation form button - using jquery
-    #output for allocation ((no. of shares x price)/total capital
-    #save button - create a new portfolio object
-    """
-    optimize button - backend ML processing: input - ticker, var1, var2 etc . output - 1) percentage allocation 
-    bokeh chart to display line chart (current vs optimized vs bm), 2) pie chart (% allocation), 3) YoY returns
-    (current vs optimized) - pie chart using jquery linked to allocation, the rest is backend processing.
-    """
-
     # # GRAPHS
     
     # stocks = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
@@ -205,29 +195,29 @@ def my_portfolio(request):
 
     ''' return forecasted returns of selected in graph form '''
     
+    ''' Optimization Page '''
+    # Insert ML Model here 
 
-    ''' Create a portfolio '''
+    # selected_stocks to 
     
+    # Create chart and data table to display in optimized html 
+
+
+    ''' User create a portfolio '''
     # Portfolio is a jquery list variable containing [0]:portfolio name and [1]:description 
     portfolio = request.POST.get("portfolio")
 
-    # Insert ML Model here 
 
     # Create portfolio object after ML model run
-    xx = Portfolio.objects.create(p_name='', p_desc='', cum_return=0, cagr=0, sharpe=0, max_drawdown=0, created_at=datetime.now(), created_by='') 
+    xx = Portfolio.objects.create(p_name=portfolio[0], p_desc=portfolio[1], cum_return='from ml', sharpe='from ml', created_at=datetime.now(), created_by='insert user_id.username') 
 
-    # 
-    ''' For Optimization Page '''
-    # Based on front-end user input in forms, back end create portfolio
+    # Create User_Portfolio object
+    xx = User_Portfolio.objects.create(user_id='insert user_id', portfolio_id='insert portfolio_id')
 
-    p_name = request.GET.get('p_name')
-    p_desc = request.GET.get('p_desc') 
-    stocks = request.GET.get('stock_array') 
+    # Create Portfolio_Stocks object 
+    for each in selected_stocks:
+        xx = Portfolio_Stocks.objects.create(port_id='Portfolio.id', stock_id='all_stocks.get(ticker=each).id', stock_weight='from ml')
 
-    # Create and Save portfolio objects into Portfolio database
-
-    # Portfolio.objects.create(p_name=p_name, p_desc=p_desc, cum_return= , cagr= , sharpe= , max_drawdown= , created_by=user) 
-    
     context = {
         'p_name': p_name,
         'p_desc': p_desc,
@@ -235,8 +225,6 @@ def my_portfolio(request):
         'script': script,
         'div': div,
     }
-    
-    ''' To save portfolio '''
     
     return render(request, "homepage.html", context=context)
 
