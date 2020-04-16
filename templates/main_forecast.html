@@ -33,10 +33,10 @@
                 
                 <!-- Slider Item -->
                 <div class="owl-item">
-                    <div class="slider_background" style="background-image:url(../static/images/machine_learning2.jpg)"></div>
+                    <div class="slider_background" style="background-image:url(../static/images/financial.jpg)"></div>
                     <div class="home_slider_content text-center">
-                        <h1>Invest Smart with Machine Learning</h1>
-                        <div class="home_slider_text">Use machine learning to predict your stock returns</div>
+                        <h1>Forecasting <br> Model</h1>
+                        <div class="home_slider_text">Learn how our machine learning algorithms work</div>
                     </div>
                 </div>
                 
@@ -99,7 +99,7 @@
 											</svg>
 										</a></li>
 										<li class="hassubs">
-											<a href="#">services
+											<a href="#">more info
 												<svg version="1.1" id="Layer_5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 													 width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
 													<g>
@@ -210,64 +210,6 @@
         </header>
     </div>
 
-    <!-- Forecasting Model in action -->
-
-    <div class="news">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="section_title_container text-center">
-                        <div class="section_subtitle">how our models run</div>
-                        <div class="section_title">Forecasting Model</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row news_row">
-                <div class="col news_col">
-                    <div class="news_item">
-                        <div class="news_content">
-                            <div class="news_title">1. We use data excluding the Energy sector</div>
-                            <div class="news_text">
-                                <p>
-                                    For our example, we will be showing how our algorithm runs on the financial markets, excluding the Energy sector. 
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row news_row">
-                <div class="col news_col">
-                    <div class="news_item">
-                        <div class="news_content">
-                            <div class="news_title">2. Model accuracy results</div>
-                            <div class="news_text">
-                                <p>
-                                    We measure model accuracy based on Mean Squared Error (MSE). This metric measures how much the various regression models deviate from the data points of our 25+ years worth of data.
-                                    A lower MSE value means better model accuracy.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row news_row">
-                <div class="col news_col">
-                    <div class="news_item">
-                        <div class="news_content">
-                            <div class="news_title">3. Breaking down model accuracy into the select 10 financial sectors</div>
-                            <div class="news_text">
-                                <p>
-                                    Our machine learning model calculates the model accuracy of the individual financial sectors.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Intro -->
 
     <div class="intro">
@@ -297,7 +239,7 @@
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="intro_image text-center" style="padding: 25px;"><img src="../static/images/ml_1.png" width="80%" height="80%"></div>
+                                <div class="intro_image text-center" style="padding: 25px;"><img src="../static/images/ml_4.png" width="80%" height="80%"></div>
                             </div>
 
                         <div class="row" style="padding: 25px;">
@@ -324,7 +266,8 @@
                                     </div>
                                     <div class="col-lg-11">
                                         <p style="font-size: large;">
-                                            This stage is the feature extraction and selection process. <br>
+                                            This stage is the feature extraction and selection process where we identify and choose which fundaamental information to use. 
+                                            These will be further elaborated below.<br>
                                         </p>
                                     </div>
                                 </div>
@@ -337,7 +280,9 @@
                                     </div>
                                     <div class="col-lg-11">
                                         <p style="font-size: large;">
-                                            This stage is the optimising and trainng LS-SVM with PSO algorithm process. <br>
+                                            This is the stage where most processing power goes into. Our algorithm consists of 5 models: 
+                                            <b>Linear Regression, Ridge Regression, Stepwise Regression, Random Forest and Generalized Boosted Regression.</b><br>
+                                            Our algorithm will run all 5 models with the pre-processed data, together with the 20 features.
                                         </p>
                                     </div>
                                 </div>
@@ -350,7 +295,9 @@
                                     </div>
                                     <div class="col-lg-11">
                                         <p style="font-size: large;">
-                                            This stage is the testing phase with new data. <br>
+                                            During this stage, we test each model's forecasted returns with the stocks' true returns.
+                                            We will take note of the accuracy of each model using MSE, or mean-squared error.
+                                            The higher the MSE, the lower the accuracy of the model.<br>
                                         </p>
                                     </div>
                                 </div>
@@ -363,7 +310,8 @@
                                     </div>
                                     <div class="col-lg-11">
                                         <p style="font-size: large;">
-                                            This stage computes the MSE for our model. <br>
+                                            Lastly, our algorithm adopts the model with the lowest MSE for each quarter. 
+                                            This is to ensure that we use the most accurate model for every stock forecast. <br>
                                         </p>
                                     </div>
                                 </div>
@@ -383,7 +331,9 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <p style="font-size: large;">
-                                        HELLOGEKEHELehee.
+                                    Our model uses these 20 fundamental information to forecast the next quarter returns of stocks. 
+                                    We select representative stock indicators with good explanatory power, and these 20 indicators allow us to 
+                                    understand the profitability, efficiency and level of leverage of a company.
                                     </p>
                                 </div>
                             </div>
@@ -394,60 +344,16 @@
                         <div style="margin-top: 24px;">
                             <div class="row">
                                 <div class="col">
-                                    <h4 style="color: rgba(0, 0, 0, 0.633);"><b>Basic Flowchart</b></h4>
+                                    <h4 style="color: rgba(0, 0, 0, 0.633);"><b>Summary</b></h4>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="intro_image text-center" style="padding: 25px;"><img src="../static/images/ml_3.png" width="80%" height="80%"></div>
-                        </div>
-                        <div class="col-lg-12">
-                            <p style="font-size: large;">
-                                HELLOGEKEHELehee.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Points -->
-    <!-- I CANNOT GET THE .POINTS CSS PART TO WORK: I MANUALLY STYLED IN THE DIVS-->
-
-	<div class="services">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="intro_title_container">
-						<div class="intro_subtitle">take a look at</div>
-						<div class="section_title">What Is In It For You?</div>
-					</div>
-				</div>
-			</div>
-			<div class="row points_container" style="margin-top: 108px;">
-				
-                <!-- Service -->
-                <div class="col-lg-6 col-md-6 point_col" >
-                    <div class="point clearfix">
-                        <div class="point_image" style="width: 76px; height: 76px; border: solid 2px #ffa800; border-radius: 50%; float: left;"><img src="../static/images/services_1.png" alt="" style="position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); -moz-transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); -o-transform: translate(-50%, -50%); transform: translate(-50%, -50%); max-width: 100%;"></div>
-                        <div class="point_content">
-                            <div class="point_title" style="padding-left: 101px; padding-top: 28px; font-family: 'gill', sans-serif; font-size: 28px; color: #212121; line-height: 0.75; -webkit-transition: all 200ms ease; -moz-transition: all 200ms ease; -ms-transition: all 200ms ease; -o-transition: all 200ms ease; transition: all 200ms ease;">Our Mission</div>
-                            <div class="point_text" style="margin-top: 23px; padding-left: 0px; padding-top: 28px;">
-                                <p style="font-size: large;">We aim to empower individual investors to <b>predict their portfolio’s performance</b> by leveraging on Machine Learning</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Service -->
-                <div class="col-lg-6 col-md-6 point_col" >
-                    <div class="point clearfix">
-                        <div class="point_image" style="width: 76px; height: 76px; border: solid 2px #ffa800; border-radius: 50%; float: left;"><img src="../static/images/services_2.png" alt="" style="position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); -moz-transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); -o-transform: translate(-50%, -50%); transform: translate(-50%, -50%); max-width: 100%;"></div>
-                        <div class="point_content">
-                            <div class="point_title" style="padding-left: 101px; padding-top: 28px; font-family: 'gill', sans-serif; font-size: 28px; color: #212121; line-height: 0.75; -webkit-transition: all 200ms ease; -moz-transition: all 200ms ease; -ms-transition: all 200ms ease; -o-transition: all 200ms ease; transition: all 200ms ease;">Your Perks</div>
-                            <div class="point_text" style="margin-top: 23px; padding-left: 0px; padding-top: 28px;">
-                                <p style="font-size: large;">Our <b>Key Advantage</b> is using ML to <b>uncover complex, non-linear patterns</b> which would otherwise be difficult to identify using traditional statistical techniques </p>
+                                <div class="col-lg-12">
+                                    <p style="font-size: large;">
+                                        In summary, the graph below illustrates how our machine learning model works. 
+                                    </p>
+                                </div>                        
+                                <div class="col-lg-12">
+                                    <div class="intro_image text-center" style="padding: 25px;"><img src="../static/images/ml_3.png" width="80%" height="80%"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -456,264 +362,32 @@
         </div>
     </div>
 
-    <!-- Services -->
-
-    <div class="services">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <!-- Testimonials Slider -->
-
-                    <div class="services_slider_container">
-                        <div class="owl-carousel owl-theme services_slider">
-
-                            <!-- Services Item -->
-                            <div class="owl-item">
-                                <div class="services_item d-flex flex-column align-items-center justify-content-center">
-                                    <div class="services_item_bg"></div>
-                                    <div class="services_icon"><img class="svg" src="../static/images/services_1.svg" alt=""></div>
-                                    <div class="services_title">Exchange Fiat for Crypto</div>
-                                    <p class="services_text">Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta.</p>
-                                    <div class="services_link"><a href="#">Read More</a></div>
-                                </div>
-                            </div>
-
-                            <!-- Services Item -->
-                            <div class="owl-item">
-                                <div class="services_item d-flex flex-column align-items-center justify-content-center">
-                                    <div class="services_item_bg"></div>
-                                    <div class="services_icon"><img class="svg" src="../static/images/services_2.svg" alt=""></div>
-                                    <div class="services_title">Exchange Fiat for Crypto</div>
-                                    <p class="services_text">Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta.</p>
-                                    <div class="services_link"><a href="#">Read More</a></div>
-                                </div>
-                            </div>
-
-                            <!-- Services Item -->
-                            <div class="owl-item">
-                                <div class="services_item d-flex flex-column align-items-center justify-content-center">
-                                    <div class="services_item_bg"></div>
-                                    <div class="services_icon"><img class="svg" src="../static/images/services_3.svg" alt=""></div>
-                                    <div class="services_title">Exchange Fiat for Crypto</div>
-                                    <p class="services_text">Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta.</p>
-                                    <div class="services_link"><a href="#">Read More</a></div>
-                                </div>
-                            </div>
-
-                            <!-- Services Item -->
-                            <div class="owl-item">
-                                <div class="services_item d-flex flex-column align-items-center justify-content-center">
-                                    <div class="services_item_bg"></div>
-                                    <div class="services_icon"><img class="svg" src="../static/images/services_1.svg" alt=""></div>
-                                    <div class="services_title">Exchange Fiat for Crypto</div>
-                                    <p class="services_text">Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta.</p>
-                                    <div class="services_link"><a href="#">Read More</a></div>
-                                </div>
-                            </div>
-
-                            <!-- Services Item -->
-                            <div class="owl-item">
-                                <div class="services_item d-flex flex-column align-items-center justify-content-center">
-                                    <div class="services_item_bg"></div>
-                                    <div class="services_icon"><img class="svg" src="../static/images/services_2.svg" alt=""></div>
-                                    <div class="services_title">Exchange Fiat for Crypto</div>
-                                    <p class="services_text">Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta.</p>
-                                    <div class="services_link"><a href="#">Read More</a></div>
-                                </div>
-                            </div>
-
-                            <!-- Services Item -->
-                            <div class="owl-item">
-                                <div class="services_item d-flex flex-column align-items-center justify-content-center">
-                                    <div class="services_item_bg"></div>
-                                    <div class="services_icon"><img class="svg" src="../static/images/services_3.svg" alt=""></div>
-                                    <div class="services_title">Exchange Fiat for Crypto</div>
-                                    <p class="services_text">Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta.</p>
-                                    <div class="services_link"><a href="#">Read More</a></div>
-                                </div>
-                            </div>
-
-                        </div>
-                        
-                        <div class="services_nav services_prev d-flex flex-column align-items-center justify-content-center"><img src="../static/images/arrow_l.png" alt=""></div>
-                        <div class="services_nav services_next d-flex flex-column align-items-center justify-content-center"><img src="../static/images/arrow_r.png" alt=""></div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Converter -->
-
-    <div class="converter">
-        <div class="converter_background parallax-window" data-parallax="scroll" data-image-src="../static/images/converter.jpg" data-speed="0.8"></div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5">
-                    <div class="converter_content">
-                        <div class="converter_title_container">
-                            <div class="converter_subtitle">take a look at our</div>
-                            <h1 class="converter_title">Bitcoin To Fiat Currency Calculator</h1>
-                        </div>
-                        <div class="converter_text">
-                            <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit.Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobo rtis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="converter_container">
-                        <form action="#">
-                            <input type="text" value="1" class="converter_input_value converter_input">
-                            <select class="dropdown_converter converter_input">
-                                <option>btc</option>
-                                <option>ltc</option>
-                                <option>eth</option>
-                            </select>
-                            <div class="eq">=</div>
-                            <input type="text" value="9400,45" readonly class="converter_input converter_result">
-                            <select class="dropdown_converter converter_input">
-                                <option>eur</option>
-                                <option>usd</option>
-                                <option>gbp</option>
-                            </select>
-                        </form>
-                        <form action="#">
-                            <input type="text" value="10400" class="converter_input_value converter_input">
-                            <select class="dropdown_converter converter_input">
-                                <option>usd</option>
-                                <option>eur</option>
-                                <option>gbp</option>
-                            </select>
-                            <div class="eq">=</div>
-                            <input type="text" value="1.02" readonly class="converter_input converter_result">
-                            <select class="dropdown_converter converter_input">
-                                <option>btc</option>
-                                <option>ltc</option>
-                                <option>eth</option>
-                            </select>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Further Developments -->
-
-    <div class="info">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="section_title_container text-center">
-                        <div class="section_subtitle">due to time constraints</div>
-                        <div class="section_title">What are our further developments?</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row info_row">
-
-                <!-- Info Item -->
-                <div class="col-lg-4 info_col">
-                    <div class="info_item text-center">
-                        <div class="info_image"><img src="../static/images/info_1.png" alt=""></div>
-                        <div class="info_title">Create your wallet</div>
-                        <div class="info_text">
-                            <p>Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Info Item -->
-                <div class="col-lg-4 info_col">
-                    <div class="info_item text-center">
-                        <div class="info_image"><img src="../static/images/info_2.png" alt=""></div>
-                        <div class="info_title">Make payments</div>
-                        <div class="info_text">
-                            <p>Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Info Item -->
-                <div class="col-lg-4 info_col">
-                    <div class="info_item text-center">
-                        <div class="info_image"><img src="../static/images/info_3.png" alt=""></div>
-                        <div class="info_title">Buy or sell orders</div>
-                        <div class="info_text">
-                            <p>Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- News -->
+    <!-- Forecasting Model in action -->
 
     <div class="news">
         <div class="container">
             <div class="row">
                 <div class="col">
                     <div class="section_title_container text-center">
-                        <div class="section_subtitle">take a look at our</div>
-                        <div class="section_title">Latest News in Crypto</div>
+                        <div class="section_subtitle">how our models run</div>
+                        <div class="section_title">Results of Our Model</div>
                     </div>
                 </div>
             </div>
             <div class="row news_row">
-                
-                <!-- News Item -->
-                <div class="col-lg-4 news_col">
+                <div class="col news_col">
                     <div class="news_item">
-                        <div class="news_image">
-                            <img src="../static/images/news_1.jpg" alt="https://unsplash.com/@silverhousehd">
-                        </div>
                         <div class="news_content">
-                            <div class="news_title">New Regulations on the Crypto Market</div>
+                            <div class="news_title">Accuracy of Our Model</div>
                             <div class="news_text">
-                                <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci.</p>
+                                <p style="padding-bottom:20px;">
+                                    For our example, we will be showing how our algorithm runs on the different GICS industries, excluding the Energy sector. <br>
+                                </p>
+                                {{ div | safe }}
                             </div>
                         </div>
-                        <div class="news_button"><a href="news.html">read more</a></div>
                     </div>
                 </div>
-
-                <!-- News Item -->
-                <div class="col-lg-4 news_col">
-                    <div class="news_item">
-                        <div class="news_image">
-                            <img src="../static/images/news_2.jpg" alt="https://unsplash.com/@silverhousehd">
-                        </div>
-                        <div class="news_content">
-                            <div class="news_title">Good News from the Crypto World</div>
-                            <div class="news_text">
-                                <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci.</p>
-                            </div>
-                        </div>
-                        <div class="news_button"><a href="news.html">read more</a></div>
-                    </div>
-                </div>
-
-                <!-- News Item -->
-                <div class="col-lg-4 news_col">
-                    <div class="news_item">
-                        <div class="news_image">
-                            <img src="../static/images/news_3.jpg" alt="https://unsplash.com/@silverhousehd">
-                        </div>
-                        <div class="news_content">
-                            <div class="news_title">Bitcoin price goes to the Moon with new laws</div>
-                            <div class="news_text">
-                                <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci.</p>
-                            </div>
-                        </div>
-                        <div class="news_button"><a href="news.html">read more</a></div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>

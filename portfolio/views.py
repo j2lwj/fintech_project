@@ -7,7 +7,9 @@ from django.contrib.auth.forms import UserCreationForm
 # Python Library
 import requests
 import datetime
+import json
 import pandas as pd
+import numpy as np
 from datetime import datetime
 from collections import Counter
 from math import pi
@@ -15,11 +17,12 @@ from bs4 import BeautifulSoup
 
 # Bokeh Libraries
 from bokeh.plotting import figure
-from bokeh.models import ColumnDataSource, NumeralTickFormatter, HoverTool
+from bokeh.models import ColumnDataSource, NumeralTickFormatter, HoverTool, Legend
 from bokeh.models.widgets import DataTable, DateFormatter, TableColumn
+from bokeh.models.formatters import NumeralTickFormatter
 from bokeh.layouts import widgetbox
 from bokeh.embed import components
-from bokeh.palettes import Category20c
+from bokeh.palettes import Category20c, Spectral11
 from bokeh.transform import cumsum
 
 # Local Libraries
@@ -71,7 +74,55 @@ def home(request):
     return render(request, "main_home.html")
 
 def main_forecast(request):
-    return render(request, "main_forecast.html")
+
+    import pandas as pd
+    df = pd.read_excel('sector_MSE.xlsx', index_col=0)  
+    columns = df.columns.tolist()
+
+    numlines=len(df.columns)
+    mypalette=Spectral11[0:numlines]
+
+    data = {
+        'xs': [df.index.values]*numlines,
+        'ys': [df[name].values for name in df],
+        'labels': columns,
+        'color': mypalette
+        }
+
+    source = ColumnDataSource(data)
+
+    p = figure(width=1000, height=300, x_axis_type="datetime", title='MSE per Industry') 
+    p.multi_line(xs='xs', ys='ys', legend='labels', source=source, line_color='color', line_width=3)
+       
+    p.background_fill_color = None
+    p.border_fill_color = None
+    p.xgrid.grid_line_color = None
+
+    p.title.text_font = "gill"
+    p.title.text_font_size = "20px"
+    p.xaxis.major_label_text_font = "gill"
+    p.xaxis.major_label_text_font_size = "18px"
+    p.yaxis[0].formatter = NumeralTickFormatter(format="0.00%")
+    p.yaxis.major_label_text_font = "gill"
+    p.yaxis.major_label_text_font_size = "18px"
+
+    new_legend = p.legend[0]
+    p.legend[0].plot = None
+    p.add_layout(new_legend, 'right')
+
+    p.legend.label_text_font = "gill"
+    p.legend.label_text_font_size = "12px"
+
+    p.add_tools(HoverTool(tooltips=[("Sector", "@labels"), ("MSE", "$y{1.11%}")]))
+
+    script, div = components(p)
+
+    context = {
+        'script': script,
+        'div': div
+    }
+
+    return render(request, "main_forecast.html", context=context)
 
 def main_optimize(request):
     return render(request, "main_optimize.html")
@@ -79,6 +130,9 @@ def main_optimize(request):
 def my_portfolio(request):
     # # GRAPHS
     
+    '''
+    Sample graph data 
+
     # stocks = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
 
     # p = figure(x_range=stocks, plot_height=300, plot_width=1000, title="Predicted Returns",
@@ -104,48 +158,39 @@ def my_portfolio(request):
     # p.yaxis.major_label_text_color = "white"
 
     # script, div = components(p)
-    
+    '''
     
     # Work-In-Progress: linking the 'Forecast' button to the variables in 'p'
     # stocks = request.POST.get("array of stocks")
     
     #Run the ML backend model to get the forecasted returns of each stock
-    stocks = ['AAPL', 'UNM', 'VIAV']
+    # stocks = ['AAPL', 'UNM', 'VIAV']
+
+    # context = {
+    #     'stocks': stocks
+    # }
+  
+    if stocks is None:
+        return render(request=request, template_name='homepage.html', context=context)
+    
     try:
-        if stocks is not None:
-            return # df = pd.read_csv('')  #Code to append to selected_portfolios --> {[stock_name, predicted_returns]}
-        else:
-            p = figure(x_range = df['stock_name'], plot_height=300, plot_width=1000, title="Predicted Returns",
-                toolbar_location=None, tools="")
-            p.vbar(x = df['stock_name'], top = df['predicted_returns'], width = 0.9, hover_color="pink")
-            p.xgrid.grid_line_color = None
-            p.ygrid.grid_line_color = None
-            p.background_fill_color = None
-            p.border_fill_color = None
-            p.title.text_font = "gill"
-            p.title.text_font_size = "24px"
-            p.title.text_color = "white"
-            p.yaxis.axis_label = "Predicted Returns"
-            p.yaxis.axis_label_text_font = "gill"
-            p.yaxis.axis_label_text_font_color = "white"
-            p.xaxis.major_label_text_font = "gill"
-            p.xaxis.major_label_text_font_size = "20px"
-            p.xaxis.major_label_text_font_style = "bold"
-            p.xaxis.major_label_text_color = "white"
-            p.yaxis.major_label_text_font = "gill"
-            p.yaxis.major_label_text_font_size = "20px"
-            p.yaxis.major_label_text_color = "white"
-            p.add_tools(HoverTool(tooltips=[("Stock", "@stock_name"), ("Predicted Returns", "@predicted_returns")]))
-            script, div = components(p)
+
+        stocks_db = Stocks.objects.all()
+        
+        # Dummy data
+        df = stocks_db
+
+        # {'stock_name':['AAPL','GOOGL'],'predicted_returns': [1,2]} 
+        
+        #df = pd.read_csv('')  #Code to append to selected_portfolios --> {'stock_name': [], 'predicted_returns': []}
+
     except KeyError:
-     
-        '''
-            script = None
-            div = None
-        else:
+        script = None
+        div = None
+    else:
         p = figure(x_range = df['stock_name'], plot_height=300, plot_width=1000, title="Predicted Returns",
                 toolbar_location=None, tools="")
-        p.vbar(x = df['stock_name'], top = df['predicted_returns'], width = 0.9, hover_color="pink")
+        p.vbar(x = df['stock_name'], top = df['forecast_return'], width = 0.9, hover_color="pink")
         p.xgrid.grid_line_color = None
         p.ygrid.grid_line_color = None
         p.background_fill_color = None
@@ -155,7 +200,8 @@ def my_portfolio(request):
         p.title.text_color = "white"
         p.yaxis.axis_label = "Predicted Returns"
         p.yaxis.axis_label_text_font = "gill"
-        p.yaxis.axis_label_text_font_color = "white"
+        p.yaxis.axis_label_text_font_size = "16px"
+        p.yaxis.axis_label_text_color = "white"
         p.xaxis.major_label_text_font = "gill"
         p.xaxis.major_label_text_font_size = "20px"
         p.xaxis.major_label_text_font_style = "bold"
@@ -164,8 +210,8 @@ def my_portfolio(request):
         p.yaxis.major_label_text_font_size = "20px"
         p.yaxis.major_label_text_color = "white"
         p.add_tools(HoverTool(tooltips=[("Stock", "@stock_name"), ("Predicted Returns", "@predicted_returns")]))
+        
         script, div = components(p)
-        '''
 
     ''' Create Stocks Objects: Already done, do not uncomment to avoid duplicating stocks objects '''
 
@@ -208,7 +254,7 @@ def my_portfolio(request):
     portfolio = request.POST.get("portfolio")
 
 
-    # Create portfolio object after ML model run
+    # # Create portfolio object after ML model run
     xx = Portfolio.objects.create(p_name=portfolio[0], p_desc=portfolio[1], cum_return='from ml', sharpe='from ml', created_at=datetime.now(), created_by='insert user_id.username') 
 
     # Create User_Portfolio object
@@ -221,7 +267,8 @@ def my_portfolio(request):
     context = {
         'p_name': p_name,
         'p_desc': p_desc,
-        'stocks': stocks,
+        'selected_stocks': selected_stocks,
+        'stocks_db': stocks_db,
         'script': script,
         'div': div,
     }
@@ -233,57 +280,53 @@ def compare(request):
     #button to run jquery to display charts and make YoY returns comparison for each portfolio
     #Based on this, safe to say once a portfolio object is created, also need to save their charts and stats to load easily for comparison
    
-    # all_portfolios = Portfolio.objects.all()
+    all_portfolios = Portfolio.objects.all()
 
 
     # Saving output form the checkbox
     try:
-
         selected_portfolios = request.POST.getlist('checkbox1') # This will show [p_name, p_name, ...]
+        df = all_portfolios
+        #df = ...  #Code to append to selected_portfolios --> {[p_name, sharpe_ratio, volatility], [p_name, sharpe_ratio]}
+
+        context = {
+            'selected_portfolios': selected_portfolios
+        }
+
+        if selected_portfolios is None:
+            return render(request=request, template_name='compare.html', context=context)
+
+        else:
+            p = figure(x_range = df['p_name'], plot_height=300, plot_width=1000, title="Portfolio Comparison",
+            toolbar_location=None, tools="")
+            p.vbar(x = df['p_name'], top = df['sharpe'], width = 0.9, hover_color="pink")
+            p.xgrid.grid_line_color = None
+            p.ygrid.grid_line_color = None
+            p.background_fill_color = None
+            p.border_fill_color = None
+            p.title.text_font = "gill"
+            p.title.text_font_size = "24px"
+            p.title.text_color = "white"
+            p.yaxis.axis_label = "Sharpe Ratio"
+            p.yaxis.axis_label_text_font = "gill"
+            p.yaxis.axis_label_text_font_color = "white"
+            p.xaxis.major_label_text_font = "gill"
+            p.xaxis.major_label_text_font_size = "20px"
+            p.xaxis.major_label_text_font_style = "bold"
+            p.xaxis.major_label_text_color = "white"
+            p.yaxis.major_label_text_font = "gill"
+            p.yaxis.major_label_text_font_size = "20px"
+            p.yaxis.major_label_text_color = "white"
+            p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Sharpe Ratio", "@sharpe")]))
 
     except KeyError:
-
         script = None
         div = None
         div1 = None
 
         context = {}                   
     
-    # GRAPHS
-
     '''
-    try:
-        df = ...  #Code to append to selected_portfolios --> {[p_name, sharpe_ratio, volatility], [p_name, sharpe_ratio]}
-    except KeyError:
-        
-		script = None
-		div = None
-	else:
-    p = figure(x_range = df['p_name'], plot_height=300, plot_width=1000, title="Portfolio Comparison",
-            toolbar_location=None, tools="")
-    p.vbar(x = df['p_name'], top = df['sharpe_ratio'], width = 0.9, hover_color="pink")
-    p.xgrid.grid_line_color = None
-    p.ygrid.grid_line_color = None
-    p.background_fill_color = None
-    p.border_fill_color = None
-    p.title.text_font = "gill"
-    p.title.text_font_size = "24px"
-    p.title.text_color = "white"
-    p.yaxis.axis_label = "Sharpe Ratio"
-    p.yaxis.axis_label_text_font = "gill"
-    p.yaxis.axis_label_text_font_color = "white"
-    p.xaxis.major_label_text_font = "gill"
-    p.xaxis.major_label_text_font_size = "20px"
-    p.xaxis.major_label_text_font_style = "bold"
-    p.xaxis.major_label_text_color = "white"
-    p.yaxis.major_label_text_font = "gill"
-    p.yaxis.major_label_text_font_size = "20px"
-    p.yaxis.major_label_text_color = "white"
-    p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Sharpe Ratio", "@sharpe_ratio")]))
-    script, div = components(p) #### This will be combined with components(p1)
-    
-    '''
-
 
     fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
 
@@ -308,11 +351,14 @@ def compare(request):
     p.yaxis.major_label_text_font = "gill"
     p.yaxis.major_label_text_font_size = "20px"
     p.yaxis.major_label_text_color = "white"
+
+    '''
     
     # pie chart
 
     '''
-    jkhashjkasjhkas
+    from selected_portfolios, find the id --> use it to reference to port_id --> get stock_id & stock_weight --> find stock_name & ticker
+    fill the below counter() with stock_name&ticker, stock_weight
     '''
 
     x = Counter({
@@ -376,7 +422,7 @@ def optimize(request):
 	else:
     p = figure(x_range = df['p_name'], plot_height=300, plot_width=500, title="Portfolio Comparison",
             toolbar_location=None, tools="")
-    p.vbar(x = df['p_name'], top = df['sharpe_ratio'], width = 0.9, hover_color="pink")
+    p.vbar(x = df['p_name'], top = df['sharpe'], width = 0.9, hover_color="pink")
     p.xgrid.grid_line_color = None
     p.ygrid.grid_line_color = None
     p.background_fill_color = None
@@ -390,7 +436,7 @@ def optimize(request):
     p.xaxis.major_label_text_font_style = "bold"
     p.yaxis.major_label_text_font = "gill"
     p.yaxis.major_label_text_font_size = "20px"
-    p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Sharpe Ratio", "@sharpe_ratio")]))
+    p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Sharpe Ratio", "@sharpe")]))
     script, div = components(p) #### This will be combined with components(p1)
     
     ###############
@@ -460,7 +506,8 @@ def optimize(request):
     # pie chart
 
     '''
-    jkhashjkasjhkas
+    chart = from df, find the stock_name, stock_weight
+    change counter() to stock_name, stock_weight
     '''
 
     x = Counter({
@@ -537,7 +584,6 @@ def portfolios(request):
 
 def portfolio_id(request):
     return render(request, 'portfolio1.html')
-
 
 def create_stocks():
     ''' Create Stocks Objects '''
