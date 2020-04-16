@@ -164,7 +164,7 @@ def my_portfolio(request):
     # stocks = request.POST.get("array of stocks")
     
     #Run the ML backend model to get the forecasted returns of each stock
-    # stocks = ['AAPL', 'UNM', 'VIAV']
+    stocks = ['AAPL', 'UNM', 'VIAV']
 
     # context = {
     #     'stocks': stocks
@@ -550,7 +550,6 @@ def optimize(request):
         'div1' : div1,
         'div2': div2
     }
-
 
     return render(request, "optimize.html", context=context)
 
