@@ -10,7 +10,78 @@
 		{{ script | safe }}
 	{% endif %}
 {% endblock %}
-
+<!-- <style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+    * {box-sizing: border-box;}
+    
+    /* Button used to open the contact form - fixed at the bottom of the page */
+    .open-button {
+      background-color: #555;
+      color: white;
+      padding: 20px 20px;
+      border: none;
+      cursor: pointer;
+      opacity: 0.8;
+      position: fixed;
+      bottom: 23px;
+      right: 28px;
+      width: 280px;
+    }
+    
+    /* The popup form - hidden by default */
+    .form-popup {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      right: 15px;
+      border: 10px solid #f1f1f1;
+      z-index: 9;
+    }
+    
+    /* Add styles to the form container */
+    .form-container {
+      max-width: 300px;
+      padding: 10px;
+      background-color: white;
+    }
+    
+    /* Full-width input fields */
+    .form-container input[type=text], .form-container input[type=password] {
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      border: none;
+      background: #f1f1f1;
+    }
+    
+    /* When the inputs get focus, do something */
+    .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+      background-color: #ddd;
+      outline: none;
+    }
+    
+    /* Set a style for the submit/login button */
+    .form-container .btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom:10px;
+      opacity: 0.8;
+    }
+    
+    /* Add a red background color to the cancel button */
+    .form-container .cancel {
+      background-color: red;
+    }
+    
+    /* Add some hover effects to buttons */
+    .form-container .btn:hover, .open-button:hover {
+      opacity: 1;
+    }
+</style> -->
 {% block title %}Optimize{% endblock %}
 
 {% block body %}
@@ -405,11 +476,67 @@
                                 </div>
                             {% endfor %}
                         </div>
+                        <!-- <button class="open-button" onclick='openForm()'>Save Portfolio</button>
+                        <div class="form-popup" id="myForm">
+                            <form action="#" method="POST" class="form-container">
+                              <h1>Save Portfolio</h1>
+                          
+                              <label for="p_name"><b>Portfolio Name</b></label>
+                              <input type="text" placeholder="Enter Portfolio Name" name="p_name" id="portfolio" required>
+                          
+                              <label for="p_desc"><b>Description</b></label>
+                              <input type="text" placeholder="Enter Description" name="p_desc" id="portfolio_desc" required>
+                          
+                              <button type="submit" class="btn"  id="save_portfolio">Submit</button>
+                              <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+                            </form>
+                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    //open pop-up form
+        function openForm() {
+    document.getElementById("myForm").style.display = "block"; 
+    };
+    
+    //close pop-up form     
+    function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+    };
+    
+    // //click submit button to capture user input for both portfolio name and description
+    $(document).ready(function(){
+        $("#save_portfolio").click(function(){
+        let portfolio=[];
+        portfolio.push($("#portfolio").val());
+        portfolio.push($("#portfolio_desc").val());
+        alert("Your Portfolio has been saved!");
+        });
+
+        //send a request post to return portfolio list variable to backend
+        $.post("/my_portfolio", {portfolio: portfolio}, function(result){
+            // This function activates once response from backend returns
+            console.log("the backend results are", results);
+            let beResults = result.data.'user_port_dic';
+            localStorage.setItem('user_port_dic', beResults) // Store data to local browser storage 
+        });
+    });
+    document.onload(function(){
+        let beResult = localStorage.getItem("mlOutput")
+
+        //generate graph
+        function genGraph(results){
+            return
+        }
+
+        if(beResult!=null){
+            //run your bokeh function 
+        }
+    })
+</script>
 
 {% endblock %}

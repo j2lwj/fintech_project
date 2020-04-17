@@ -232,8 +232,8 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <button id="addRow" type="button" class="btn btn-info">Add Stocks</button>
-                                                <input type="submit" class="btn btn-info" value="Forecast" name="forecast"> 
-                                                <input type="submit" class="btn btn-info" value="Optimize" name="optimize">
+                                                <input type="submit" class="btn btn-info" value="Forecast" name="forecast" id="forecast"> 
+                                                <input type="submit" class="btn btn-info" value="Optimize" name="optimize" id="optimize">
                                             </div>
                                         </div><br>
                                         <div id="test" class="row" style="margin:5px">
@@ -386,47 +386,68 @@
     <script>
         //filter selected stocks to ticker only
         function stringFilter(str){
-        var ans = "";
-        var i = str.split("(");
+        let ans = "";
+        let i = str.split("(");
         i = i[1];
-        var j = i.split(")");
+        let j = i.split(")");
         ans = j[0];
         return ans;
         };
 
-        //display selected stocks
+        //JQuery for "Forecast" button: Pass user input idArray to backend, return forecasted results in chart and table 
         $(document).ready(function(){
-            $("#myBtn").click(function(){
-                var idArr = [];
+            $("#forecast").click(function(){
+                let idArr = [];
                 $(".stock").each(function(){
                     //filter only stock ticker to store in list
-                    var ans = $(this).val();
-                    var i = ans.split("(");
+                    let ans = $(this).val();
+                    let i = ans.split("(");
                     i = i[1];
-                    var j = i.split(")");
+                    let j = i.split(")");
                     ans = j[0];
                     idArr.push(ans);
                 });
                 
                 // Join array elements and display in alert
-                alert(idArr.join("\n"));
+                // alert(idArr.join("\n"));
                 
-                // send a request post to backend with the array of tickers
+                // send a request post to backend the array of tickers
                 $.post("/my_portfolio", {idArr: idArr}, function(result){
                     // This function activates once response from backend returns
                     console.log("the backend results are", results);
+                    let beResults = result.data.stock_dict;
+                    localStorage.setItem('stock_dict', beResults) // Store stock_dic forecasted returns to local browser storage
                 });
             });
         });
 
-        // To shift this script to "optimize" html
-        function openForm() {
-          document.getElementById("myForm").style.display = "block"; 
-        };
-        
-        function closeForm() {
-          document.getElementById("myForm").style.display = "none";
-        };
+        //JQuery for "Optimize" button: Pass user input idArray to backend, runs ML model, returns user optimized figures and directs users to "optimize.html" page
+        $(document).ready(function(){
+            $("#optimize").click(function(){
+                let idArr = [];
+                $(".stock").each(function(){
+                    //filter only stock ticker to store in list
+                    let ans = $(this).val();
+                    let i = ans.split("(");
+                    i = i[1];
+                    let j = i.split(")");
+                    ans = j[0];
+                    idArr.push(ans);
+                });
+                
+                // Join array elements and display in alert
+                // alert(idArr.join("\n"));
+                
+                // send a request post to backend the array of tickers
+                $.post("/my_portfolio", {idArr: idArr}, function(result){
+                    // This function activates once response from backend returns
+                    console.log("the backend results are", result);
+                    let beResults = result.data.mlOutput;
+                    localStorage.setItem('mlOutput', beResults) // Store data to local browser storage
+                    window.location="/my_portfolio/optimize" // Jump to optimize.html once backend returns results              
+                });
+            });
+        });
     </script>
     <script>
     $(document).ready(function(){

@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, QueryDict, HttpResponseRedirect, Http404, JsonResponse
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 # Python Library
 import requests
@@ -179,51 +180,33 @@ def my_portfolio(request):
     
     # idArr contains a list of user-selected stock tickers
     selected_stocks = request.POST.get("idArray")
-    all_stocks = Stocks.objects
 
-    # Get Stock model object's ticker based on selected stocks, append the tickers into a list to return to user
+    # Retrieve Stock model object's ticker based on selected stocks, append the tickers into a dictionary (stock_dict) to return to user for future use
     stock_dict = {}
-    forecasted_return = []
 
     if selected_stocks is not None: 
 
         for each in selected_stocks:
             count = 1
-            stock_dict["stock_{}".format(count)] = all_stocks.get(ticker=each).ticker
-            forecasted_return.append(stock_dict["stock_{}".format(count)])
+            # Assigns every user selected stock to a dictionary key. E.g. stock_dict = {'stock_1':{'ticker':'AAPL', 'forecasted_return': 0.01234}}
+            stock_dict["stock_{}".format(count)] = {'ticker': each, 'forecasted_return': Stocks.objects.get(ticker=each).forecast_return}
             count += 1
 
     ''' return forecasted returns of selected in graph form '''
-    
-    ''' Optimization Page '''
-    # Insert ML Model here 
-
-    # selected_stocks to 
-    
-    # Create chart and data table to display in optimized html 
 
 
-    ''' User create a portfolio '''
-    # Portfolio is a jquery list variable containing [0]:portfolio name and [1]:description 
-    portfolio = request.POST.get("portfolio")
+    ''' ML Model: inputs- idArray'''
+    # Insert ML Model here
 
-
-    # Create portfolio object after ML model run
-    xx = Portfolio.objects.create(p_name=portfolio[0], p_desc=portfolio[1], cum_return='from ml', sharpe='from ml', created_at=datetime.now(), created_by='insert user_id.username') 
-
-    # Create User_Portfolio object
-    xx = User_Portfolio.objects.create(user_id='insert user_id', portfolio_id='insert portfolio_id')
-
-    # Create Portfolio_Stocks object 
-    for each in selected_stocks:
-        xx = Portfolio_Stocks.objects.create(port_id='Portfolio.id', stock_id='all_stocks.get(ticker=each).id', stock_weight='from ml')
+    # store output to mlOutput to be passed to front end, which will then jump to optimize.html via jqeury
+    # Output: cumulative return, sharpe, weights
+    mlOutput = {}
 
     context = {
-        'p_name': p_name,
-        'p_desc': p_desc,
-        'stocks': stocks,
         'script': script,
         'div': div,
+        'stock_dict': stock_dict,
+        'mlOutput': mlOutput
     }
     
     return render(request, "homepage.html", context=context)
@@ -353,12 +336,12 @@ def compare(request):
         'script' : script,
         'div' : div, 
         'div1' : div1,
-        'selected_portfolios': selected_portfolios
     }
     
     return render(request, "compare.html", context=context)
 
 def optimize(request):
+    # Create chart and data table to display in optimized html 
 
     # Get the output file from ML model in the form of {stock_name, stock_weights}
     # df = read csv???
@@ -497,11 +480,34 @@ def optimize(request):
 
     script, (div, div1, div2) = components((p, p1, p2))
 
+    ''' What happens when user saves a portfolio '''
+    # portfolio is a jquery list variable containing a saved portfolio. [0]:portfolio name and [1]:description 
+    portfolio = request.POST.get("portfolio")
+
+    # Create portfolio object
+    Portfolio.objects.create(p_name=portfolio[0], p_desc=portfolio[1], cum_return='from ml', sharpe='from ml', created_at=datetime.now(), created_by='User.objects.get(id=logged_in_username_id).username') 
+
+    # Create User_Portfolio object
+    User_Portfolio.objects.create(user_id='User.objects.get(id=logged_in_username_id).id', portfolio_id='Portfolio.objects.get(id=0).id')
+
+    # Create Portfolio_Stocks object per selected stocks
+    for each in selected_stocks:
+        Portfolio_Stocks.objects.create(port_id='Portfolio.objects.get(id=0).id', stock_id='Stocks.objects.get(ticker=each).id', stock_weight='from ml')
+
+    ''' Retrieving Portfolio Info for Portfolios page '''
+    # for loop to get all user's saved portfolio name and description, using the number of same ids in the database
+    for each in User_Portfolio.objects.get(user_id="logged_in_username_id"):
+        count = 1
+        user_port_dic = {} # to bring user_port_dic to store in front end local storage for future usage
+        user_port_dic['portfolio_{}'.format(count)] = {'name':Portfolio.objects.get(id=each).p_name, 'description':Portfolio.objects.get(id=each).p_desc, 'stocks': {'ticker': Stocks.objects.get(id=0).ticker, 'forecasted_returns': Stocks.objects.get(id=0).forecast_return}}
+        count += 1
+
     context = {
         'script' : script,
         'div' : div, 
         'div1' : div1,
-        'div2': div2
+        'div2': div2,
+        'user_port_dic': user_port_dic
     }
 
 
