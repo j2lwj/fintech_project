@@ -357,15 +357,8 @@ def compare(request):
     else:
 
         user_portfolio = User_Portfolio.objects.all()
-        stocks = Stocks.objects.all()
         portfolio = Portfolio.objects.all()
-        portfolio_stock = Portfolio_Stocks.objects.all()
         p_name = []
-        p_desc = []
-        # print(user_portfolio)
-        # print(portfolio)
-        # print(stocks)
-        context = []
         for i in user_portfolio.values():
             
             p_data = portfolio.filter(id=i['portfolio_id_id']).values()
