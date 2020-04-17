@@ -2,9 +2,7 @@
 /* CSS Document */
 
 /******************************
-
 [Table of Contents]
-
 1. Fonts
 2. Body and some general stuff
 3. Home
@@ -20,8 +18,11 @@
 10. News
 11. Footer
 12. Points [imported from services.ccs]
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 35b52fa5d4754ec5f6167bbd16639f0fa0ec9ad4
 ******************************/
 
 /***********
@@ -1748,5 +1749,9 @@ section
 .point_text p:last-of-type
 {
 	margin-bottom: 0;
+<<<<<<< HEAD
 }
 
+=======
+}
+>>>>>>> 35b52fa5d4754ec5f6167bbd16639f0fa0ec9ad4
