@@ -242,7 +242,7 @@
                                                 </div>
 
 
-                                                {% for portfolio in all_portfolios %}
+                                                {% for portfolio in user_port_dic %}
                                                 <div class="checkbox">
                                                     <label><input type="checkbox" name="checkbox1" id="{{ portfolio.p_name }}" value="{{ portfolio.p_name }}"> {{ portfolio.p_name }}</label>
                                                 </div>
@@ -359,18 +359,17 @@
                                 </div>
                             </div>
 
-                            {% for each in portfolios %}
+                            {% for each in df %}
 
                             <div class="elements_accordions">
                                 <div class="accordion_container">
                                     <div class="accordion d-flex flex-row align-items-center active"><div> {{each.p_name}} </div></div>
-                                    <!-- This will change to {{ portfolio.name }} -->
                                     <div class="accordion_panel">
                                         <div class="row">
                                             <div class="col-lg-5">
                                                 <!-- Portfolio allocation chart -->
     
-                                                    {{ div1 | safe }}
+                                                    {{ each.div_list | safe }}
                     
                                             </div>
                                             <div class="col-lg-5">
@@ -383,15 +382,15 @@
                                                       </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <!-- {% for stock in df %}
+                                                        {% for stock in df['stocks'] %}
                                                             <tr>
                                                                 <td>
-                                                                    {{ stock.stock_name }}
+                                                                    {{ stock.ticker }}
                                                                 </td>
                                                                 <td>
                                                                     {{ stock.stock_weight }}
                                                                 </td>
-                                                        {% endfor %} -->
+                                                        {% endfor %}
                                                     </tbody>
                                                 </table>
                                             </div>
