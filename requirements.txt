@@ -23,7 +23,7 @@ Flask-SQLAlchemy==2.3.2
 idna==2.8
 itsdangerous==1.1.0
 itypes==1.1.0
-Jinja2>=2.10.1
+Jinja2==2.11.1
 MarkupSafe==1.1.1
 mysqlclient==1.4.6
 numpy==1.16.1
@@ -31,7 +31,7 @@ oauthlib==3.1.0
 openapi-codec==1.3.2
 packaging==19.0
 pandas==0.24.1
-Pillow>=6.2.2
+Pillow==7.1.1
 PyJWT==1.7.1
 pyparsing==2.3.1
 python-dateutil==2.8.0
@@ -45,9 +45,10 @@ six==1.12.0
 social-auth-app-django==3.1.0
 social-auth-core==3.2.0
 soupsieve==1.8
-SQLAlchemy>=1.3.0
+SQLAlchemy==1.3.16
 sqlparse==0.3.1
 tornado==5.1.1
 uritemplate==3.0.1
 urllib3==1.24.2
 Werkzeug==0.15.3
+xlrd==1.2.0
