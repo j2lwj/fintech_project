@@ -170,6 +170,7 @@ def my_portfolio(request):
         p.yaxis.axis_label_text_font = "gill"
         p.yaxis.axis_label_text_font_size = "16px"
         p.yaxis.axis_label_text_color = "white"
+        p.yaxis[0].formatter = NumeralTickFormatter(format="0.000%")
         p.xaxis.major_label_text_font = "gill"
         p.xaxis.major_label_text_font_size = "20px"
         p.xaxis.major_label_text_font_style = "bold"
