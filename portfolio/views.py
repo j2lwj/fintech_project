@@ -29,6 +29,7 @@ from bokeh.transform import cumsum
 # Local Libraries
 from .models import Portfolio, User_Portfolio, Stocks, Portfolio_Stocks
 from .forms import SignUpForm
+from .optimize import Optimize
 
 # after finalizing the models.py --> from .models import Stocks, Port_stocks
 
