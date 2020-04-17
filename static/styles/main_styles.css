@@ -2,9 +2,7 @@
 /* CSS Document */
 
 /******************************
-
 [Table of Contents]
-
 1. Fonts
 2. Body and some general stuff
 3. Home
@@ -19,8 +17,7 @@
 9. Info
 10. News
 11. Footer
-
-
+12. Points [imported from services.ccs]
 ******************************/
 
 /***********
@@ -1680,4 +1677,71 @@ section
 	font-family: 'gill', sans-serif;
 	font-size: 13px;
 	color: #697686;
+}
+
+/*********************************
+12. Points
+*********************************/
+
+.points
+{
+	width: 100%;
+	padding-top: 110px;
+	background: #FFFFFF;
+}
+.points_container
+{
+	margin-top: 108px;
+}
+.point
+{
+	margin-bottom: 102px;
+}
+.point_image
+{
+	width: 76px;
+	height: 76px;
+	border: solid 2px #ffa800;
+	border-radius: 50%;
+	float: left;
+}
+.point_image img
+{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	max-width: 100%;
+}
+.point_content
+{
+	padding-left: 101px;
+}
+.point_title
+{
+	font-family: 'gill', sans-serif;
+	font-size: 24px;
+	color: #212121;
+	line-height: 0.75;
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	transition: all 200ms ease;
+}
+.point:hover .point_title
+{
+	color: #ffa800;
+}
+.point_text
+{
+	margin-top: 23px;
+}
+.point_text p:last-of-type
+{
+	margin-bottom: 0;
 }

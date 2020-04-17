@@ -14,21 +14,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from portfolio import views
+
 from django.conf.urls import url
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import views as auth_views
+
+from portfolio import views
 
 # Albert - https://simpleisbetterthancomplex.com/tutorial/2016/06/27/how-to-use-djangos-built-in-login-system.html
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
+    path('info/forecasting_model', views.main_forecast, name='main_forecast'),
+    path('info/optimizing_model', views.main_optimize, name='main_optimize'),
     path('compare/', views.compare, name='compare'),
-    path('optimize/', views.optimize, name='optimize'),
+    path('my_portfolio/optimize/', views.optimize, name='optimize'),
     path('my_portfolio/', views.my_portfolio, name='my_portfolio'),
     path('portfolios/', views.portfolios, name='portfolios'),
-    re_path(r'^/portfolios/(?P<pk>\d+)/$', views.portfolio_id, name='portfolio_id'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', views.log_out, name='logout'),
-    path('signup/', views.signup, name='signup')
+    path('signup/', views.signup, name='signup'),
+    # path('create_stock/', views.create_stock, name='create_stock'),
+    re_path(r'^portfolios/(?P<pk>\d+)/$', views.portfolio_id, name='portfolio_id')
 ]

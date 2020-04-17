@@ -9,7 +9,7 @@
 		{{ script | safe }}
     {% endif %}
 <script src="../static/js/jquery-3.2.1.min.js"></script>
-<script src="../static/styles/bootstrap4/popper.js"></script>
+<script src="../static/styles/bootstrap4/popper.min.js"></script>
 <script src="../static/styles/bootstrap4/bootstrap.min.js"></script>
 <script src="../static/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
 <script src="../static/plugins/easing/easing.js"></script>
@@ -61,7 +61,7 @@
                                     <div class="logo">
                                         <a href="{% url 'home' %}">
                                             <div class="logo_line_1"><span>in</span>vest</div>
-                                            <div class="logo_line_2">Blockchain</div>
+                                            <div class="logo_line_2">FutureSight</div>
                                             <div class="logo_img"><img src="../static/images/logo.png" alt=""></div>
                                         </a>
                                     </div>
@@ -80,6 +80,59 @@
                     </div>
                 </div>      
             </div>
+
+            <!-- Main Menu -->
+
+			<div class="main_menu">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="main_menu_container d-flex flex-row align-items-center justify-content-start">
+								<div class="main_menu_content">
+									<ul class="main_menu_list">
+										<li><a href="{% url 'home' %}">home
+											<svg version="1.1" id="Layer_4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+												 width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
+												<g>
+													<polyline class="arrow_d" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" points="0.022,-0.178 4.5,4.331 9.091,-0.275 	"/>
+												</g>
+											</svg>
+										</a></li>
+										<li class="hassubs">
+											<a href="#">more info
+												<svg version="1.1" id="Layer_5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+													 width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
+													<g>
+														<polyline class="arrow_d" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" points="0.022,-0.178 4.5,4.331 9.091,-0.275 	"/>
+													</g>
+												</svg>
+											</a>
+											<ul>
+												<li><a href="{% url 'main_forecast' %}">Forecasting Model
+													<svg version="1.1" id="Layer_6" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+														 width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
+														<g>
+															<polyline class="arrow_d" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" points="0.022,-0.178 4.5,4.331 9.091,-0.275 	"/>
+														</g>
+													</svg>
+												</a></li>
+												<li><a href="{% url 'main_optimize' %}">Portfolio Optimizing Model
+													<svg version="1.1" id="Layer_7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+														 width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
+														<g>
+															<polyline class="arrow_d" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" points="0.022,-0.178 4.5,4.331 9.091,-0.275 	"/>
+														</g>
+													</svg>
+												</a></li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
             <!-- Menu -->
 
@@ -169,7 +222,7 @@
                             <h1 class="intro_title">Machine Learning Strategy</h1>
                         </div>
                         <div class="intro_text">
-                            <p>
+                            <p style="font-size: medium;">
                                 Our team of quants uses a machine learning model that provides investors with two main features: <b>Stock Price Predictions</b> and a <b>Portfolio Optimizer</b>. <br/>
                             </p>
                         </div>
@@ -177,14 +230,14 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <h4 style="color: rgba(0, 0, 0, 0.633);"><b>Stock Price Predictions</b></h4>
-                                    <p>
+                                    <p style="font-size: medium;">
                                     We feed our stock prediction model with at least 25 years of data, allowing our machine learning algorithm to learn the price movements of stocks in the S&P 500 Index.
                                     After learning from the dataset, our algorithm creates 8 different regression models and evaluates the accuracy of each model in predicting the future price levels of stocks. <br/>
                                     </p>
                                 </div>
                                 <div class="col-lg-6">
                                     <h4 style="color: rgba(0, 0, 0, 0.633);"><b>Portfolio Optimizer</b></h4>
-                                    <p>
+                                    <p style="font-size: medium;">
                                     Another feature of our machine learning algorithm is to provide investors with the best portfolio allocation, based on the stocks <b>YOU</b> desire or are interested in.
                                     Investors have the option to choose between forming the portfolio with the best Sharpe ratio (best returns per risk) or minimal risk.
                                     </p>
@@ -192,74 +245,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <div class="intro_image text-lg-right text-center"><img src="../static/images/intro.png" alt=""></div>
+                                    <div class="intro_image text-lg-center text-center" style="margin-top: 10px;"><img src="../static/images/crystal_ball.jpg" height=90% width=90%></div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="intro_image text-lg-right text-center"><img src="../static/images/intro.png" alt=""></div>
+                                    <div class="intro_image text-lg-center text-center"><img src="../static/images/optimizer.png" height=70% width=80%></div>
                                 </div>
                             </div>
                         </div>                                
                             </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Forecasting Model in action -->
-
-    <div class="news">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="section_title_container text-center">
-                        <div class="section_subtitle">how our models run</div>
-                        <div class="section_title">Forecasting Model</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row news_row">
-                <div class="col news_col">
-                    <div class="news_item">
-                        <div class="news_content">
-                            <div class="news_title">1. We use data from the Energy sector</div>
-                            <div class="news_text">
-                                <p>
-                                    For our example, we will be showing how our algorithm runs on the Energy sector. 
-                                    This is just 1 out of the 11 different sectors in the financial markets, and we have the data for all 11 sectors.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row news_row">
-                <div class="col news_col">
-                    <div class="news_item">
-                        <div class="news_content">
-                            <div class="news_title">2. Model accuracy results</div>
-                            <div class="news_text">
-                                <p>
-                                    We measure model accuracy based on R-squared. This metric measures how well the various regression models fit into the data points of our 25+ years worth of data.
-                                    A higher R-squared value means better model accuracy.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row news_row">
-                <div class="col news_col">
-                    <div class="news_item">
-                        <div class="news_content">
-                            <div class="news_title">3. Visualizing our prediction results</div>
-                            <div class="news_text">
-                                <p>
-                                    Using R-squared may not be easy to visualize how well the different regression models fit the data points - so we take it a step further in presenting our 
-                                    model evaluations in terms of charts. This way is easier to understand how accurate the models are, and also point out the good and bad points of the model.
-                                </p>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -283,9 +276,12 @@
                                 <div class="services_item d-flex flex-column align-items-center justify-content-center">
                                     <div class="services_item_bg"></div>
                                     <div class="services_icon"><img class="svg" src="../static/images/services_1.svg" alt=""></div>
-                                    <div class="services_title">Exchange Fiat for Crypto</div>
-                                    <p class="services_text">Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta.</p>
-                                    <div class="services_link"><a href="#">Read More</a></div>
+                                    <div class="services_title">Forecasting Model</div>
+                                    <p class="services_text">
+                                        We feed our forecasting model with at least 25 years of data, allowing our machine learning algorithm to learn about the price movements of stocks in the S&P 500 Index. <br><br>
+                                        After learning, our algorithm creates 8 different regression models to model the training data, and evaluates the accuracy of each model in predicting the future price levels of stocks. <br><br>
+                                    </p>
+                                    <div class="services_link"><a href="{% url 'main_forecast' %}">Read More</a></div>
                                 </div>
                             </div>
 
@@ -294,56 +290,15 @@
                                 <div class="services_item d-flex flex-column align-items-center justify-content-center">
                                     <div class="services_item_bg"></div>
                                     <div class="services_icon"><img class="svg" src="../static/images/services_2.svg" alt=""></div>
-                                    <div class="services_title">Exchange Fiat for Crypto</div>
-                                    <p class="services_text">Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta.</p>
-                                    <div class="services_link"><a href="#">Read More</a></div>
+                                    <div class="services_title">Optimizing Model</div>
+                                    <p class="services_text">
+                                        Another feature of our machine learning algorithm is to provide investors with the best portfolio allocation, based on the stocks <b>YOU</b> desire or are interested in. <br><Br>
+                                        Our model will then take your selected stocks and calculate their correlations, price movements and create another model. This will enable us to calculate precise figures for you to allocate the chosen stocks to achieve the best returns per risk taken. 
+                                    </p>
+                                    <div class="services_link"><a href="{% url 'main_optimize' %}">Read More</a></div>
                                 </div>
                             </div>
-
-                            <!-- Services Item -->
-                            <div class="owl-item">
-                                <div class="services_item d-flex flex-column align-items-center justify-content-center">
-                                    <div class="services_item_bg"></div>
-                                    <div class="services_icon"><img class="svg" src="../static/images/services_3.svg" alt=""></div>
-                                    <div class="services_title">Exchange Fiat for Crypto</div>
-                                    <p class="services_text">Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta.</p>
-                                    <div class="services_link"><a href="#">Read More</a></div>
-                                </div>
-                            </div>
-
-                            <!-- Services Item -->
-                            <div class="owl-item">
-                                <div class="services_item d-flex flex-column align-items-center justify-content-center">
-                                    <div class="services_item_bg"></div>
-                                    <div class="services_icon"><img class="svg" src="../static/images/services_1.svg" alt=""></div>
-                                    <div class="services_title">Exchange Fiat for Crypto</div>
-                                    <p class="services_text">Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta.</p>
-                                    <div class="services_link"><a href="#">Read More</a></div>
-                                </div>
-                            </div>
-
-                            <!-- Services Item -->
-                            <div class="owl-item">
-                                <div class="services_item d-flex flex-column align-items-center justify-content-center">
-                                    <div class="services_item_bg"></div>
-                                    <div class="services_icon"><img class="svg" src="../static/images/services_2.svg" alt=""></div>
-                                    <div class="services_title">Exchange Fiat for Crypto</div>
-                                    <p class="services_text">Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta.</p>
-                                    <div class="services_link"><a href="#">Read More</a></div>
-                                </div>
-                            </div>
-
-                            <!-- Services Item -->
-                            <div class="owl-item">
-                                <div class="services_item d-flex flex-column align-items-center justify-content-center">
-                                    <div class="services_item_bg"></div>
-                                    <div class="services_icon"><img class="svg" src="../static/images/services_3.svg" alt=""></div>
-                                    <div class="services_title">Exchange Fiat for Crypto</div>
-                                    <p class="services_text">Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta.</p>
-                                    <div class="services_link"><a href="#">Read More</a></div>
-                                </div>
-                            </div>
-
+                            
                         </div>
                         
                         <div class="services_nav services_prev d-flex flex-column align-items-center justify-content-center"><img src="../static/images/arrow_l.png" alt=""></div>
@@ -356,129 +311,42 @@
         </div>
     </div>
 
-    <!-- Converter -->
+    <!-- Points -->
+    <!-- I CANNOT GET THE .POINTS CSS PART TO WORK: I MANUALLY STYLED IN THE DIVS-->
 
-    <div class="converter">
-        <div class="converter_background parallax-window" data-parallax="scroll" data-image-src="../static/images/converter.jpg" data-speed="0.8"></div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5">
-                    <div class="converter_content">
-                        <div class="converter_title_container">
-                            <div class="converter_subtitle">take a look at our</div>
-                            <h1 class="converter_title">Bitcoin To Fiat Currency Calculator</h1>
-                        </div>
-                        <div class="converter_text">
-                            <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit.Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobo rtis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="converter_container">
-                        <form action="#">
-                            <input type="text" value="1" class="converter_input_value converter_input">
-                            <select class="dropdown_converter converter_input">
-                                <option>btc</option>
-                                <option>ltc</option>
-                                <option>eth</option>
-                            </select>
-                            <div class="eq">=</div>
-                            <input type="text" value="9400,45" readonly class="converter_input converter_result">
-                            <select class="dropdown_converter converter_input">
-                                <option>eur</option>
-                                <option>usd</option>
-                                <option>gbp</option>
-                            </select>
-                        </form>
-                        <form action="#">
-                            <input type="text" value="10400" class="converter_input_value converter_input">
-                            <select class="dropdown_converter converter_input">
-                                <option>usd</option>
-                                <option>eur</option>
-                                <option>gbp</option>
-                            </select>
-                            <div class="eq">=</div>
-                            <input type="text" value="1.02" readonly class="converter_input converter_result">
-                            <select class="dropdown_converter converter_input">
-                                <option>btc</option>
-                                <option>ltc</option>
-                                <option>eth</option>
-                            </select>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Optimize Model in action -->
-
-    <div class="news">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="section_title_container text-center">
-                        <div class="section_subtitle">how our models run</div>
-                        <div class="section_title">Optimizer Model</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row news_row">
-                <div class="col news_col">
-                    <div class="news_item">
-                        <div class="news_content">
-                            <div class="news_title">1. Algorithm to calculate the best stock allocation</div>
-                            <div class="news_text">
-                                <p>
-                                    Our XXXXXXX algorithm uses XXXXXX method to calculate the bets stock allocation to achieve the maximum Sharpe Ratio - that is the highest returns you can get
-                                    per risk you take.
-                                </p>
+	<div class="services">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="intro_title_container">
+						<div class="intro_subtitle">take a look at</div>
+						<div class="section_title">What Is In It For You?</div>
+					</div>
+				</div>
+			</div>
+			<div class="row points_container" style="margin-top: 108px;">
+				
+                <!-- Service -->
+                <div class="col-lg-6 col-md-6 point_col" >
+                    <div class="point clearfix">
+                        <div class="point_image" style="width: 76px; height: 76px; border: solid 2px #ffa800; border-radius: 50%; float: left;"><img src="../static/images/services_1.png" alt="" style="position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); -moz-transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); -o-transform: translate(-50%, -50%); transform: translate(-50%, -50%); max-width: 100%;"></div>
+                        <div class="point_content">
+                            <div class="point_title" style="padding-top: 28px; font-family: 'gill', sans-serif; font-size: 28px; color: #212121; line-height: 0.75; -webkit-transition: all 200ms ease; -moz-transition: all 200ms ease; -ms-transition: all 200ms ease; -o-transition: all 200ms ease; transition: all 200ms ease;">Our Mission</div>
+                            <div class="point_text">
+                                <p style="font-size: large;">We aim to empower individual investors to <b>predict their portfolio’s performance</b> by leveraging on Machine Learning</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row news_row">
-                <div class="col news_col">
-                    <div class="news_item">
-                        <div class="news_content">
-                            <div class="news_title">2. Automatically create an equal-weighted portfolio to compare our results</div>
-                            <div class="news_text">
-                                <p>
-                                    For a fairer comparison, we will show you how our suggested allocation works, and whether simply choosing how much stocks to buy for each company has any effect
-                                    on the returns you can achieve.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row news_row">
-                <div class="col news_col">
-                    <div class="news_item">
-                        <div class="news_content">
-                            <div class="news_title">3. Model accuracy results</div>
-                            <div class="news_text">
-                                <p>
-                                    We measure model accuracy based on R-squared. This metric measures how well the various regression models fit into the data points of our 25+ years worth of data.
-                                    A higher R-squared value means better model accuracy.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row news_row">
-                <div class="col news_col">
-                    <div class="news_item">
-                        <div class="news_content">
-                            <div class="news_title">4. Visualizing our prediction results</div>
-                            <div class="news_text">
-                                <p>
-                                    Using R-squared may not be easy to visualize how well the different regression models fit the data points - so we take it a step further in presenting our 
-                                    model evaluations in terms of charts. This way is easier to understand how accurate the models are, and also point out the good and bad points of the model.
-                                </p>
+
+                <!-- Service -->
+                <div class="col-lg-6 col-md-6 point_col" >
+                    <div class="point clearfix">
+                        <div class="point_image" style="width: 76px; height: 76px; border: solid 2px #ffa800; border-radius: 50%; float: left;"><img src="../static/images/services_2.png" alt="" style="position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); -moz-transform: translate(-50%, -50%); -ms-transform: translate(-50%, -50%); -o-transform: translate(-50%, -50%); transform: translate(-50%, -50%); max-width: 100%;"></div>
+                        <div class="point_content">
+                            <div class="point_title" style="padding-top: 28px; font-family: 'gill', sans-serif; font-size: 28px; color: #212121; line-height: 0.75; -webkit-transition: all 200ms ease; -moz-transition: all 200ms ease; -ms-transition: all 200ms ease; -o-transition: all 200ms ease; transition: all 200ms ease;">Your Perks</div>
+                            <div class="point_text">
+                                <p style="font-size: large;">Our <b>Key Advantage</b> is using ML to <b>uncover complex, non-linear patterns</b> which would otherwise be difficult to identify using traditional statistical techniques </p>
                             </div>
                         </div>
                     </div>
@@ -505,9 +373,13 @@
                 <div class="col-lg-4 info_col">
                     <div class="info_item text-center">
                         <div class="info_image"><img src="../static/images/info_1.png" alt=""></div>
-                        <div class="info_title">Create your wallet</div>
+                        <div class="info_title">Extend Capabilities to Forecast Portfolio Returns</div>
                         <div class="info_text">
-                            <p>Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris.</p>
+                            <p>
+                            For now, our machine learning model can only manage to forecast the next quarter returns of individual stocks.
+                            Our next development is to allow our algorithm to study the correlations of every stock to each other to understand how to take these into account when processing a forecast.
+                            These metrics will then be combined with our two existing services, allowing us to forecast the Portfolio Returns of your chosen stocks.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -516,9 +388,13 @@
                 <div class="col-lg-4 info_col">
                     <div class="info_item text-center">
                         <div class="info_image"><img src="../static/images/info_2.png" alt=""></div>
-                        <div class="info_title">Make payments</div>
+                        <div class="info_title">Partnership with <br> Top Brokerages</div>
                         <div class="info_text">
-                            <p>Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris.</p>
+                            <p>
+                            After the next phase of development, we aim to partner with the top brokerages. 
+                            We look to add the capability for syncing our application with the top brokerages to provide a comprehensive real time view at a glance for all our users’ portfolios. 
+                            Our application could also generate periodical summaries of account performance to keep our users abreast of any ongoing developments with users being able to set how frequent they would like to receive these summaries.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -527,9 +403,13 @@
                 <div class="col-lg-4 info_col">
                     <div class="info_item text-center">
                         <div class="info_image"><img src="../static/images/info_3.png" alt=""></div>
-                        <div class="info_title">Buy or sell orders</div>
+                        <div class="info_title">Constantly Upgrading our Forecasting Model</div>
                         <div class="info_text">
-                            <p>Sed ut iaculis elit, quis varius mauris. Integer ut ultric ies orci, lobortis egesta s sem. Duis non volutpat arcu. Sed ut iaculis elit, quis varius mauris.</p>
+                            <p>
+                            We are always on a constant lookout for improvements, and we aim to further improve our forecasting capabilities to provide investors with the most updated, yet easily accessible tools for investing.
+                            News-scanning capabilities could be integrated in the future to alert our users to potential impacts on their account holdings from relevant news releases. 
+                            The news function could also be used to conduct sentiment analysis which would also be factored into our performance prediction process and provide another leading indicator.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -537,71 +417,5 @@
             </div>
         </div>
     </div>
-
-    <!-- News -->
-
-    <div class="news">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="section_title_container text-center">
-                        <div class="section_subtitle">take a look at our</div>
-                        <div class="section_title">Latest News in Crypto</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row news_row">
-                
-                <!-- News Item -->
-                <div class="col-lg-4 news_col">
-                    <div class="news_item">
-                        <div class="news_image">
-                            <img src="../static/images/news_1.jpg" alt="https://unsplash.com/@silverhousehd">
-                        </div>
-                        <div class="news_content">
-                            <div class="news_title">New Regulations on the Crypto Market</div>
-                            <div class="news_text">
-                                <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci.</p>
-                            </div>
-                        </div>
-                        <div class="news_button"><a href="news.html">read more</a></div>
-                    </div>
-                </div>
-
-                <!-- News Item -->
-                <div class="col-lg-4 news_col">
-                    <div class="news_item">
-                        <div class="news_image">
-                            <img src="../static/images/news_2.jpg" alt="https://unsplash.com/@silverhousehd">
-                        </div>
-                        <div class="news_content">
-                            <div class="news_title">Good News from the Crypto World</div>
-                            <div class="news_text">
-                                <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci.</p>
-                            </div>
-                        </div>
-                        <div class="news_button"><a href="news.html">read more</a></div>
-                    </div>
-                </div>
-
-                <!-- News Item -->
-                <div class="col-lg-4 news_col">
-                    <div class="news_item">
-                        <div class="news_image">
-                            <img src="../static/images/news_3.jpg" alt="https://unsplash.com/@silverhousehd">
-                        </div>
-                        <div class="news_content">
-                            <div class="news_title">Bitcoin price goes to the Moon with new laws</div>
-                            <div class="news_text">
-                                <p>Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci.</p>
-                            </div>
-                        </div>
-                        <div class="news_button"><a href="news.html">read more</a></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
+    
     {% endblock %}

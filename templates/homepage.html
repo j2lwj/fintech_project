@@ -14,7 +14,7 @@
 {% block title %}Compare{% endblock %}
 
 {% block body %}
-
+{% csrf_token %}
 <div class="super_container">
     
     <!-- Home -->
@@ -52,7 +52,7 @@
                                     <div class="logo">
                                         <a href="{% url 'my_portfolio' %}">
                                             <div class="logo_line_1"><span>in</span>vest</div>
-                                            <div class="logo_line_2">Financial</div>
+                                            <div class="logo_line_2">FutureSight</div>
                                             <div class="logo_img"><img src="../static/images/logo.png" alt=""></div>
                                         </a>
                                     </div>
@@ -94,14 +94,6 @@
                                             </svg>
                                         </a></li>
                                         <li><a href="{% url 'compare' %}">compare
-                                            <svg version="1.1" id="Layer_4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                 width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
-                                                <g>
-                                                    <polyline class="arrow_d" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" points="0.022,-0.178 4.5,4.331 9.091,-0.275   "/>
-                                                </g>
-                                            </svg>
-                                        </a></li>
-                                        <li><a href="{% url 'optimize' %}">optimize
                                             <svg version="1.1" id="Layer_4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                  width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
                                                 <g>
@@ -223,24 +215,35 @@
     <div class="features">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 features_col">
+                <div class="col-lg-12 features_col">
                     <div class="features_content">
-                        <div class="section_title_container">
-                            <div class="section_subtitle">any stocks in mind?</div>
-                            <div class="section_title">Choose Stocks To Forecast</div>
-                            <div class="section_text">
-
-                                (Add in the Stock Selection JS forms here <br>
-                                insert save/forecast/optimize button here)
-
+                        <div class="section_title_container">                           
+                            <div>
+                                <form method="POST" action="/my_portfolio/">
+                                    <div class="text-center">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <button id="addRow" type="button" class="btn btn-info">Add Stocks</button>
+                                                <input type="submit" class="btn btn-info" value="Forecast" name="forecast" id="forecast"> 
+                                                <input type="submit" class="btn btn-info" value="Optimize" name="optimize" id="optimize">
+                                            </div>
+                                        </div><br>
+                                        <div id="test" class="row" style="margin:5px">
+                                            <div class="col-lg-6">
+                                                <input type="text" id="stock_name" name="stock_name" class="form-control m-input stock" placeholder="Enter Stock Name/Ticker" list="stocks">
+                                                <datalist id="stocks">
+                                                    <div id="options"></div>
+                                                </datalist>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                                            </div>
+                                        </div>
+                                        <div id="newRow"></div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="features_images clearfix">
-                        <div class="features_image_1"><img src="../static/images/about_features_1.jpg" alt=""></div>
-                        <div class="features_image_2"><img src="../static/images/about_features_2.jpg" alt=""></div>
                     </div>
                 </div>
             </div>
@@ -257,7 +260,7 @@
                     <div class="section_title_container">
                         <div class="section_subtitle">take a look at your</div>
                         <div class="section_title">Stock Performance At A Glance</div>
-                        <div class="info_text">Sed ut iaculis elit, quis varius mauris. Integer ut ultricies orci, lobortis egestas sem. Morbi ut dapibus dui. Sed ut iaculis elit. Integer ut imperdiet erat. Quisque ultricies lectus tellus, eu tristique magna pharetra nec. Fusce vel lorem libero. Integer ex mi, facilisis sed nisi ut, vestibulum ultrices nulla.</div>
+                        <div class="info_text"></div>
                         {% if div is None %}
                             <p>Please select stocks</p>
                         {% else %}
@@ -274,7 +277,7 @@
                         <div class="milestone_counter" data-end-value="12">0</div>
                         <div class="milestone_content">
                             <div class="milestone_title">years of experience</div>
-                            <div class="milestone_subtitle">Actus tellus, eu tristique</div>
+                            <div class="milestone_subtitle"></div>
                         </div>
                     </div>
                 </div>
@@ -285,7 +288,7 @@
                         <div class="milestone_counter" data-end-value="34">0</div>
                         <div class="milestone_content">
                             <div class="milestone_title">top advisors</div>
-                            <div class="milestone_subtitle">Ctus tellus, eu tristique</div>
+                            <div class="milestone_subtitle"></div>
                         </div>
                     </div>
                 </div>
@@ -296,7 +299,7 @@
                         <div class="milestone_counter" data-end-value="6" data-sign-after="k">0</div>
                         <div class="milestone_content">
                             <div class="milestone_title">happy clients</div>
-                            <div class="milestone_subtitle">Tristique magna phar</div>
+                            <div class="milestone_subtitle"></div>
                         </div>
                     </div>
                 </div>
@@ -307,7 +310,7 @@
                         <div class="milestone_counter" data-end-value="68">0</div>
                         <div class="milestone_content">
                             <div class="milestone_title">new cases</div>
-                            <div class="milestone_subtitle">Actus tellus, eu tristique</div>
+                            <div class="milestone_subtitle"></div>
                         </div>
                     </div>
                 </div>
@@ -372,69 +375,114 @@
         </div>
     </div>
 
-    <!-- CTA -->
-
-    <div class="cta">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-9">
-                    <div class="cta_content d-flex flex-row align-items-center justify-content-start">
-                        <div class="cta_text"><a href="#">Make a good investment today!</a></div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="cta_button_container d-flex flex-row align-items-center justify-content-lg-end justify-content-start">
-                        <div class="link_button cta_button"><a href="#">read more</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>  
-
-
     <script>
-        function openForm() {
-          document.getElementById("myForm").style.display = "block"; 
-        }
-        
-        function closeForm() {
-          document.getElementById("myForm").style.display = "none";
-        }
+        //filter selected stocks to ticker only
+        function stringFilter(str){
+        let ans = "";
+        let i = str.split("(");
+        i = i[1];
+        let j = i.split(")");
+        ans = j[0];
+        return ans;
+        };
+
+        //JQuery for "Forecast" button: Pass user input idArray to backend, return forecasted results in chart and table 
+        $(document).ready(function(){
+            $("#forecast").click(function(){
+                let idArr = [];
+                $(".stock").each(function(){
+                    //filter only stock ticker to store in list
+                    let ans = $(this).val();
+                    let i = ans.split("(");
+                    i = i[1];
+                    let j = i.split(")");
+                    ans = j[0];
+                    idArr.push(ans);
+                });
+                
+                // Join array elements and display in alert
+                // alert(idArr.join("\n"));
+                
+                // send a request post to backend the array of tickers
+                $.post("/my_portfolio", {idArr: idArr}, function(result){
+                    // This function activates once response from backend returns
+                    console.log("the backend results are", results);
+                    let beResults = result.data.stock_dict;
+                    localStorage.setItem('stock_dict', beResults) // Store stock_dic forecasted returns to local browser storage
+                });
+            });
+        });
+
+        //JQuery for "Optimize" button: Pass user input idArray to backend, runs ML model, returns user optimized figures and directs users to "optimize.html" page
+        $(document).ready(function(){
+            $("#optimize").click(function(){
+                let idArr = [];
+                $(".stock").each(function(){
+                    //filter only stock ticker to store in list
+                    let ans = $(this).val();
+                    let i = ans.split("(");
+                    i = i[1];
+                    let j = i.split(")");
+                    ans = j[0];
+                    idArr.push(ans);
+                });
+                
+                // Join array elements and display in alert
+                // alert(idArr.join("\n"));
+                
+                // send a request post to backend the array of tickers
+                $.post("/my_portfolio", {idArr: idArr}, function(result){
+                    // This function activates once response from backend returns
+                    console.log("the backend results are", result);
+                    let beResults = result.data.mlOutput;
+                    localStorage.setItem('mlOutput', beResults) // Store data to local browser storage
+                    window.location="/my_portfolio/optimize" // Jump to optimize.html once backend returns results              
+                });
+            });
+        });
     </script>
     <script>
+    $(document).ready(function(){
         //datalist options
-        var listServices = ['AMOCO CORP (AN.2)', 'ANDEAVOR (ANDV)', 'ALPHA NATURAL RESOURCES INC (ANRZQ)', 'APACHE CORP (APA)', 'ANADARKO PETROLEUM CORP (APC)', 'ATLANTIC RICHFIELD CO (ARC.3)', 'BAKER HUGHES INC (BHI)', 'BJ SERVICES CO (BJS.1)', 'BURLINGTON RESOURCES INC (BR.2)', 'PEABODY ENERGY CORP (BTU)', 'CAMERON INTERNATIONAL CORP (CAM)', 'CHESAPEAKE ENERGY CORP (CHK)', 'CONSOL ENERGY INC (CNX)', 'CONOCO INC (COC1)', 'CABOT OIL & GAS CORP (COG)', 'CONOCOPHILLIPS (COP)', 'COLUMBIA PIPELINE GROUP INC (CPGX)', 'CHEVRON CORP (CVX)', 'CONCHO RESOURCES INC (CXO)', 'DRESSER INDUSTRIES INC (DI.)', 'DENBURY RESOURCES INC (DNR)', 'DIAMOND OFFSHRE DRILLING INC (DO)', 'DEVON ENERGY CORP (DVN)', 'EOG RESOURCES INC (EOG)', 'EL PASO CORP (EP)', 'EQT CORP (EQT)', 'ENSCO PLC (ESV)', 'TECHNIPFMC PLC (FTI)', 'FMC TECHNOLOGIES INC (FTI.1)', 'HALLIBURTON CO (HAL)', 'HESS CORP (HES)', 'HELMERICH & PAYNE (HP)', 'KERR-MCGEE CORP (KMG.1)', 'KINDER MORGAN INC (KMI)', 'LOUISIANA LAND & EXPLORATION (LLX.)', 'MCDERMOTT INTL INC (MDR)', 'MASSEY ENERGY CO (MEE)', 'MOBIL CORP (MOB.2)', 'MARATHON PETROLEUM CORP (MPC)', 'MARATHON OIL CORP (MRO)', 'USX CORP-CONSOLIDATED (MROX.CM)', 'MURPHY OIL CORP (MUR)', 'MAXUS ENERGY CORP (MXS)', 'NOBLE ENERGY INC (NBL)', 'NABORS INDUSTRIES LTD (NBR)', 'NACCO INDUSTRIES  -CL A (NC)', 'NOBLE CORP PLC (NE)', 'NEWFIELD EXPLORATION CO (NFX)', 'NATIONAL OILWELL VARCO INC (NOV)', 'ONEOK INC (OKE)', 'ORYX ENERGY CO (ORX)', 'OCCIDENTAL PETROLEUM CORP (OXY)', 'PHILLIPS 66 (PSX)', 'PIONEER NATURAL RESOURCES CO (PXD)', 'PENNZENERGY CO (PZE.1)', 'QEP RESOURCES INC (QEP)', 'ROWAN COMPANIES PLC (RDC)', 'ROYAL DUTCH PETROLEUM NV (RDPL)', 'TRANSOCEAN LTD (RIG)', 'RANGE RESOURCES CORP (RRC)', 'SANTA FE SNYDER CORP (SFS.1)', 'SMITH INTERNATIONAL INC (SII)', 'SCHLUMBERGER LTD (SLB)', 'SUNOCO INC (SUN.1)', 'SOUTHWESTERN ENERGY CO (SWN)', 'STEEL EXCEL INC (SXCL)', 'TOSCO CORP (TOS.1)', 'TEXACO INC (TX.2)', 'UNOCAL CORP (UCL)', 'UNION PACIFIC RESOURCES GRP (UPR.1)', 'VALERO ENERGY CORP (VLO)', 'WESTERN ATLAS INC (WAI.1)', 'WEATHERFORD INTL PLC (WFT)', 'WESTMORELAND COAL CO (WLB)', 'WILLIAMS COS INC (WMB)', 'WPX ENERGY INC (WPX)', 'CIMAREX ENERGY CO (XEC)', 'EXXON MOBIL CORP (XOM)', 'XTO ENERGY INC (XTO)'];
-        var option = "";
-        for (let i = 0; i < listServices.length; i++)
+        let stocks = ['AMERICAN AIRLINES GROUP INC (AAL)', 'ADVANCE AUTO PARTS INC (AAP)', 'AFLAC INC (AFL)', 'ASSURANT INC (AIZ)', 'AKAMAI TECHNOLOGIES INC (AKAM)', 'AMERIPRISE FICIAL INC (AMP)', 'AUTOZONE INC (AZO)', 'BLACKROCK INC (BLK)', 'BROADVISION INC (BVSN)', 'CBRE GROUP INC (CBG)', 'CRANE CO (CR)', 'CONVERGYS CORP (CVG)', 'DELTA AIR LINES INC (DAL)', 'DELUXE CORP (DLX)', 'DYNEGY INC (DYN)', 'E TRADE FICIAL CORP (ETFC)', 'EXPEDIA INC (EXPE)', 'FACEBOOK INC (FB)', 'GENWORTH FICIAL INC (GNW)', 'ALPHABET INC (GOOGL)', 'HCA HEALTHCARE INC (HCA)', 'HARTFORD FICIAL SERVICES (HIG)', 'HOST HOTELS & RESORTS INC (HST)', 'IAC/INTERACTIVECORP (IAC)', 'KB HOME (KBH)', 'LINCOLN NATIONAL CORP (LNC)', 'LOUISIANA-PACIFIC CORP (LPX)', 'SOUTHWEST AIRLINES (LUV)', 'METLIFE INC (MET)', 'NETFLIX INC (NFLX)', 'NORTHERN TRUST CORP (NTRS)', 'ORACLE CORP (ORCL)', 'PRICELINE GROUP INC (PCLN)', 'PRINCIPAL FICIAL GRP INC (PFG)', 'PULTEGROUP INC (PHM)', 'PRUDENTIAL FICIAL INC (PRU)', 'ROBERT HALF INTL INC (RHI)', 'REALOGY HOLDINGS CORP (RLGY)', 'SPRINT CORP (S)', 'SEARS HOLDINGS CORP (SHLD)', 'SNAP-ON INC (SNA)', 'TIFFANY & CO (TIF)', 'TYSON FOODS INC  -CL A (TSN)', 'UNUM GROUP (UNM)', 'UNITED RENTALS INC (URI)', 'VIAVI SOLUTIONS INC (VIAV)'];
+        let option = "";
+        for (let i = 0; i < stocks.length; i++)
         {
-            option += '<option value="' + listServices[i] + '">';
+            option += '<option value="' + stocks[i] + '">';
         }
         $("#options").html(option);
-    
+     
         //add new row
-        let counter = 2;
         $("#addRow").click(function () {
-            let html = '';
-            html +='<div id="test" class="row">';
-            html += '<div class="col-lg-6">';
-            html +=     '<input type="text" id="stock_name_'+counter+'" name="stock_name" class="form-control m-input" placeholder="Enter Stock Name/Ticker" list="stocks">';
-            html +=     '<datalist id="stocks">';
-            html +=     '<div id="options"></div>';
-            html +=     '</datalist>';
-            html += '</div>';
-            html += '<div class="col-lg-6">';
-            html +=     '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
-            html += '</div>'
-            html +='</div><br>' 
-            $('#newRow').append(html);
-            counter = counter + 1;
+        let html = '';
+        html +='<div id="test" class="row" style="margin:5px">';
+        html += '<div class="col-lg-6">';
+        html +=     '<input type="text" id="stock_name" name="stock_name" class="form-control m-input stock" placeholder="Enter Stock Name/Ticker" list="stocks">';
+        html +=     '<datalist id="stocks">';
+        html +=     '<div id="options"></div>';
+        html +=     '</datalist>';
+        html += '</div>';
+        html += '<div class="col-lg-6">';
+        html +=     '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+        html += '</div>'
+        html +='</div>' 
+        $('#newRow').append(html);
         });
         
         //remove row
-          $(document).on('click', '#removeRow', function () {
-        $(this).closest('#test').remove();
+        $(document).on('click', '#removeRow', function () {
+            $(this).closest('#test').remove();
         });
+
+        //add row by pressing "enter"
+        var key = document.getElementById("stock_name");
+        key.addEventListener("keypress", function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("addRow").click();
+            };
+        });
+    });
     </script>
     
-    {% endblock %}
-
+{% endblock %}

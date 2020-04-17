@@ -1,0 +1,395 @@
+{% extends "base.html" %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="../static/styles/main_styles.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles/responsive.css">
+{% endblock %}
+{% block pagescripts %}
+	{% if script is not none %}
+		{{ script | safe }}
+    {% endif %}
+<script src="../static/js/jquery-3.2.1.min.js"></script>
+<script src="../static/styles/bootstrap4/popper.js"></script>
+<script src="../static/styles/bootstrap4/bootstrap.min.js"></script>
+<script src="../static/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="../static/plugins/easing/easing.js"></script>
+<script src="../static/plugins/parallax-js-master/parallax.min.js"></script>
+<script src="../static/js/custom.js"></script>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="super_container">
+    
+    <!-- Home -->
+
+    <div class="home">
+        <div class="home_slider_container">
+            
+            <!-- Home Slider -->
+
+            <div class="owl-carousel owl-theme home_slider">
+                
+                <!-- Slider Item -->
+                <div class="owl-item">
+                    <div class="slider_background" style="background-image:url(../static/images/financial.jpg)"></div>
+                    <div class="home_slider_content text-center">
+                        <h1>Forecasting <br> Model</h1>
+                        <div class="home_slider_text">Learn how our machine learning algorithms work</div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- <div class="home_slider_nav home_slider_prev d-flex flex-column align-items-center justify-content-center"><img src="../static/images/arrow_l.png" alt=""></div>
+            <div class="home_slider_nav home_slider_next d-flex flex-column align-items-center justify-content-center"><img src="../static/images/arrow_r.png" alt=""></div> -->
+            
+        </div>
+        
+        <!-- Header -->
+
+        <header class="header">
+
+            <!-- Top Bar -->
+            <div class="top_bar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="top_bar_container d-flex flex-row align-items-center justify-content-start">
+                                <div class="logo_container">
+                                    <div class="logo">
+                                        <a href="{% url 'home' %}">
+                                            <div class="logo_line_1"><span>in</span>vest</div>
+                                            <div class="logo_line_2">FutureSight</div>
+                                            <div class="logo_img"><img src="../static/images/logo.png" alt=""></div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="top_bar_content ml-auto">
+                                    <div class="register_login">
+                                        <div class="register"><a href="{% url 'signup' %}">sign up</a></div>
+                                        <div class="login"><a href="{% url 'login' %}">login</a></div>
+                                    </div>
+                                </div>
+                                <div class="burger">
+                                    <i class="fa fa-bars" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>      
+            </div>
+
+            <!-- Main Menu -->
+
+			<div class="main_menu">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="main_menu_container d-flex flex-row align-items-center justify-content-start">
+								<div class="main_menu_content">
+									<ul class="main_menu_list">
+										<li><a href="{% url 'home' %}">home
+											<svg version="1.1" id="Layer_4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+												 width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
+												<g>
+													<polyline class="arrow_d" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" points="0.022,-0.178 4.5,4.331 9.091,-0.275 	"/>
+												</g>
+											</svg>
+										</a></li>
+										<li class="hassubs">
+											<a href="#">more info
+												<svg version="1.1" id="Layer_5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+													 width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
+													<g>
+														<polyline class="arrow_d" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" points="0.022,-0.178 4.5,4.331 9.091,-0.275 	"/>
+													</g>
+												</svg>
+											</a>
+											<ul>
+												<li><a href="{% url 'main_forecast' %}">Forecasting Model
+													<svg version="1.1" id="Layer_6" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+														 width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
+														<g>
+															<polyline class="arrow_d" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" points="0.022,-0.178 4.5,4.331 9.091,-0.275 	"/>
+														</g>
+													</svg>
+												</a></li>
+												<li><a href="{% url 'main_optimize' %}">Portfolio Optimizing Model
+													<svg version="1.1" id="Layer_7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+														 width="9px" height="5px" viewBox="0 0 9 5" enable-background="new 0 0 9 5" xml:space="preserve">
+														<g>
+															<polyline class="arrow_d" fill="none" stroke="#FFFFFF" stroke-miterlimit="10" points="0.022,-0.178 4.5,4.331 9.091,-0.275 	"/>
+														</g>
+													</svg>
+												</a></li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+            <!-- Menu -->
+
+            <div class="menu">
+                <div class="menu_register_login">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="menu_register_login_content d-flex flex-row align-items-center justify-content-end">
+                                    <div class="register"><a href="signup.html">sign up</a></div>
+                                    <div class="login"><a href="login.html">login</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+                </div>
+                <ul class="menu_list">
+                    <li class="menu_item">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="#">home</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="menu_item">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="about.html">about us</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="menu_item">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="listings.html">services</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="menu_item">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="news.html">portfolio</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="menu_item">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="contact.html">blog</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="menu_item">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="contact.html">contact</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </header>
+    </div>
+
+    <!-- Intro -->
+
+    <div class="intro">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="intro_content">
+                        <div class="intro_title_container">
+                            <div class="intro_subtitle">learn more about</div>
+                            <h1 class="intro_title">How Does Our Machine Learn?</h1>
+                        </div>
+                        <div class="intro_text">
+                            <p style="font-size: medium;">
+                                Our team of quants uses a machine learning model that provides investors with two main features: <b>Stock Price Predictions</b> and a <b>Portfolio Optimizer</b>. <br/>
+                            </p>
+                        </div>
+
+                        <!-- Basic Flowchart -->
+
+                        <div style="margin-top: 24px;">
+                            <div class="row">
+                                <div class="col">
+                                    <h4 style="color: rgba(0, 0, 0, 0.633);"><b>Basic Flowchart</b></h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="intro_image text-center" style="padding: 25px;"><img src="../static/images/ml_4.png" width="80%" height="80%"></div>
+                            </div>
+
+                        <div class="row" style="padding: 25px;">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-lg-1 milestone_col">
+                                        <div class="milestone">
+                                            <div class="milestone_counter" data-end-value="1" data-sign-after="." style="font-size: 36px; color: rgb(60, 60, 60);">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-11">
+                                        <p style="font-size: large;">
+                                            This stage will be the data collection process, and doing some preliminary data cleaning. <br>
+                                            This will ensure that our data is structured the way we want and unnecessary data are cleaned out for faster calculations.
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-lg-1 milestone_col">
+                                        <div class="milestone">
+                                            <div class="milestone_counter" data-end-value="2" data-sign-after="." style="font-size: 36px; color: rgb(60, 60, 60);">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-11">
+                                        <p style="font-size: large;">
+                                            This stage is the feature extraction and selection process where we identify and choose which fundaamental information to use. 
+                                            These will be further elaborated below.<br>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-1 milestone_col">
+                                        <div class="milestone">
+                                            <div class="milestone_counter" data-end-value="3" data-sign-after="." style="font-size: 36px; color: rgb(60, 60, 60);">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-11">
+                                        <p style="font-size: large;">
+                                            This is the stage where most processing power goes into. Our algorithm consists of 5 models: 
+                                            <b>Linear Regression, Ridge Regression, Stepwise Regression, Random Forest and Generalized Boosted Regression.</b><br>
+                                            Our algorithm will run all 5 models with the pre-processed data, together with the 20 features.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-1 milestone_col">
+                                        <div class="milestone">
+                                            <div class="milestone_counter" data-end-value="4" data-sign-after="." style="font-size: 36px; color: rgb(60, 60, 60);">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-11">
+                                        <p style="font-size: large;">
+                                            During this stage, we test each model's forecasted returns with the stocks' true returns.
+                                            We will take note of the accuracy of each model using MSE, or mean-squared error.
+                                            The higher the MSE, the lower the accuracy of the model.<br>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-1 milestone_col">
+                                        <div class="milestone">
+                                            <div class="milestone_counter" data-end-value="5" data-sign-after="." style="font-size: 36px; color: rgb(60, 60, 60);">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-11">
+                                        <p style="font-size: large;">
+                                            Lastly, our algorithm adopts the model with the lowest MSE for each quarter. 
+                                            This is to ensure that we use the most accurate model for every stock forecast. <br>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Fundamental ratios -->
+
+                        <div style="margin-top: 24px;">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h4 style="color: rgba(0, 0, 0, 0.633);"><b>Fundamental Information Used (Features)</b></h4>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="intro_image text-center" style="padding: 25px;"><img src="../static/images/ml_2.png" width="80%" height="80%"></div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <p style="font-size: large;">
+                                    Our model uses these 20 fundamental information to forecast the next quarter returns of stocks. 
+                                    We select representative stock indicators with good explanatory power, and these 20 indicators allow us to 
+                                    understand the profitability, efficiency and level of leverage of a company.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Machine Learning Process -->
+
+                        <div style="margin-top: 24px;">
+                            <div class="row">
+                                <div class="col">
+                                    <h4 style="color: rgba(0, 0, 0, 0.633);"><b>Summary</b></h4>
+                                </div>
+                                <div class="col-lg-12">
+                                    <p style="font-size: large;">
+                                        In summary, the graph below illustrates how our machine learning model works. 
+                                    </p>
+                                </div>                        
+                                <div class="col-lg-12">
+                                    <div class="intro_image text-center" style="padding: 25px;"><img src="../static/images/ml_3.png" width="80%" height="80%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forecasting Model in action -->
+
+    <div class="news">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="section_title_container text-center">
+                        <div class="section_subtitle">how our models run</div>
+                        <div class="section_title">Results of Our Model</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row news_row">
+                <div class="col news_col">
+                    <div class="news_item">
+                        <div class="news_content">
+                            <div class="news_title">Accuracy of Our Model</div>
+                            <div class="news_text">
+                                <p style="padding-bottom:20px;">
+                                    For our example, we will be showing how our algorithm runs on the different GICS industries, excluding the Energy sector. <br>
+                                </p>
+                                {{ div | safe }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}

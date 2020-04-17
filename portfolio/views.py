@@ -3,11 +3,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, QueryDict, HttpResponseRedirect, Http404, JsonResponse
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 # Python Library
 import requests
 import datetime
+import json
 import pandas as pd
+import numpy as np
 from datetime import datetime
 from collections import Counter
 from math import pi
@@ -15,11 +18,12 @@ from bs4 import BeautifulSoup
 
 # Bokeh Libraries
 from bokeh.plotting import figure
-from bokeh.models import ColumnDataSource, NumeralTickFormatter, HoverTool
+from bokeh.models import ColumnDataSource, NumeralTickFormatter, HoverTool, Legend
 from bokeh.models.widgets import DataTable, DateFormatter, TableColumn
+from bokeh.models.formatters import NumeralTickFormatter
 from bokeh.layouts import widgetbox
 from bokeh.embed import components
-from bokeh.palettes import Category20c
+from bokeh.palettes import Category20c, Spectral11
 from bokeh.transform import cumsum
 
 # Local Libraries
@@ -70,118 +74,150 @@ def home(request):
     #only have log-in button - href to login html 
     return render(request, "main_home.html")
 
-def my_portfolio(request):
-    #receive input from form - method=GET from stocks database, inputs: datalist of all stocks in universe
-    #add and remove stocks and allocation form button - using jquery
-    #output for allocation ((no. of shares x price)/total capital
-    #save button - create a new portfolio object
-    """
-    optimize button - backend ML processing: input - ticker, var1, var2 etc . output - 1) percentage allocation 
-    bokeh chart to display line chart (current vs optimized vs bm), 2) pie chart (% allocation), 3) YoY returns
-    (current vs optimized) - pie chart using jquery linked to allocation, the rest is backend processing.
-    """
+def main_forecast(request):
 
-    # GRAPHS
-    
-    fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
+    import pandas as pd
+    df = pd.read_excel('sector_MSE.xlsx', index_col=0)  
+    columns = df.columns.tolist()
 
-    p = figure(x_range=fruits, plot_height=300, plot_width=1000, title="Fruit Counts",
-            toolbar_location=None, tools="")
+    numlines=len(df.columns)
+    mypalette=Spectral11[0:numlines]
 
-    p.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9, hover_color="pink")
+    data = {
+        'xs': [df.index.values]*numlines,
+        'ys': [df[name].values for name in df],
+        'labels': columns,
+        'color': mypalette
+        }
 
-    p.xgrid.grid_line_color = None
-    p.ygrid.grid_line_color = None
+    source = ColumnDataSource(data)
+
+    p = figure(width=1000, height=300, x_axis_type="datetime", title='MSE per Industry') 
+    p.multi_line(xs='xs', ys='ys', legend='labels', source=source, line_color='color', line_width=3)
+       
     p.background_fill_color = None
     p.border_fill_color = None
+    p.xgrid.grid_line_color = None
 
-    p.add_tools(HoverTool(tooltips=[("Fruit", "@fruits"), ("Count", "@y")]))
-    
     p.title.text_font = "gill"
-    p.title.text_font_size = "24px"
-    p.title.text_color = "white"
+    p.title.text_font_size = "20px"
     p.xaxis.major_label_text_font = "gill"
-    p.xaxis.major_label_text_font_size = "20px"
-    p.xaxis.major_label_text_color = "white"
+    p.xaxis.major_label_text_font_size = "18px"
+    p.yaxis[0].formatter = NumeralTickFormatter(format="0.00%")
     p.yaxis.major_label_text_font = "gill"
-    p.yaxis.major_label_text_font_size = "20px"
-    p.yaxis.major_label_text_color = "white"
+    p.yaxis.major_label_text_font_size = "18px"
+
+    new_legend = p.legend[0]
+    p.legend[0].plot = None
+    p.add_layout(new_legend, 'right')
+
+    p.legend.label_text_font = "gill"
+    p.legend.label_text_font_size = "12px"
+
+    p.add_tools(HoverTool(tooltips=[("Sector", "@labels"), ("MSE", "$y{1.11%}")]))
 
     script, div = components(p)
-    
-    '''
-    Work-In-Progress: linking the 'Forecast' button to the variables in 'p'
 
-    stocks = request.POST.get("array of stocks")
-    
-    #Run the ML backend model to get the forecasted returns of each stock
+    context = {
+        'script': script,
+        'div': div
+    }
+
+    return render(request, "main_forecast.html", context=context)
+
+def main_optimize(request):
+    return render(request, "main_optimize.html")
+
+def my_portfolio(request):
+    # GRAPHS
+        
+    # Work-In-Progress: linking the 'Forecast' button to the variables in 'p'
+
+    # stocks = request.POST.get("array of stocks")
+    stocks = ['AAPL', 'UNM', 'VIAV']
+
+    context = {
+        'stocks': stocks
+    }
+  
+    if stocks is None:
+        return render(request=request, template_name='homepage.html', context=context)
     
     try:
 
-        df = ...  #Code to append to selected_portfolios --> {[stock_name, predicted_returns]}
+        stocks_db = Stocks.objects.all()
+        
+        # Dummy data
+        df = {'stock_name':['AAPL','GOOGL'],'forecast_return': [1,2]} 
+        
+        #df = pd.read_csv('')  #Code to append to selected_portfolios --> {'stock_name': [], 'predicted_returns': []}
 
     except KeyError:
+        script = None
+        div = None
+    else:
+        p = figure(x_range = df['stock_name'], plot_height=300, plot_width=1000, title="Predicted Returns",
+                toolbar_location=None, tools="")
+        p.vbar(x = df['stock_name'], top = df['forecast_return'], width = 0.9, hover_color="pink")
+        p.xgrid.grid_line_color = None
+        p.ygrid.grid_line_color = None
+        p.background_fill_color = None
+        p.border_fill_color = None
+        p.title.text_font = "gill"
+        p.title.text_font_size = "24px"
+        p.title.text_color = "white"
+        p.yaxis.axis_label = "Predicted Returns"
+        p.yaxis.axis_label_text_font = "gill"
+        p.yaxis.axis_label_text_font_size = "16px"
+        p.yaxis.axis_label_text_color = "white"
+        p.xaxis.major_label_text_font = "gill"
+        p.xaxis.major_label_text_font_size = "20px"
+        p.xaxis.major_label_text_font_style = "bold"
+        p.xaxis.major_label_text_color = "white"
+        p.yaxis.major_label_text_font = "gill"
+        p.yaxis.major_label_text_font_size = "20px"
+        p.yaxis.major_label_text_color = "white"
+        p.add_tools(HoverTool(tooltips=[("Stock", "@stock_name"), ("Predicted Returns", "@predicted_returns")]))
         
-		script = None
-		div = None
+        script, div = components(p)
 
-	else:
+    ''' Create Stocks Objects: Already done, do not uncomment to avoid duplicating stocks objects '''
 
-    p = figure(x_range = df['stock_name'], plot_height=300, plot_width=1000, title="Predicted Returns",
-            toolbar_location=None, tools="")
+    # stocks_df = pd.read_csv('tickers_latest.csv')
+    # tup = stocks_df.values
 
-    p.vbar(x = df['stock_name'], top = df['predicted_returns'], width = 0.9, hover_color="pink")
-
-    p.xgrid.grid_line_color = None
-    p.ygrid.grid_line_color = None
-    p.background_fill_color = None
-    p.border_fill_color = None
-
-    p.title.text_font = "gill"
-    p.title.text_font_size = "24px"
-    p.title.text_color = "white"
-    p.yaxis.axis_label = "Predicted Returns"
-    p.yaxis.axis_label_text_font = "gill"
-    p.yaxis.axis_label_text_font_color = "white"
-    p.xaxis.major_label_text_font = "gill"
-    p.xaxis.major_label_text_font_size = "20px"
-    p.xaxis.major_label_text_font_style = "bold"
-    p.xaxis.major_label_text_color = "white"
-    p.yaxis.major_label_text_font = "gill"
-    p.yaxis.major_label_text_font_size = "20px"
-    p.yaxis.major_label_text_color = "white"
-
-    p.add_tools(HoverTool(tooltips=[("Stock", "@stock_name"), ("Predicted Returns", "@predicted_returns")]))
-
-    script, div = components(p)
-    '''
-    # Create Stocks Objects
-    stocks_df = pd.read_csv('sector10_tickers.csv')
-    tup = stocks_df.values
-    
     # for each in tup:
-    #     Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], created_at=datetime.datetime.now())
+    #     Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], forecast_return=each[3], mse=each[4])
+   
+    ''' Link front end stocks selection inputs to back-end '''
     
-    lis = []
-    for each in tup:
-        lis.append(each[1])
-        lis.append(each[2])
-    
-    lis = ['AMOCO CORP (AN.2)', 'ANDEAVOR (ANDV)', 'ALPHA NATURAL RESOURCES INC (ANRZQ)', 'APACHE CORP (APA)', 'ANADARKO PETROLEUM CORP (APC)', 'ATLANTIC RICHFIELD CO (ARC.3)', 'BAKER HUGHES INC (BHI)', 'BJ SERVICES CO (BJS.1)', 'BURLINGTON RESOURCES INC (BR.2)', 'PEABODY ENERGY CORP (BTU)', 'CAMERON INTERNATIONAL CORP (CAM)', 'CHESAPEAKE ENERGY CORP (CHK)', 'CONSOL ENERGY INC (CNX)', 'CONOCO INC (COC1)', 'CABOT OIL & GAS CORP (COG)', 'CONOCOPHILLIPS (COP)', 'COLUMBIA PIPELINE GROUP INC (CPGX)', 'CHEVRON CORP (CVX)', 'CONCHO RESOURCES INC (CXO)', 'DRESSER INDUSTRIES INC (DI.)', 'DENBURY RESOURCES INC (DNR)', 'DIAMOND OFFSHRE DRILLING INC (DO)', 'DEVON ENERGY CORP (DVN)', 'EOG RESOURCES INC (EOG)', 'EL PASO CORP (EP)', 'EQT CORP (EQT)', 'ENSCO PLC (ESV)', 'TECHNIPFMC PLC (FTI)', 'FMC TECHNOLOGIES INC (FTI.1)', 'HALLIBURTON CO (HAL)', 'HESS CORP (HES)', 'HELMERICH & PAYNE (HP)', 'KERR-MCGEE CORP (KMG.1)', 'KINDER MORGAN INC (KMI)', 'LOUISIANA LAND & EXPLORATION (LLX.)', 'MCDERMOTT INTL INC (MDR)', 'MASSEY ENERGY CO (MEE)', 'MOBIL CORP (MOB.2)', 'MARATHON PETROLEUM CORP (MPC)', 'MARATHON OIL CORP (MRO)', 'USX CORP-CONSOLIDATED (MROX.CM)', 'MURPHY OIL CORP (MUR)', 'MAXUS ENERGY CORP (MXS)', 'NOBLE ENERGY INC (NBL)', 'NABORS INDUSTRIES LTD (NBR)', 'NACCO INDUSTRIES  -CL A (NC)', 'NOBLE CORP PLC (NE)', 'NEWFIELD EXPLORATION CO (NFX)', 'NATIONAL OILWELL VARCO INC (NOV)', 'ONEOK INC (OKE)', 'ORYX ENERGY CO (ORX)', 'OCCIDENTAL PETROLEUM CORP (OXY)', 'PHILLIPS 66 (PSX)', 'PIONEER NATURAL RESOURCES CO (PXD)', 'PENNZENERGY CO (PZE.1)', 'QEP RESOURCES INC (QEP)', 'ROWAN COMPANIES PLC (RDC)', 'ROYAL DUTCH PETROLEUM NV (RDPL)', 'TRANSOCEAN LTD (RIG)', 'RANGE RESOURCES CORP (RRC)', 'SANTA FE SNYDER CORP (SFS.1)', 'SMITH INTERNATIONAL INC (SII)', 'SCHLUMBERGER LTD (SLB)', 'SUNOCO INC (SUN.1)', 'SOUTHWESTERN ENERGY CO (SWN)', 'STEEL EXCEL INC (SXCL)', 'TOSCO CORP (TOS.1)', 'TEXACO INC (TX.2)', 'UNOCAL CORP (UCL)', 'UNION PACIFIC RESOURCES GRP (UPR.1)', 'VALERO ENERGY CORP (VLO)', 'WESTERN ATLAS INC (WAI.1)', 'WEATHERFORD INTL PLC (WFT)', 'WESTMORELAND COAL CO (WLB)', 'WILLIAMS COS INC (WMB)', 'WPX ENERGY INC (WPX)', 'CIMAREX ENERGY CO (XEC)', 'EXXON MOBIL CORP (XOM)', 'XTO ENERGY INC (XTO)']
+    # idArr contains a list of user-selected stock tickers
+    selected_stocks = request.POST.get("idArray")
 
-    # Based on front-end user input in forms, back end create portfolio
-    # When user clicks on "save" button, form pop-up --> https://www.w3schools.com/howto/howto_js_popup_form.asp
-    p_name = request.GET.get('p_name')
-    p_desc = request.GET.get('p_desc') 
-    stocks = request.GET.get('stock_array') 
+    # Retrieve Stock model object's ticker based on selected stocks, append the tickers into a dictionary (stock_dict) to return to user for future use
+    stock_dict = {}
+
+    if selected_stocks is not None: 
+
+        for each in selected_stocks:
+            count = 1
+            # Assigns every user selected stock to a dictionary key. E.g. stock_dict = {'stock_1':{'ticker':'AAPL', 'forecasted_return': 0.01234}}
+            stock_dict["stock_{}".format(count)] = {'ticker': each, 'forecasted_return': Stocks.objects.get(ticker=each).forecast_return}
+            count += 1
+
+    ''' ML Model: inputs- idArray'''
+    # Insert ML Model here
+
+    # store output to mlOutput to be passed to front end, which will then jump to optimize.html via jqeury
+    # Output: cumulative return, sharpe, weights
+    mlOutput = {}
 
     context = {
-        'p_name': p_name,
-        'p_desc': p_desc,
-        'stocks': stocks,
-        'lis': lis,
+        'df': df,
         'script': script,
         'div': div,
+        'stock_dict': stock_dict,
+        'mlOutput': mlOutput
     }
     
     return render(request, "homepage.html", context=context)
@@ -191,95 +227,58 @@ def compare(request):
     #button to run jquery to display charts and make YoY returns comparison for each portfolio
     #Based on this, safe to say once a portfolio object is created, also need to save their charts and stats to load easily for comparison
    
-    # all_portfolios = Portfolio.objects.all()
+    all_portfolios = Portfolio.objects.all()
 
 
     # Saving output form the checkbox
     try:
-
         selected_portfolios = request.POST.getlist('checkbox1') # This will show [p_name, p_name, ...]
+        df = {'p_name':['Port 1','Port 2'],'sharpe': [1.234,1.5637]} # Dummy data
+        #df = ...  #Code to append to selected_portfolios --> {[p_name, sharpe_ratio, volatility], [p_name, sharpe_ratio]}
+
+        context = {
+            'selected_portfolios': selected_portfolios
+        }
+
+        if selected_portfolios is None:
+            return render(request=request, template_name='compare.html', context=context)
+
+        else:
+            p = figure(x_range = df['p_name'], plot_height=300, plot_width=1000, title="Portfolio Comparison",
+            toolbar_location=None, tools="")
+            p.vbar(x = df['p_name'], top = df['sharpe'], width = 0.9, hover_color="pink")
+            p.xgrid.grid_line_color = None
+            p.ygrid.grid_line_color = None
+            p.background_fill_color = None
+            p.border_fill_color = None
+            p.title.text_font = "gill"
+            p.title.text_font_size = "24px"
+            p.title.text_color = "white"
+            p.yaxis.axis_label = "Sharpe Ratio"
+            p.yaxis.axis_label_text_font = "gill"
+            p.yaxis.axis_label_text_color = "white"
+            p.xaxis.major_label_text_font = "gill"
+            p.xaxis.major_label_text_font_size = "20px"
+            p.xaxis.major_label_text_font_style = "bold"
+            p.xaxis.major_label_text_color = "white"
+            p.yaxis.major_label_text_font = "gill"
+            p.yaxis.major_label_text_font_size = "20px"
+            p.yaxis.major_label_text_color = "white"
+            p.yaxis[0].formatter = NumeralTickFormatter(format="0.00")
+            p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Sharpe Ratio", "@sharpe")]))
 
     except KeyError:
-
         script = None
         div = None
         div1 = None
 
         context = {}                   
-    
-    # GRAPHS
-
-    '''
-    try:
-
-        df = ...  #Code to append to selected_portfolios --> {[p_name, sharpe_ratio, volatility], [p_name, sharpe_ratio]}
-
-    except KeyError:
         
-		script = None
-		div = None
-
-	else:
-
-    p = figure(x_range = df['p_name'], plot_height=300, plot_width=1000, title="Portfolio Comparison",
-            toolbar_location=None, tools="")
-
-    p.vbar(x = df['p_name'], top = df['sharpe_ratio'], width = 0.9, hover_color="pink")
-
-    p.xgrid.grid_line_color = None
-    p.ygrid.grid_line_color = None
-    p.background_fill_color = None
-    p.border_fill_color = None
-
-    p.title.text_font = "gill"
-    p.title.text_font_size = "24px"
-    p.title.text_color = "white"
-    p.yaxis.axis_label = "Sharpe Ratio"
-    p.yaxis.axis_label_text_font = "gill"
-    p.yaxis.axis_label_text_font_color = "white"
-    p.xaxis.major_label_text_font = "gill"
-    p.xaxis.major_label_text_font_size = "20px"
-    p.xaxis.major_label_text_font_style = "bold"
-    p.xaxis.major_label_text_color = "white"
-    p.yaxis.major_label_text_font = "gill"
-    p.yaxis.major_label_text_font_size = "20px"
-    p.yaxis.major_label_text_color = "white"
-
-    p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Sharpe Ratio", "@sharpe_ratio")]))
-
-    script, div = components(p) #### This will be combined with components(p1)
-    
-    '''
-
-
-    fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
-
-    p = figure(x_range=fruits, plot_height=300, plot_width=1000, title="Fruit Counts",
-            toolbar_location=None, tools="")
-
-    p.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9, hover_color="pink")
-
-    p.xgrid.grid_line_color = None
-    p.ygrid.grid_line_color = None
-    p.background_fill_color = None
-    p.border_fill_color = None
-
-    p.add_tools(HoverTool(tooltips=[("Fruit", "@fruits"), ("Count", "@y")]))
-    
-    p.title.text_font = "gill"
-    p.title.text_font_size = "24px"
-    p.title.text_color = "white"
-    p.xaxis.major_label_text_font = "gill"
-    p.xaxis.major_label_text_font_size = "20px"
-    p.xaxis.major_label_text_color = "white"
-    p.yaxis.major_label_text_font = "gill"
-    p.yaxis.major_label_text_font_size = "20px"
-    p.yaxis.major_label_text_color = "white"
-    
     # pie chart
 
     '''
-    jkhashjkasjhkas
+    from selected_portfolios, find the id --> use it to reference to port_id --> get stock_id & stock_weight --> find stock_name & ticker
+    fill the below counter() with stock_name&ticker, stock_weight
     '''
 
     x = Counter({
@@ -320,12 +319,12 @@ def compare(request):
         'script' : script,
         'div' : div, 
         'div1' : div1,
-        'selected_portfolios': selected_portfolios
     }
     
     return render(request, "compare.html", context=context)
 
 def optimize(request):
+    # Create chart and data table to display in optimized html 
 
     # Get the output file from ML model in the form of {stock_name, stock_weights}
     # df = read csv???
@@ -335,26 +334,19 @@ def optimize(request):
 
     '''
     try:
-
         df = ...  #Code to append to selected_portfolios --> {[p_name, sharpe_ratio, volatility], [p_name, sharpe_ratio]}
-
     except KeyError:
         
 		script = None
 		div = None
-
 	else:
-
     p = figure(x_range = df['p_name'], plot_height=300, plot_width=500, title="Portfolio Comparison",
             toolbar_location=None, tools="")
-
-    p.vbar(x = df['p_name'], top = df['sharpe_ratio'], width = 0.9, hover_color="pink")
-
+    p.vbar(x = df['p_name'], top = df['sharpe'], width = 0.9, hover_color="pink")
     p.xgrid.grid_line_color = None
     p.ygrid.grid_line_color = None
     p.background_fill_color = None
     p.border_fill_color = None
-
     p.title.text_font = "gill"
     p.title.text_font_size = "24px"
     p.yaxis.axis_label = "Sharpe Ratio"
@@ -364,23 +356,17 @@ def optimize(request):
     p.xaxis.major_label_text_font_style = "bold"
     p.yaxis.major_label_text_font = "gill"
     p.yaxis.major_label_text_font_size = "20px"
-
-    p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Sharpe Ratio", "@sharpe_ratio")]))
-
+    p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Sharpe Ratio", "@sharpe")]))
     script, div = components(p) #### This will be combined with components(p1)
     
     ###############
-
     p1 = figure(x_range = df['p_name'], plot_height=300, plot_width=500, title="Portfolio Comparison",
             toolbar_location=None, tools="")
-
     p1.vbar(x = df['p_name'], top = df['volatility'], width = 0.9, hover_color="pink")
-
     p1.xgrid.grid_line_color = None
     p1.ygrid.grid_line_color = None
     p1.background_fill_color = None
     p1.border_fill_color = None
-
     p1.title.text_font = "gill"
     p1.title.text_font_size = "24px"
     p1.yaxis.axis_label = "Sharpe Ratio"
@@ -390,7 +376,6 @@ def optimize(request):
     p1.xaxis.major_label_text_font_style = "bold"
     p1.yaxis.major_label_text_font = "gill"
     p1.yaxis.major_label_text_font_size = "20px"
-
     p1.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Volatility", "@volatility")]))
     
     '''
@@ -441,7 +426,8 @@ def optimize(request):
     # pie chart
 
     '''
-    jkhashjkasjhkas
+    chart = from df, find the stock_name, stock_weight
+    change counter() to stock_name, stock_weight
     '''
 
     x = Counter({
@@ -478,13 +464,35 @@ def optimize(request):
 
     script, (div, div1, div2) = components((p, p1, p2))
 
+    ''' What happens when user saves a portfolio '''
+    # portfolio is a jquery list variable containing a saved portfolio. [0]:portfolio name and [1]:description 
+    portfolio = request.POST.get("portfolio")
+
+    # Create portfolio object
+    Portfolio.objects.create(p_name=portfolio[0], p_desc=portfolio[1], cum_return='from ml', sharpe='from ml', created_at=datetime.now(), created_by='User.objects.get(id=logged_in_username_id).username') 
+
+    # Create User_Portfolio object
+    User_Portfolio.objects.create(user_id='User.objects.get(id=logged_in_username_id).id', portfolio_id='Portfolio.objects.get(id=0).id')
+
+    # Create Portfolio_Stocks object per selected stocks
+    for each in selected_stocks:
+        Portfolio_Stocks.objects.create(port_id='Portfolio.objects.get(id=0).id', stock_id='Stocks.objects.get(ticker=each).id', stock_weight='from ml')
+
+    ''' Retrieving Portfolio Info for Portfolios page '''
+    # for loop to get all user's saved portfolio name and description, using the number of same ids in the database
+    for each in User_Portfolio.objects.get(user_id="logged_in_username_id"):
+        count = 1
+        user_port_dic = {} # to bring user_port_dic to store in front end local storage for future usage
+        user_port_dic['portfolio_{}'.format(count)] = {'name':Portfolio.objects.get(id=each).p_name, 'description':Portfolio.objects.get(id=each).p_desc, 'stocks': {'ticker': Stocks.objects.get(id=0).ticker, 'forecasted_returns': Stocks.objects.get(id=0).forecast_return}}
+        count += 1
+
     context = {
         'script' : script,
         'div' : div, 
         'div1' : div1,
-        'div2': div2
+        'div2': div2,
+        'user_port_dic': user_port_dic
     }
-
 
     return render(request, "optimize.html", context=context)
 
@@ -519,6 +527,16 @@ def portfolios(request):
 def portfolio_id(request):
     return render(request, 'portfolio1.html')
 
+def create_stocks():
+    ''' Create Stocks Objects '''
+    stocks_df = pd.read_csv('tickers_latest.csv')
+    tup = stocks_df.values
+
+    for each in tup:
+        Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], forecast_return=each[3], mse=each[4])
+    
+    return
+    ''' Link front end stocks selection inputs to back-end '''
 
 # def live_price(request):
 
