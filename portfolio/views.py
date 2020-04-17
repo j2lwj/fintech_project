@@ -128,47 +128,16 @@ def main_optimize(request):
     return render(request, "main_optimize.html")
 
 def my_portfolio(request):
-    # # GRAPHS
-    
-    '''
-    Sample graph data 
-
-    # stocks = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
-
-    # p = figure(x_range=stocks, plot_height=300, plot_width=1000, title="Predicted Returns",
-    #         toolbar_location=None, tools="")
-
-    # p.vbar(x=stocks, top=[5, 3, 4, 2, 4, 6], width=0.9, hover_color="pink")
-
-    # p.xgrid.grid_line_color = None
-    # p.ygrid.grid_line_color = None
-    # p.background_fill_color = None
-    # p.border_fill_color = None
-
-    # p.add_tools(HoverTool(tooltips=[("Fruit", "@stocks"), ("Count", "@y")]))
-    
-    # p.title.text_font = "gill"
-    # p.title.text_font_size = "24px"
-    # p.title.text_color = "white"
-    # p.xaxis.major_label_text_font = "gill"
-    # p.xaxis.major_label_text_font_size = "20px"
-    # p.xaxis.major_label_text_color = "white"
-    # p.yaxis.major_label_text_font = "gill"
-    # p.yaxis.major_label_text_font_size = "20px"
-    # p.yaxis.major_label_text_color = "white"
-
-    # script, div = components(p)
-    '''
-    
+    # GRAPHS
+        
     # Work-In-Progress: linking the 'Forecast' button to the variables in 'p'
+
     # stocks = request.POST.get("array of stocks")
-    
-    #Run the ML backend model to get the forecasted returns of each stock
     stocks = ['AAPL', 'UNM', 'VIAV']
 
-    # context = {
-    #     'stocks': stocks
-    # }
+    context = {
+        'stocks': stocks
+    }
   
     if stocks is None:
         return render(request=request, template_name='homepage.html', context=context)
@@ -178,9 +147,7 @@ def my_portfolio(request):
         stocks_db = Stocks.objects.all()
         
         # Dummy data
-        df = stocks_db
-
-        # {'stock_name':['AAPL','GOOGL'],'predicted_returns': [1,2]} 
+        df = {'stock_name':['AAPL','GOOGL'],'forecast_return': [1,2]} 
         
         #df = pd.read_csv('')  #Code to append to selected_portfolios --> {'stock_name': [], 'predicted_returns': []}
 
@@ -239,36 +206,27 @@ def my_portfolio(request):
             forecasted_return.append(stock_dict["stock_{}".format(count)])
             count += 1
 
-    ''' return forecasted returns of selected in graph form '''
-    
-    ''' Optimization Page '''
-    # Insert ML Model here 
-
-    # selected_stocks to 
-    
-    # Create chart and data table to display in optimized html 
-
-
     ''' User create a portfolio '''
-    # Portfolio is a jquery list variable containing [0]:portfolio name and [1]:description 
-    portfolio = request.POST.get("portfolio")
+
+    # # Portfolio is a jquery list variable containing [0]:portfolio name and [1]:description 
+    # portfolio = request.POST.get("portfolio")
 
 
-    # # Create portfolio object after ML model run
-    xx = Portfolio.objects.create(p_name=portfolio[0], p_desc=portfolio[1], cum_return='from ml', sharpe='from ml', created_at=datetime.now(), created_by='insert user_id.username') 
+    # # # Create portfolio object after ML model run
+    # xx = Portfolio.objects.create(p_name=portfolio[0], p_desc=portfolio[1], cum_return='from ml', sharpe='from ml', created_at=datetime.now(), created_by='insert user_id.username') 
 
-    # Create User_Portfolio object
-    xx = User_Portfolio.objects.create(user_id='insert user_id', portfolio_id='insert portfolio_id')
+    # # Create User_Portfolio object
+    # xx = User_Portfolio.objects.create(user_id='insert user_id', portfolio_id='insert portfolio_id')
 
-    # Create Portfolio_Stocks object 
-    for each in selected_stocks:
-        xx = Portfolio_Stocks.objects.create(port_id='Portfolio.id', stock_id='all_stocks.get(ticker=each).id', stock_weight='from ml')
+    # # Create Portfolio_Stocks object 
+    # for each in selected_stocks:
+    #     xx = Portfolio_Stocks.objects.create(port_id='Portfolio.id', stock_id='all_stocks.get(ticker=each).id', stock_weight='from ml')
 
     context = {
-        'p_name': p_name,
-        'p_desc': p_desc,
-        'selected_stocks': selected_stocks,
-        'stocks_db': stocks_db,
+        # 'p_name': p_name,                         commented to see how the code runs
+        # 'p_desc': p_desc,                         commented to see how the code runs
+        # 'selected_stocks': selected_stocks,       commented to see how the code runs
+        'df': df,
         'script': script,
         'div': div,
     }
@@ -286,7 +244,7 @@ def compare(request):
     # Saving output form the checkbox
     try:
         selected_portfolios = request.POST.getlist('checkbox1') # This will show [p_name, p_name, ...]
-        df = all_portfolios
+        df = {'p_name':['Port 1','Port 2'],'sharpe': [1.234,1.5637]} # Dummy data
         #df = ...  #Code to append to selected_portfolios --> {[p_name, sharpe_ratio, volatility], [p_name, sharpe_ratio]}
 
         context = {
@@ -309,7 +267,7 @@ def compare(request):
             p.title.text_color = "white"
             p.yaxis.axis_label = "Sharpe Ratio"
             p.yaxis.axis_label_text_font = "gill"
-            p.yaxis.axis_label_text_font_color = "white"
+            p.yaxis.axis_label_text_color = "white"
             p.xaxis.major_label_text_font = "gill"
             p.xaxis.major_label_text_font_size = "20px"
             p.xaxis.major_label_text_font_style = "bold"
@@ -317,6 +275,7 @@ def compare(request):
             p.yaxis.major_label_text_font = "gill"
             p.yaxis.major_label_text_font_size = "20px"
             p.yaxis.major_label_text_color = "white"
+            p.yaxis[0].formatter = NumeralTickFormatter(format="0.00")
             p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Sharpe Ratio", "@sharpe")]))
 
     except KeyError:
@@ -325,35 +284,7 @@ def compare(request):
         div1 = None
 
         context = {}                   
-    
-    '''
-
-    fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
-
-    p = figure(x_range=fruits, plot_height=300, plot_width=1000, title="Fruit Counts",
-            toolbar_location=None, tools="")
-
-    p.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9, hover_color="pink")
-
-    p.xgrid.grid_line_color = None
-    p.ygrid.grid_line_color = None
-    p.background_fill_color = None
-    p.border_fill_color = None
-
-    p.add_tools(HoverTool(tooltips=[("Fruit", "@fruits"), ("Count", "@y")]))
-    
-    p.title.text_font = "gill"
-    p.title.text_font_size = "24px"
-    p.title.text_color = "white"
-    p.xaxis.major_label_text_font = "gill"
-    p.xaxis.major_label_text_font_size = "20px"
-    p.xaxis.major_label_text_color = "white"
-    p.yaxis.major_label_text_font = "gill"
-    p.yaxis.major_label_text_font_size = "20px"
-    p.yaxis.major_label_text_color = "white"
-
-    '''
-    
+        
     # pie chart
 
     '''

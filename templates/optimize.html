@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 
 {% block css %}
-  <link rel="stylesheet" type="text/css" href="../static/styles/about.css">
-  <link rel="stylesheet" type="text/css" href="../static/styles/about_responsive.css">
+    <link rel="stylesheet" type="text/css" href="../../static/styles/about.css">
+    <link rel="stylesheet" type="text/css" href="../../static/styles/about_responsive.css">
+
+    <link rel="stylesheet" type="text/css" href="../../static/styles/bootstrap4/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/plugins/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="../../static/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="../../static/plugins/OwlCarousel2-2.2.1/animate.css">
+    <link href="https://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.13.0.min.css" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block pagescripts %}
@@ -20,7 +29,7 @@
     <!-- Home -->
 
     <div class="home">
-        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="../static/images/news_background.jpg" data-speed="0.8"></div>
+        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="../../static/images/news_background.jpg" data-speed="0.8"></div>
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -55,7 +64,7 @@
                                         <a href="{% url 'my_portfolio' %}">
                                             <div class="logo_line_1"><span>in</span>vest</div>
                                             <div class="logo_line_2">FutureSight</div>
-                                            <div class="logo_img"><img src="../static/images/logo.png" alt=""></div>
+                                            <div class="logo_img"><img src="../../static/images/logo.png" alt=""></div>
                                         </a>
                                     </div>
                                 </div>
@@ -403,5 +412,24 @@
         </div>
     </div>
 </div>
+
+{% block scripts %}
+    <script src="../../static/styles/bootstrap4/popper.min.js"></script>
+    <script src="../../static/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="../../static/plugins/greensock/TweenMax.min.js"></script>
+    <script src="../../static/plugins/greensock/TimelineMax.min.js"></script>
+    <script src="../../static/plugins/scrollmagic/ScrollMagic.min.js"></script>
+    <script src="../../static/plugins/greensock/animation.gsap.min.js"></script>
+    <script src="../../static/plugins/greensock/ScrollToPlugin.min.js"></script>
+    <script src="../../static/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="../../static/plugins/easing/easing.js"></script>
+    <script src="../../static/plugins/parallax-js-master/parallax.min.js"></script>
+    <script src="../../static/js/about_custom.js"></script>
+    <script src="../../static/js/news_custom.js"></script>
+    <script src="../../static/js/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
+    <script src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.js"></script>
+    <script src="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.13.0.min.js"></script>
+{% endblock%}
 
 {% endblock %}
