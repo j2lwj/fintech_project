@@ -65,40 +65,6 @@
     </div>
   </footer>
 
-<<<<<<< HEAD
-    {% block scripts %}
-      <script src="../static/styles/bootstrap4/popper.min.js"></script>
-      <script src="../static/styles/bootstrap4/bootstrap.min.js"></script>
-      <script src="../static/plugins/greensock/TweenMax.min.js"></script>
-      <script src="../static/plugins/greensock/TimelineMax.min.js"></script>
-      <script src="../static/plugins/scrollmagic/ScrollMagic.min.js"></script>
-      <script src="../static/plugins/greensock/animation.gsap.min.js"></script>
-      <script src="../static/plugins/greensock/ScrollToPlugin.min.js"></script>
-      <script src="../static/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-      <script src="../static/plugins/easing/easing.js"></script>
-      <script src="../static/plugins/parallax-js-master/parallax.min.js"></script>
-      <script src="../static/js/about_custom.js"></script>
-      <script src="../static/js/news_custom.js"></script>
-      <script src="../static/js/jquery-3.2.1.min.js"></script>
-      <script src="https://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
-      <script src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.js"></script>
-      <script src="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.13.0.min.js"></script>
-    {% endblock %}
-
-  </body>
-</html>
-<script>
-if(typeof jQuery!=='undefined'){
-    console.log('jQuery Loaded');
-}
-else{
-    console.log('not loaded yet');
-}
-
-let year = new Date().getFullYear();
-let ele = document.getElementById("get-year");
-
-=======
 {% comment %} ######### I CHANGED THISSSSSS ############ {% endcomment %}
 
     {% block scripts %}
@@ -133,7 +99,6 @@ else{
 let year = new Date().getFullYear();
 let ele = document.getElementById("get-year");
 
->>>>>>> 35b52fa5d4754ec5f6167bbd16639f0fa0ec9ad4
 ele.innerHTML = year;
 
 </script>

@@ -170,10 +170,7 @@ def my_portfolio(request):
         p.yaxis.axis_label_text_font = "gill"
         p.yaxis.axis_label_text_font_size = "16px"
         p.yaxis.axis_label_text_color = "white"
-<<<<<<< HEAD
-=======
         p.yaxis[0].formatter = NumeralTickFormatter(format="0.000%")
->>>>>>> 35b52fa5d4754ec5f6167bbd16639f0fa0ec9ad4
         p.xaxis.major_label_text_font = "gill"
         p.xaxis.major_label_text_font_size = "20px"
         p.xaxis.major_label_text_font_style = "bold"
@@ -200,15 +197,9 @@ def my_portfolio(request):
 
     # Retrieve Stock model object's ticker based on selected stocks, append the tickers into a dictionary (stock_dict) to return to user for future use
     stock_dict = {}
-<<<<<<< HEAD
 
     if selected_stocks is not None: 
 
-=======
-
-    if selected_stocks is not None: 
-
->>>>>>> 35b52fa5d4754ec5f6167bbd16639f0fa0ec9ad4
         for each in selected_stocks:
             count = 1
             # Assigns every user selected stock to a dictionary key. E.g. stock_dict = {'stock_1':{'ticker':'AAPL', 'forecasted_return': 0.01234}}
@@ -249,17 +240,10 @@ def compare(request):
         context = {
             'selected_portfolios': selected_portfolios
         }
-<<<<<<< HEAD
 
         if selected_portfolios is None:
             return render(request=request, template_name='compare.html', context=context)
 
-=======
-
-        if selected_portfolios is None:
-            return render(request=request, template_name='compare.html', context=context)
-
->>>>>>> 35b52fa5d4754ec5f6167bbd16639f0fa0ec9ad4
         else:
             p = figure(x_range = df['p_name'], plot_height=300, plot_width=1000, title="Portfolio Comparison",
             toolbar_location=None, tools="")
@@ -548,15 +532,6 @@ def create_stocks():
     ''' Create Stocks Objects '''
     stocks_df = pd.read_csv('tickers_latest.csv')
     tup = stocks_df.values
-<<<<<<< HEAD
-
-    for each in tup:
-        Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], forecast_return=each[3], mse=each[4])
-    
-    return
-    ''' Link front end stocks selection inputs to back-end '''
-=======
->>>>>>> 35b52fa5d4754ec5f6167bbd16639f0fa0ec9ad4
 
     for each in tup:
         Stocks.objects.create(stock_id=each[0], stock_name=each[2], ticker=each[1], forecast_return=each[3], mse=each[4])
