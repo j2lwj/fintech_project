@@ -28,7 +28,7 @@ urlpatterns = [
     path('info/forecasting_model', views.main_forecast, name='main_forecast'),
     path('info/optimizing_model', views.main_optimize, name='main_optimize'),
     path('compare/', views.compare, name='compare'),
-    path('optimize/', views.optimize, name='optimize'),
+    path('my_portfolio/optimize/', views.optimize, name='optimize'),
     path('my_portfolio/', views.my_portfolio, name='my_portfolio'),
     path('portfolios/', views.portfolios, name='portfolios'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
