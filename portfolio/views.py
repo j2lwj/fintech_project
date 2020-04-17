@@ -261,7 +261,17 @@ def compare(request):
                     }
                 count += 1
         else:
-            context = {}
+            user_portfolio = User_Portfolio.objects.all()
+            portfolio = Portfolio.objects.all()
+            p_name = []
+            for i in user_portfolio.values():
+                
+                p_data = portfolio.filter(id=i['portfolio_id_id']).values()
+                p_name.append(p_data[0]['p_name'])
+            
+            context = {
+                'name' : p_name
+            }
             return render(request, "compare.html", context=context)
         # Saving output form the checkbox
         try:
