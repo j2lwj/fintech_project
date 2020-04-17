@@ -160,11 +160,9 @@ def my_portfolio(request):
             'forecast_return' : forecast_return
         }
 
-        if user_stock_dic: 
-            df = user_stock_dic
-        else:
+        df = user_stock_dic
         # Dummy data
-            df = {'stock_name':['AAPL','GOOGL'],'forecast_return': [1,2]} 
+        df = {'stock_name':['FB','GOOGL'],'forecast_return': [0.034427168,0.054032773]} 
         print(df)
         print("End")
     except KeyError:
@@ -185,7 +183,7 @@ def my_portfolio(request):
         p.yaxis.axis_label_text_font = "gill"
         p.yaxis.axis_label_text_font_size = "16px"
         p.yaxis.axis_label_text_color = "white"
-        p.yaxis[0].formatter = NumeralTickFormatter(format="0.000%")
+        p.yaxis[0].formatter = NumeralTickFormatter(format="0.00%")
         p.xaxis.major_label_text_font = "gill"
         p.xaxis.major_label_text_font_size = "20px"
         p.xaxis.major_label_text_font_style = "bold"
@@ -242,143 +240,122 @@ def compare(request):
     #checkbox for previously saved portfolios (portfolio objects)
     #button to run jquery to display charts and make YoY returns comparison for each portfolio
     #Based on this, safe to say once a portfolio object is created, also need to save their charts and stats to load easily for comparison
-    if request.method == 'POST':
-        user_id = request.POST.get('user_id', None)
+   
+    all_portfolios = Portfolio.objects.all()
 
-        if user_id is not None:
 
-            for each in User_Portfolio.objects.get(user_id=user_id):   # Get all portfolio objects associated with the current user
-                count = 1
-                user_port_dic = {} 
-                user_port_dic['portfolio_{}'.format(count)] = {
-                    'id': count, 
-                    'p_name': Portfolio.objects.get(id=each).p_name, 
-                    'sharpe': Portfolio.objects.get(id=each).sharpe, 
-                    'stocks': {
-                        'ticker': Stocks.objects.get(id=0).ticker, 
-                        'stock_weight': Portfolio_Stocks.objects.get(id=each).stock_weight
-                        }
-                    }
-                count += 1
-        else:
-            user_portfolio = User_Portfolio.objects.all()
-            portfolio = Portfolio.objects.all()
-            p_name = []
-            for i in user_portfolio.values():
-                
-                p_data = portfolio.filter(id=i['portfolio_id_id']).values()
-                p_name.append(p_data[0]['p_name'])
-            
-            context = {
-                'name' : p_name
-            }
-            return render(request, "compare.html", context=context)
-        # Saving output form the checkbox
-        try:
-            selected_portfolios = request.POST.getlist('checkbox1') # This will show [p_name, p_name, ...]
+    # Saving output form the checkbox
+    try:
+        selected_portfolios = request.POST.getlist('checkbox1') # This will show [p_name, p_name, ...]
+        df = {'p_name':['Port 1','Port 2'],'sharpe': [1.234,1.5637]} # Dummy data
+        #df = ...  #Code to append to selected_portfolios --> {[p_name, sharpe_ratio, volatility], [p_name, sharpe_ratio]}
 
-            for each in selected_portfolios:
-                port_dic = {} # to bring user_stock_dic to store in front end local storage for future usage
-                port_dic = pd.concat([port_dic, user_port_dic.loc[user_port_dic['p_name'] == each]], ignore_index=True)
-        
-            df = port_dic #has p_name, sharpe, stocks[ticker, stock_weight]
-
-            # Dummy data; saving output from ML model (for loop?)
-            df = {'p_name':['Port 1','Port 2'],'sharpe': [1.234,1.5637]} 
-
-            context = {
-                'selected_portfolios': selected_portfolios
-            }
-
-            if selected_portfolios is None:
-                return render(request=request, template_name='compare.html', context=context)
-
-            else:
-                p = figure(x_range = df['p_name'], plot_height=300, plot_width=1000, title="Portfolio Comparison",
-                toolbar_location=None, tools="")
-                p.vbar(x = df['p_name'], top = df['sharpe'], width = 0.9, hover_color="pink")
-                p.xgrid.grid_line_color = None
-                p.ygrid.grid_line_color = None
-                p.background_fill_color = None
-                p.border_fill_color = None
-                p.title.text_font = "gill"
-                p.title.text_font_size = "24px"
-                p.title.text_color = "white"
-                p.yaxis.axis_label = "Sharpe Ratio"
-                p.yaxis.axis_label_text_font = "gill"
-                p.yaxis.axis_label_text_color = "white"
-                p.xaxis.major_label_text_font = "gill"
-                p.xaxis.major_label_text_font_size = "20px"
-                p.xaxis.major_label_text_font_style = "bold"
-                p.xaxis.major_label_text_color = "white"
-                p.yaxis.major_label_text_font = "gill"
-                p.yaxis.major_label_text_font_size = "20px"
-                p.yaxis.major_label_text_color = "white"
-                p.yaxis[0].formatter = NumeralTickFormatter(format="0.00")
-                p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Sharpe Ratio", "@sharpe")]))
-
-        except KeyError:
-            script = None
-            div = None
-
-            context = {}                   
-            
-        # pie chart
-
-        '''
-        from selected_portfolios, find the id --> use it to reference to port_id --> get stock_id & stock_weight --> find stock_name & ticker
-        fill the below counter() with stock_name&ticker, stock_weight
-
-        df =  #has id, p_name, sharpe, stocks[ticker, stock_weight]
-
-        '''
-
-        for each in df['id']:
-
-            div_dict = {}
-            div_list = []
-            x = Counter(df['stocks'])
-
-            data = pd.Series(x).reset_index(name='value').rename(columns={'index':'ticker'})
-            data['angle'] = data['value']/sum(x.values()) * 2*pi
-            data['color'] = Category20c[len(x)]
-
-            p_each = figure(plot_height=350, plot_width= 470, title="Pie Chart", toolbar_location=None,
-                    tools="hover", tooltips="@ticker: @value", x_range=(-0.5, 1.0))
-
-            p_each.wedge(x=0, y=1, radius=0.4,
-                    start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
-                    line_color="white", fill_color='color', legend='ticker', source=data, hover_color="pink")
-
-            p_each.title.text_font="gill"
-            p_each.axis.axis_label=None
-            p_each.axis.visible=False
-            p_each.grid.grid_line_color = None
-            p_each.legend.label_text_font="gill"
-
-            div_dict['p_each_div'] = 'p_each_div'
-            div_list.append('p_each_div')
-            context = {'script': script}
-            context['p_each_div'] = 'p_each_div'
-
-        components(div_dict)
-        df['div_list'] = div_list
-        return render(request, "compare.html", context=context)
-    else:
-
-        user_portfolio = User_Portfolio.objects.all()
-        portfolio = Portfolio.objects.all()
-        p_name = []
-        for i in user_portfolio.values():
-            
-            p_data = portfolio.filter(id=i['portfolio_id_id']).values()
-            p_name.append(p_data[0]['p_name'])
-        
         context = {
-            'name' : p_name
+            'selected_portfolios': selected_portfolios
         }
-        return render(request, "compare.html", context=context)
+
+        if selected_portfolios is None:
+            return render(request=request, template_name='compare.html', context=context)
+
+        else:
+            p = figure(x_range = df['p_name'], plot_height=300, plot_width=1000, title="Portfolio Comparison",
+            toolbar_location=None, tools="")
+            p.vbar(x = df['p_name'], top = df['sharpe'], width = 0.9, hover_color="pink")
+            p.xgrid.grid_line_color = None
+            p.ygrid.grid_line_color = None
+            p.background_fill_color = None
+            p.border_fill_color = None
+            p.title.text_font = "gill"
+            p.title.text_font_size = "24px"
+            p.title.text_color = "white"
+            p.yaxis.axis_label = "Sharpe Ratio"
+            p.yaxis.axis_label_text_font = "gill"
+            p.yaxis.axis_label_text_color = "white"
+            p.xaxis.major_label_text_font = "gill"
+            p.xaxis.major_label_text_font_size = "20px"
+            p.xaxis.major_label_text_font_style = "bold"
+            p.xaxis.major_label_text_color = "white"
+            p.yaxis.major_label_text_font = "gill"
+            p.yaxis.major_label_text_font_size = "20px"
+            p.yaxis.major_label_text_color = "white"
+            p.yaxis[0].formatter = NumeralTickFormatter(format="0.00")
+            p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Sharpe Ratio", "@sharpe")]))
+
+    except KeyError:
+        script = None
+        div = None
+        div1 = None
+
+        context = {}                   
         
+    # pie chart
+
+    '''
+    from selected_portfolios, find the id --> use it to reference to port_id --> get stock_id & stock_weight --> find stock_name & ticker
+    fill the below counter() with stock_name&ticker, stock_weight
+    '''
+
+
+
+
+    x = Counter({
+    'FB': 0.4631,
+    'GOOGL': 0.2743,
+    'NFLX': 0.2625,
+    })
+
+    data = pd.Series(x).reset_index(name='value').rename(columns={'index':'stock'})
+    data['angle'] = data['value']/sum(x.values()) * 2*pi
+    data['color'] = Category20c[len(x)]
+
+    p1 = figure(plot_height=350, plot_width= 470, title="Pie Chart", toolbar_location=None,
+            tools="hover", tooltips="@stock: @value{1.11%}", x_range=(-0.5, 1.0))
+
+    p1.wedge(x=0, y=1, radius=0.4,
+            start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
+            line_color="white", fill_color='color', legend='stock', source=data, hover_color="pink")
+
+    p1.title.text_font="gill"
+    p1.axis.axis_label=None
+    p1.axis.visible=False
+    p1.grid.grid_line_color = None
+    p1.legend.label_text_font="gill"
+
+
+
+    y = Counter({
+    'FB': 0.3492,
+    'GOOGL': 0.3333,
+    'NFLX': 0.3174,
+    })
+
+    data = pd.Series(y).reset_index(name='value').rename(columns={'index':'stock'})
+    data['angle'] = data['value']/sum(y.values()) * 2*pi
+    data['color'] = Category20c[len(x)]
+
+    p2 = figure(plot_height=350, plot_width= 470, title="Pie Chart", toolbar_location=None,
+            tools="hover", tooltips="@stock: @value{1.11%}", x_range=(-0.5, 1.0))
+
+    p2.wedge(x=0, y=1, radius=0.4,
+            start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
+            line_color="white", fill_color='color', legend='stock', source=data, hover_color="pink")
+
+    p2.title.text_font="gill"
+    p2.axis.axis_label=None
+    p2.axis.visible=False
+    p2.grid.grid_line_color = None
+    p2.legend.label_text_font="gill"
+
+    script, (div, div1, div2) = components((p, p1, p2))
+
+    context = {
+        'script' : script,
+        'div' : div, 
+        'div1' : div1,
+        'div2' : div2
+    }
+    
+    return render(request, "compare.html", context=context)       
 
 def optimize(request):
     # Create chart and data table to display in optimized html 
@@ -436,21 +413,20 @@ def optimize(request):
     p1.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Volatility", "@volatility")]))
     
     '''
+    df = {'p_name':['Optimized','Equal-Weighted'],'sharpe': [1.234,1.5637], 'returns': [0.051, 0.042], 'volatility': [2.34,3.44]} # Dummy data
 
-
-    fruits = ['Apples', 'Pears', 'Nectarines', 'Plums', 'Grapes', 'Strawberries']
-
-    p = figure(x_range=fruits, plot_height=300, plot_width=500, title="Fruit Counts",
+    p = figure(x_range=df['p_name'], plot_height=300, plot_width=500, title="Sharpe Ratio",
             toolbar_location=None, tools="")
 
-    p.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9, hover_color="pink")
+    p.vbar(x=df['p_name'], top=df['sharpe'], width=0.9, hover_color="pink")
 
     p.xgrid.grid_line_color = None
     p.ygrid.grid_line_color = None
     p.background_fill_color = None
     p.border_fill_color = None
+    p.yaxis[0].formatter = NumeralTickFormatter(format="0.00")
 
-    p.add_tools(HoverTool(tooltips=[("Fruit", "@fruits"), ("Count", "@y")]))
+
     
     p.title.text_font = "gill"
     p.title.text_font_size = "24px"
@@ -461,17 +437,18 @@ def optimize(request):
 
     ############
 
-    p1 = figure(x_range=fruits, plot_height=300, plot_width=500, title="Fruit Counts",
+    p1 = figure(x_range=df['p_name'], plot_height=300, plot_width=500, title="Expected Returns",
             toolbar_location=None, tools="")
 
-    p1.vbar(x=fruits, top=[5, 3, 4, 2, 4, 6], width=0.9, hover_color="pink")
+    p1.vbar(x=df['p_name'], top=df['returns'], width=0.9, hover_color="pink")
 
     p1.xgrid.grid_line_color = None
     p1.ygrid.grid_line_color = None
     p1.background_fill_color = None
     p1.border_fill_color = None
+    p.yaxis[0].formatter = NumeralTickFormatter(format="0.00")
 
-    p1.add_tools(HoverTool(tooltips=[("Fruit", "@fruits"), ("Count", "@y")]))
+
     
     p1.title.text_font = "gill"
     p1.title.text_font_size = "24px"
@@ -522,33 +499,33 @@ def optimize(request):
     script, (div, div1, div2) = components((p, p1, p2))
 
     ''' What happens when user saves a portfolio '''
-    # portfolio is a jquery list variable containing a saved portfolio. [0]:portfolio name and [1]:description 
-    portfolio = request.POST.get("portfolio")
+    # # portfolio is a jquery list variable containing a saved portfolio. [0]:portfolio name and [1]:description 
+    # portfolio = request.POST.get("portfolio")
 
-    # Create portfolio object
-    Portfolio.objects.create(p_name=portfolio[0], p_desc=portfolio[1], cum_return='from ml', sharpe='from ml', created_at=datetime.now(), created_by='User.objects.get(id=logged_in_username_id).username') 
+    # # Create portfolio object
+    # Portfolio.objects.create(p_name=portfolio[0], p_desc=portfolio[1], cum_return='from ml', sharpe='from ml', created_at=datetime.now(), created_by='User.objects.get(id=logged_in_username_id).username') 
 
-    # Create User_Portfolio object
-    User_Portfolio.objects.create(user_id='User.objects.get(id=logged_in_username_id).id', portfolio_id='Portfolio.objects.get(id=0).id')
+    # # Create User_Portfolio object
+    # User_Portfolio.objects.create(user_id='User.objects.get(id=logged_in_username_id).id', portfolio_id='Portfolio.objects.get(id=0).id')
 
-    # Create Portfolio_Stocks object per selected stocks
-    for each in selected_stocks:
-        Portfolio_Stocks.objects.create(port_id='Portfolio.objects.get(id=0).id', stock_id='Stocks.objects.get(ticker=each).id', stock_weight='from ml')
+    # # Create Portfolio_Stocks object per selected stocks
+    # for each in selected_stocks:
+    #     Portfolio_Stocks.objects.create(port_id='Portfolio.objects.get(id=0).id', stock_id='Stocks.objects.get(ticker=each).id', stock_weight='from ml')
 
-    ''' Retrieving Portfolio Info for Portfolios page '''
-    # for loop to get all user's saved portfolio name and description, using the number of same ids in the database
-    for each in User_Portfolio.objects.get(user_id="logged_in_username_id"):
-        count = 1
-        user_port_dic = {} # to bring user_port_dic to store in front end local storage for future usage
-        user_port_dic['portfolio_{}'.format(count)] = {'name':Portfolio.objects.get(id=each).p_name, 'description':Portfolio.objects.get(id=each).p_desc, 'stocks': {'ticker': Stocks.objects.get(id=0).ticker, 'forecasted_returns': Stocks.objects.get(id=0).forecast_return}}
-        count += 1
+    # ''' Retrieving Portfolio Info for Portfolios page '''
+    # # for loop to get all user's saved portfolio name and description, using the number of same ids in the database
+    # for each in User_Portfolio.objects.get(user_id="logged_in_username_id"):
+    #     count = 1
+    #     user_port_dic = {} # to bring user_port_dic to store in front end local storage for future usage
+    #     user_port_dic['portfolio_{}'.format(count)] = {'name':Portfolio.objects.get(id=each).p_name, 'description':Portfolio.objects.get(id=each).p_desc, 'stocks': {'ticker': Stocks.objects.get(id=0).ticker, 'forecasted_returns': Stocks.objects.get(id=0).forecast_return}}
+    #     count += 1
 
     context = {
         'script' : script,
         'div' : div, 
         'div1' : div1,
         'div2': div2,
-        'user_port_dic': user_port_dic
+        # 'user_port_dic': user_port_dic
     }
 
     return render(request, "optimize.html", context=context)
@@ -594,3 +571,144 @@ def create_stocks():
     
     return
     ''' Link front end stocks selection inputs to back-end '''
+
+# def compare(request):
+#     #checkbox for previously saved portfolios (portfolio objects)
+#     #button to run jquery to display charts and make YoY returns comparison for each portfolio
+#     #Based on this, safe to say once a portfolio object is created, also need to save their charts and stats to load easily for comparison
+#     if request.method == 'POST':
+#         user_id = request.POST.get('user_id', None)
+
+#         if user_id is not None:
+
+#             for each in User_Portfolio.objects.get(user_id=user_id):   # Get all portfolio objects associated with the current user
+#                 count = 1
+#                 user_port_dic = {} 
+#                 user_port_dic['portfolio_{}'.format(count)] = {
+#                     'id': count, 
+#                     'p_name': Portfolio.objects.get(id=each).p_name, 
+#                     'sharpe': Portfolio.objects.get(id=each).sharpe, 
+#                     'stocks': {
+#                         'ticker': Stocks.objects.get(id=0).ticker, 
+#                         'stock_weight': Portfolio_Stocks.objects.get(id=each).stock_weight
+#                         }
+#                     }
+#                 count += 1
+#         else:
+#             user_portfolio = User_Portfolio.objects.all()
+#             portfolio = Portfolio.objects.all()
+#             p_name = []
+#             for i in user_portfolio.values():
+                
+#                 p_data = portfolio.filter(id=i['portfolio_id_id']).values()
+#                 p_name.append(p_data[0]['p_name'])
+            
+#             context = {
+#                 'name' : p_name
+#             }
+#             return render(request, "compare.html", context=context)
+#         # Saving output form the checkbox
+#         try:
+#             selected_portfolios = request.POST.getlist('checkbox1') # This will show [p_name, p_name, ...]
+
+#             for each in selected_portfolios:
+#                 port_dic = {} # to bring user_stock_dic to store in front end local storage for future usage
+#                 port_dic = pd.concat([port_dic, user_port_dic.loc[user_port_dic['p_name'] == each]], ignore_index=True)
+        
+#             df = port_dic #has p_name, sharpe, stocks[ticker, stock_weight]
+
+#             # Dummy data; saving output from ML model (for loop?)
+#             df = {'p_name':['Port 1','Port 2'],'sharpe': [1.234,1.5637]} 
+
+#             context = {
+#                 'selected_portfolios': selected_portfolios
+#             }
+
+#             if selected_portfolios is None:
+#                 return render(request=request, template_name='compare.html', context=context)
+
+#             else:
+#                 p = figure(x_range = df['p_name'], plot_height=300, plot_width=1000, title="Portfolio Comparison",
+#                 toolbar_location=None, tools="")
+#                 p.vbar(x = df['p_name'], top = df['sharpe'], width = 0.9, hover_color="pink")
+#                 p.xgrid.grid_line_color = None
+#                 p.ygrid.grid_line_color = None
+#                 p.background_fill_color = None
+#                 p.border_fill_color = None
+#                 p.title.text_font = "gill"
+#                 p.title.text_font_size = "24px"
+#                 p.title.text_color = "white"
+#                 p.yaxis.axis_label = "Sharpe Ratio"
+#                 p.yaxis.axis_label_text_font = "gill"
+#                 p.yaxis.axis_label_text_color = "white"
+#                 p.xaxis.major_label_text_font = "gill"
+#                 p.xaxis.major_label_text_font_size = "20px"
+#                 p.xaxis.major_label_text_font_style = "bold"
+#                 p.xaxis.major_label_text_color = "white"
+#                 p.yaxis.major_label_text_font = "gill"
+#                 p.yaxis.major_label_text_font_size = "20px"
+#                 p.yaxis.major_label_text_color = "white"
+#                 p.yaxis[0].formatter = NumeralTickFormatter(format="0.00")
+#                 p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Sharpe Ratio", "@sharpe")]))
+
+#         except KeyError:
+#             script = None
+#             div = None
+
+#             context = {}                   
+            
+#         # pie chart
+
+#         '''
+#         from selected_portfolios, find the id --> use it to reference to port_id --> get stock_id & stock_weight --> find stock_name & ticker
+#         fill the below counter() with stock_name&ticker, stock_weight
+
+#         df =  #has id, p_name, sharpe, stocks[ticker, stock_weight]
+
+#         '''
+
+#         for each in df['id']:
+
+#             div_dict = {}
+#             div_list = []
+#             x = Counter(df['stocks'])
+
+#             data = pd.Series(x).reset_index(name='value').rename(columns={'index':'ticker'})
+#             data['angle'] = data['value']/sum(x.values()) * 2*pi
+#             data['color'] = Category20c[len(x)]
+
+#             p_each = figure(plot_height=350, plot_width= 470, title="Pie Chart", toolbar_location=None,
+#                     tools="hover", tooltips="@ticker: @value", x_range=(-0.5, 1.0))
+
+#             p_each.wedge(x=0, y=1, radius=0.4,
+#                     start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
+#                     line_color="white", fill_color='color', legend='ticker', source=data, hover_color="pink")
+
+#             p_each.title.text_font="gill"
+#             p_each.axis.axis_label=None
+#             p_each.axis.visible=False
+#             p_each.grid.grid_line_color = None
+#             p_each.legend.label_text_font="gill"
+
+#             div_dict['p_each_div'] = 'p_each_div'
+#             div_list.append('p_each_div')
+#             context = {'script': script}
+#             context['p_each_div'] = 'p_each_div'
+
+#         components(div_dict)
+#         df['div_list'] = div_list
+#         return render(request, "compare.html", context=context)
+#     else:
+
+#         user_portfolio = User_Portfolio.objects.all()
+#         portfolio = Portfolio.objects.all()
+#         p_name = []
+#         for i in user_portfolio.values():
+            
+#             p_data = portfolio.filter(id=i['portfolio_id_id']).values()
+#             p_name.append(p_data[0]['p_name'])
+        
+#         context = {
+#             'name' : p_name
+#         }
+#         return render(request, "compare.html", context=context)

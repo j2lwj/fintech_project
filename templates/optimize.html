@@ -316,33 +316,33 @@
                                             {% endif %}  
                                         </div>
                                     </div>
-                                    <div class="row" style="padding: 20px; border: black solid; margin-top: 20px; color: black">
+                                    <div class="row" style="padding: 20px; border: black solid; margin-top: 20px; color: black; font-size: 13px; font-family: 'gill';">
                                         <div class="col-lg-12">
                                             <h3>Annual Statistics</h3>
                                         </div>
                                         <div class="col-lg-6" style="background-color: #0086ce; color: white;">
                                             <div class="row">
                                                 <div class="col-lg-4">
-                                                    Expected Returns: {{ expected_returns }}
+                                                    Expected Returns: 5.1%
                                                 </div>    
                                                 <div class="col-lg-4">
-                                                    Volatility: {{ volatility }}
+                                                    Volatility: 2.34%
                                                 </div>    
                                                 <div class="col-lg-4">
-                                                    Sharpe Ratio: {{ sharpe_ratio }}
+                                                    Sharpe Ratio: 1.234
                                                 </div>    
                                             </div>
                                         </div>
                                         <div class="col-lg-6" style="background-color: pink;">
                                             <div class="row">
                                                 <div class="col-lg-4">
-                                                    Expected Returns: {{ expected_returns }}
+                                                    Expected Returns: 4.2%
                                                 </div>    
                                                 <div class="col-lg-4">
-                                                    Volatility: {{ volatility }}
+                                                    Volatility: 3.44%
                                                 </div>    
                                                 <div class="col-lg-4">
-                                                    Sharpe Ratio: {{ sharpe_ratio }}
+                                                    Sharpe Ratio: 1.563
                                                 </div>    
                                             </div>
                                         </div>
@@ -387,7 +387,7 @@
                                         </div>
                                         <div class="col-lg-5">
                                             <!-- this here will be a table of stock names and weights -->
-                                            <table class="table">
+                                            <table class="table" style="font-family: 'gill';">
                                                 <thead class="thead-inverse">
                                                   <tr>
                                                     <th style="width: 80%;">Stock</th>
@@ -395,7 +395,23 @@
                                                   </tr>
                                                 </thead>
                                                 <tbody>
-                                                  <!-- {% for portfolio in port_stock %}
+                                                    <tr>
+                                                    <td>
+                                                        FACEBOOK INC. (FB)
+                                                    </td>
+                                                    <td>
+                                                        xxxxxx%
+                                                    </td>
+                                                    </tr>
+                                                    <tr>
+                                                    <td>
+                                                        ALPHABET INC (GOOGL)
+                                                    </td>
+                                                    <td>
+                                                        xxxxxx%
+                                                    </td>
+                                                    </tr>
+                                                        <!-- {% for portfolio in port_stock %}
                                                     <tr>
                                                       <td>
                                                         <a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a>
@@ -413,7 +429,7 @@
                                             <div class="row milestones_container2">
                                                 <div class="col milestone_col">
                                                     <div class="milestone">
-                                                        <div class="milestone_counter" style="color: black;" data-end-value="134" data-sign-after="%">0</div>
+                                                        <div class="milestone_counter" style="color: black;" data-end-value="123" data-sign-after="%">0</div>
                                                         <div class="milestone_content2">
                                                             <div class="milestone_title" style="color: black;">sharpe ratio</div>
                                                         </div>
