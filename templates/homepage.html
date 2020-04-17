@@ -14,7 +14,6 @@
 {% block title %}Compare{% endblock %}
 
 {% block body %}
-{% csrf_token %}
 <div class="super_container">
     
     <!-- Home -->
@@ -219,7 +218,8 @@
                     <div class="features_content">
                         <div class="section_title_container">                           
                             <div>
-                                <form method="POST" action="/my_portfolio/">
+                                <form>
+
                                     <div class="text-center">
                                         <div class="row">
                                             <div class="col-lg-12">
@@ -378,17 +378,18 @@
     <script>
         //filter selected stocks to ticker only
         function stringFilter(str){
-        let ans = "";
-        let i = str.split("(");
-        i = i[1];
-        let j = i.split(")");
-        ans = j[0];
-        return ans;
+            let ans = "";
+            let i = str.split("(");
+            i = i[1];
+            let j = i.split(")");
+            ans = j[0];
+            return ans;
         };
 
         //JQuery for "Forecast" button: Pass user input idArray to backend, return forecasted results in chart and table 
         $(document).ready(function(){
-            $("#forecast").click(function(){
+            $("#forecast").click(function(e){
+                e.preventDefault();
                 let idArr = [];
                 $(".stock").each(function(){
                     //filter only stock ticker to store in list
@@ -399,16 +400,16 @@
                     ans = j[0];
                     idArr.push(ans);
                 });
-                
+                console.log(idArr)
                 // Join array elements and display in alert
                 // alert(idArr.join("\n"));
-                
                 // send a request post to backend the array of tickers
-                $.post("/my_portfolio", {idArr: idArr}, function(result){
+                $.post("/my_portfolio/", {"idArr": idArr}, function(result){
                     // This function activates once response from backend returns
-                    console.log("the backend results are", results);
-                    let beResults = result.data.stock_dict;
+                    console.log("the backend results are", result);
+                    let beResults = result.data;
                     localStorage.setItem('stock_dict', beResults) // Store stock_dic forecasted returns to local browser storage
+                    window.location="/my_portfolio/"
                 });
             });
         });

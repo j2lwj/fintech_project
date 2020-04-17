@@ -512,10 +512,10 @@
     // //click submit button to capture user input for both portfolio name and description
     $(document).ready(function(){
         $("#save_portfolio").click(function(){
-        let portfolio=[];
-        portfolio.push($("#portfolio").val());
-        portfolio.push($("#portfolio_desc").val());
-        alert("Your Portfolio has been saved!");
+            let portfolio=[];
+            portfolio.push($("#portfolio").val());
+            portfolio.push($("#portfolio_desc").val());
+            alert("Your Portfolio has been saved!");
         });
 
         //send a request post to return portfolio list variable to backend

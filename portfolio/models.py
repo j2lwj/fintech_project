@@ -12,8 +12,8 @@ class Portfolio(models.Model):
     class Meta:
         db_table = 'portfolio'
 
-    def __str__(self):
-        return self.p_name, self.p_desc
+    # def __str__(self):
+    #     return self.p_name, self.p_desc
 
 class User_Portfolio(models.Model):
     user_id = models.ForeignKey(User, related_name='user_portfolio', on_delete=models.CASCADE, db_column = 'user_id')
@@ -22,8 +22,8 @@ class User_Portfolio(models.Model):
     class Meta:
         db_table = 'user_portfolio'
 
-    def __str__(self):
-        return self.user_id, self.portfolio_id 
+    # def __str__(self):
+    #     return self.user_id, self.portfolio_id 
 
 class Stocks(models.Model):
     
@@ -36,8 +36,8 @@ class Stocks(models.Model):
     class Meta:
         db_table = 'stocks'
     
-    def __str__(self):
-        return self.stock_name
+    # def __str__(self):
+    #     return self.stock_name
     
 
 class Portfolio_Stocks(models.Model):
@@ -48,5 +48,5 @@ class Portfolio_Stocks(models.Model):
     class Meta:
         db_table = 'portfolio_stock'
     
-    def __str__(self):
-        return self.port_id, self.stock_id
+    # def __str__(self):
+    #     return self.port_id, self.stock_id

@@ -233,11 +233,12 @@
             <!-- need to add jQuery for onchange... -->
 
                                                 <div class="checkbox">
-                                                    <label><input type="checkbox" id="checkbox1" name="checkbox1" value="1" autocomplete="off"> test </label><br>
-                                                    <label><input type="checkbox" id="checkbox1" name="checkbox1" value="2" autocomplete="off"> test </label><br>
-                                                    <label><input type="checkbox" id="checkbox1" name="checkbox1" value="5" autocomplete="off"> test </label><br>
-                                                    <label><input type="checkbox" id="checkbox1" name="checkbox1" value="7" autocomplete="off"> test </label><br>
-                                                    {% csrf_token %}
+                                                    {% if name %}
+                                                        {% for i in name %}
+                                                            
+                                                            <label><input type="checkbox" id="checkbox1" name="checkbox1" value="1" autocomplete="off"> {{ i }}</label><br>
+                                                        {% endfor %}
+                                                    {% endif %}
                                                     {{ selected_portfolios }}
                                                 </div>
 
@@ -381,7 +382,8 @@
                                                         <th style="width: 20%;">Weight</th>
                                                       </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    {% comment %} <tbody>
+                                                    {% if df['stocks'] is not None %}
                                                         {% for stock in df['stocks'] %}
                                                             <tr>
                                                                 <td>
@@ -391,6 +393,10 @@
                                                                     {{ stock.stock_weight }}
                                                                 </td>
                                                         {% endfor %}
+                                                    {% else %}
+                                                         <div>No Stocks</div>
+                                                    {% endif %} {% endcomment %}
+
                                                     </tbody>
                                                 </table>
                                             </div>

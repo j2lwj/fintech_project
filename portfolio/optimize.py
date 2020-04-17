@@ -5,7 +5,7 @@ from pypfopt import expected_returns
 
 def Optimize(array):
     df = pd.read_csv('latest_stock_prices.csv',parse_dates=True, index_col="date")
-
+    
     data = df[df.columns.intersection(array)]
     data.dtypes
 
