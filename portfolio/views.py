@@ -485,18 +485,18 @@ def optimize(request):
     '''
 
     x = Counter({
-    'United States': 157,
-    'United Kingdom': 93,
-    'Japan': 89,
-    'China': 63,
-    'Germany': 44,
-    'India': 42,
-    'Italy': 40,
-    'Australia': 35,
-    'Brazil': 32,
-    'France': 31,
-    'Taiwan': 31,
-    'Spain': 29
+        'United States': 157,
+        'United Kingdom': 93,
+        'Japan': 89,
+        'China': 63,
+        'Germany': 44,
+        'India': 42,
+        'Italy': 40,
+        'Australia': 35,
+        'Brazil': 32,
+        'France': 31,
+        'Taiwan': 31,
+        'Spain': 29
     })
 
     data = pd.Series(x).reset_index(name='value').rename(columns={'index':'country'})
