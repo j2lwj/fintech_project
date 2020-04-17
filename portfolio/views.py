@@ -228,9 +228,6 @@ def my_portfolio(request):
     return render(request, "homepage.html", context=context)
 
 def compare(request):
-    #checkbox for previously saved portfolios (portfolio objects)
-    #button to run jquery to display charts and make YoY returns comparison for each portfolio
-    #Based on this, safe to say once a portfolio object is created, also need to save their charts and stats to load easily for comparison
 
     for each in User_Portfolio.objects.get(user_id="logged_in_username_id"):   # Get all portfolio objects associated with the current user
         count = 1
@@ -290,14 +287,6 @@ def compare(request):
         
     # pie chart
 
-    '''
-    from selected_portfolios, find the id --> use it to reference to port_id --> get stock_id & stock_weight --> find stock_name & ticker
-    fill the below counter() with stock_name&ticker, stock_weight
-
-    df =  #has id, p_name, sharpe, stocks[ticker, stock_weight]
-
-    '''
-
     for each in df['id']:
 
         div_dict = {}
@@ -337,12 +326,13 @@ def optimize(request):
     # Get the output file from ML model in the form of {stock_name, stock_weights}
     # df = read csv???
     
+    #Optimize(idArr)
     
     # GRAPHS
 
     '''
     try:
-        df = ...  #Code to append to selected_portfolios --> {[p_name, sharpe_ratio, volatility], [p_name, sharpe_ratio]}
+        df = ...  #Code to append to selected_portfolios --> {[p_name, sharpe_ratio, cum_return, stocks: [ticker, stock_weight]]}
     except KeyError:
         
 		script = None
@@ -438,6 +428,8 @@ def optimize(request):
     change counter() to stock_name, stock_weight
     '''
 
+    x = Counter(df['stocks']) # df should be from on top
+
     x = Counter({
     'United States': 157,
     'United Kingdom': 93,
@@ -453,16 +445,17 @@ def optimize(request):
     'Spain': 29
     })
 
-    data = pd.Series(x).reset_index(name='value').rename(columns={'index':'country'})
+
+    data = pd.Series(x).reset_index(name='value').rename(columns={'index':'ticker'})
     data['angle'] = data['value']/sum(x.values()) * 2*pi
     data['color'] = Category20c[len(x)]
 
     p2 = figure(plot_height=350, plot_width= 470, title="Pie Chart", toolbar_location=None,
-            tools="hover", tooltips="@country: @value", x_range=(-0.5, 1.0))
+            tools="hover", tooltips="@ticker: @value", x_range=(-0.5, 1.0))
 
     p2.wedge(x=0, y=1, radius=0.4,
             start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
-            line_color="white", fill_color='color', legend='country', source=data, hover_color="pink")
+            line_color="white", fill_color='color', legend='ticker', source=data, hover_color="pink")
 
     p2.title.text_font="gill"
     p2.axis.axis_label=None
@@ -477,7 +470,7 @@ def optimize(request):
     portfolio = request.POST.get("portfolio")
 
     # Create portfolio object
-    Portfolio.objects.create(p_name=portfolio[0], p_desc=portfolio[1], cum_return='from ml', sharpe='from ml', created_at=datetime.now(), created_by='User.objects.get(id=logged_in_username_id).username') 
+    Portfolio.objects.create(p_name=portfolio[0], p_desc=portfolio[1], cum_return=df['cum_return'], sharpe=df['sharpe'], created_at=datetime.now(), created_by='User.objects.get(id=logged_in_username_id).username') 
 
     # Create User_Portfolio object
     User_Portfolio.objects.create(user_id='User.objects.get(id=logged_in_username_id).id', portfolio_id='Portfolio.objects.get(id=0).id')
