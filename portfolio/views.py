@@ -162,7 +162,7 @@ def my_portfolio(request):
 
         df = user_stock_dic
         # Dummy data
-        df = {'stock_name':['FB','GOOGL'],'forecast_return': [0.034427168,0.054032773]} 
+        df = {'stock_name':['LPX','AAL', 'AAP', 'ORCL'],'forecast_return': [0.045838865, 0.015133547, 0.023291272, 0.017613471]} 
         print(df)
         print("End")
     except KeyError:
