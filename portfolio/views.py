@@ -247,7 +247,7 @@ def compare(request):
     # Saving output form the checkbox
     try:
         selected_portfolios = request.POST.getlist('checkbox1') # This will show [p_name, p_name, ...]
-        df = {'p_name':['Port 1','Port 2'],'sharpe': [1.234,1.5637]} # Dummy data
+        df = {'p_name':['Port 1','Port 2'],'sharpe': [1.17, 0.80]} # Dummy data
         #df = ...  #Code to append to selected_portfolios --> {[p_name, sharpe_ratio, volatility], [p_name, sharpe_ratio]}
 
         context = {
@@ -299,9 +299,9 @@ def compare(request):
 
 
     x = Counter({
-    'FB': 0.4631,
-    'GOOGL': 0.2743,
-    'NFLX': 0.2625,
+    'FB': 0.47328,
+    'GOOGL': 0.25497,
+    'NFLX': 0.27175,
     })
 
     data = pd.Series(x).reset_index(name='value').rename(columns={'index':'stock'})
@@ -320,18 +320,20 @@ def compare(request):
     p1.axis.visible=False
     p1.grid.grid_line_color = None
     p1.legend.label_text_font="gill"
+    
 
 
 
     y = Counter({
-    'FB': 0.3492,
-    'GOOGL': 0.3333,
-    'NFLX': 0.3174,
+    'LPX': 0.0,
+    'AAL': 0.44586,
+    'AAP': 0.26804,
+    'ORCL': 0.2861,
     })
 
     data = pd.Series(y).reset_index(name='value').rename(columns={'index':'stock'})
     data['angle'] = data['value']/sum(y.values()) * 2*pi
-    data['color'] = Category20c[len(x)]
+    data['color'] = Category20c[len(y)]
 
     p2 = figure(plot_height=350, plot_width= 470, title="Pie Chart", toolbar_location=None,
             tools="hover", tooltips="@stock: @value{1.11%}", x_range=(-0.5, 1.0))
@@ -413,7 +415,7 @@ def optimize(request):
     p1.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Volatility", "@volatility")]))
     
     '''
-    df = {'p_name':['Optimized','Equal-Weighted'],'sharpe': [1.234,1.5637], 'returns': [0.051, 0.042], 'volatility': [2.34,3.44]} # Dummy data
+    df = {'p_name':['Optimized','Equal-Weighted'],'sharpe': [0.800, 0.749], 'returns': [0.2278, 0.201], 'volatility': [0.259,0.262]} # Dummy data
 
     p = figure(x_range=df['p_name'], plot_height=300, plot_width=500, title="Sharpe Ratio",
             toolbar_location=None, tools="")
@@ -425,6 +427,7 @@ def optimize(request):
     p.background_fill_color = None
     p.border_fill_color = None
     p.yaxis[0].formatter = NumeralTickFormatter(format="0.00")
+    p.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Expected Returns", "@returns")]))
 
 
     
@@ -446,7 +449,8 @@ def optimize(request):
     p1.ygrid.grid_line_color = None
     p1.background_fill_color = None
     p1.border_fill_color = None
-    p.yaxis[0].formatter = NumeralTickFormatter(format="0.00")
+    p1.yaxis[0].formatter = NumeralTickFormatter(format="0.0%")
+    p1.add_tools(HoverTool(tooltips=[("Portfolio", "@p_name"), ("Expected Returns", "@returns")]))
 
 
     
@@ -465,18 +469,10 @@ def optimize(request):
     '''
 
     x = Counter({
-        'United States': 157,
-        'United Kingdom': 93,
-        'Japan': 89,
-        'China': 63,
-        'Germany': 44,
-        'India': 42,
-        'Italy': 40,
-        'Australia': 35,
-        'Brazil': 32,
-        'France': 31,
-        'Taiwan': 31,
-        'Spain': 29
+        'LPX': 0.000000,
+        'AAL': 0.439591,
+        'AAP': 0.282348,
+        'ORCL': 0.278061,
     })
 
     data = pd.Series(x).reset_index(name='value').rename(columns={'index':'country'})
@@ -484,7 +480,7 @@ def optimize(request):
     data['color'] = Category20c[len(x)]
 
     p2 = figure(plot_height=350, plot_width= 470, title="Pie Chart", toolbar_location=None,
-            tools="hover", tooltips="@country: @value", x_range=(-0.5, 1.0))
+            tools="hover", tooltips="@country: @value{1.11%}", x_range=(-0.5, 1.0))
 
     p2.wedge(x=0, y=1, radius=0.4,
             start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),

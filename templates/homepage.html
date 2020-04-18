@@ -385,7 +385,7 @@
         });
 
         //JQuery for "Optimize" button: Pass user input idArray to backend, runs ML model, returns user optimized figures and directs users to "optimize.html" page
-        $(document).ready(function(){
+        {% comment %} $(document).ready(function(){
             $("#optimize").click(function(){
                 let idArr = [];
                 $(".stock").each(function(){
@@ -402,15 +402,16 @@
                 // alert(idArr.join("\n"));
                 
                 // send a request post to backend the array of tickers
-                $.post("/my_portfolio", {idArr: idArr}, function(result){
+                $.post("/my_portfolio/", {idArr: idArr}, function(result){
                     // This function activates once response from backend returns
                     console.log("the backend results are", result);
                     let beResults = result.data.mlOutput;
                     localStorage.setItem('mlOutput', beResults) // Store data to local browser storage
-                    window.location="/my_portfolio/optimize" // Jump to optimize.html once backend returns results              
+                    window.location="/my_portfolio/optimize" // Jump to optimize.html once backend returns results   
+                    window.location.assign('/my_portfolio/optimize')           
                 });
             });
-        });
+        }); {% endcomment %}
     </script>
     <script>
     $(document).ready(function(){
